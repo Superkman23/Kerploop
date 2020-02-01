@@ -26,9 +26,11 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         var input = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed, _Rigidbody.velocity.y ,Input.GetAxis("Vertical") * _MovementSpeed);
-        if ((input.x == 0 && input.z == 0) && input.y != 0)
+        if (input.x == 0 && input.z == 0)
         {
-            _Rigidbody.velocity = (Vector3.down * _Rigidbody.velocity.y) * _GravityMultiplier;
+            if (input.y != 0) // See if we are falling
+                _Rigidbody.velocity = (Vector3.down * _Rigidbody.velocity.y) * _GravityMultiplier;
+
             return; // exit out early
         }
         
