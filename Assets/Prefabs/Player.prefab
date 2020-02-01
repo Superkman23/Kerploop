@@ -272,8 +272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03181527f97edc2479b7bddcce174f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _EyeLight: {fileID: 0}
-  _EyeLightToggleButton: 102
+  _InteractKey: 101
+  _InteractDistance: 1
 --- !u!1 &1841853370729849531
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +401,7 @@ RectTransform:
   m_GameObject: {fileID: 3697707885719613801}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.375, y: 0.375, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 2852792784288023540}
   m_RootOrder: 0
@@ -432,6 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SecondsPerHour: 60
+  _IsAm: 0
 --- !u!114 &2435819692990236989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,8 +460,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 3874029312
+  m_fontColor: {r: 0, g: 1, b: 0.9114239, a: 0.9019608}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
