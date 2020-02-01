@@ -34,9 +34,9 @@ public class CameraSwivel : MonoBehaviour
 	{
 		if (_GoingSecond) // 1 -> 2
 		{
-			transform.rotation = Quaternion.Slerp(_RotQuat1, _RotQuat2, _Time);
+			transform.localRotation = Quaternion.Slerp(_RotQuat1, _RotQuat2, _Time);
 
-			if (transform.rotation == _RotQuat2)
+			if (transform.localRotation == _RotQuat2)
 			{
 				_GoingSecond = false;
 				_Time = 0;
@@ -44,9 +44,9 @@ public class CameraSwivel : MonoBehaviour
 		}
 		else // 2 -> 1
 		{
-			transform.rotation = Quaternion.Slerp(_RotQuat2, _RotQuat1, _Time);
+			transform.localRotation = Quaternion.Slerp(_RotQuat2, _RotQuat1, _Time);
 
-			if (transform.rotation == _RotQuat1)
+			if (transform.localRotation == _RotQuat1)
 			{
 				_GoingSecond = true;
 				_Time = 0;
