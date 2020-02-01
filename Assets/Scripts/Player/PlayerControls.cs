@@ -27,6 +27,7 @@ public class PlayerControls : MonoBehaviour
 		if (Input.GetKeyDown(_EyeLightToggleButton))
 		{
 			_ELEnabled = !_ELEnabled; // Invert _ELEnabled
+			_EyeLight.enabled = _ELEnabled;
 		}
 	}
 }
