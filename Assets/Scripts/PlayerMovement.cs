@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         var mDirection = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed, 
                                      _Rigidbody.velocity.y,
                                      Input.GetAxis("Vertical") * _MovementSpeed);
+        
         if (mDirection.x == 0 && mDirection.z == 0)
         {
             if (mDirection.y != 0) // See if we are falling

@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.65080994, g: 0.666729, b: 0.7075472, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.05
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.35254252, g: 0.4098121, b: 0.5187967, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: f102dd2f00c68b940a65176c9cfc2143,
+    type: 2}
   m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
@@ -594,8 +595,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339284994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.17, y: 54.76714, z: -36.98}
-  m_LocalScale: {x: 0.1, y: 4, z: 50}
+  m_LocalPosition: {x: -15.17, y: 54.76714, z: -35.04}
+  m_LocalScale: {x: 0.1, y: 4, z: 41.322414}
   m_Children: []
   m_Father: {fileID: 1064464410}
   m_RootOrder: 3
@@ -2123,8 +2124,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853097814}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -38, y: 54.76714, z: -15.37}
-  m_LocalScale: {x: 0.1, y: 4, z: 80}
+  m_LocalPosition: {x: -40.25, y: 54.76714, z: -15.25}
+  m_LocalScale: {x: 0.1, y: 4, z: 50.1}
   m_Children: []
   m_Father: {fileID: 1064464410}
   m_RootOrder: 5
