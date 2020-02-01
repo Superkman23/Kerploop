@@ -4,6 +4,8 @@ using TMPro;
 public class TimerUI : MonoBehaviour
 {
     [SerializeField] float _SecondsPerHour = 60;
+    [SerializeField] bool _IsAm;
+    bool _DidChange;
 
     TextMeshProUGUI _Text;
     float _Time;
@@ -23,12 +25,33 @@ public class TimerUI : MonoBehaviour
         timeLeft -= Mathf.FloorToInt(hours * _SecondsPerHour);
         int minutes = Mathf.FloorToInt(timeLeft / (_SecondsPerHour / 60));
 
-        if (hours > 12) 
-            hours -= 12;
-        
+        if (hours > 12)
+        {
+            _DidChange = false;
+            _Time -= 12 * _SecondsPerHour;
+        }
+
+        if(hours == 12 && minutes == 0 && !_DidChange)
+        {
+            if (_IsAm)
+                _IsAm = false;
+            else
+                _IsAm = true;
+
+            _DidChange = true;
+        }
+
+
         if (minutes < 10)
-            _Text.text = hours + ":0" + minutes + " AM";
+            _Text.text = hours + ":0" + minutes;
         else
-            _Text.text = hours + ":" + minutes + " AM";     
+            _Text.text = hours + ":" + minutes;
+
+        if (_IsAm)
+            _Text.text += " AM";
+        else
+            _Text.text += " PM";
+
+        Debug.Log(hours);
     }
 }
