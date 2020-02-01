@@ -18,17 +18,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _GravityMultiplier = 1;
 
     private Rigidbody _Rigidbody;
-    private Camera _Camera;
 
     private void Awake()
     {
-        _Rigidbody = GetComponent<Rigidbody>();
-        _Camera = Camera.main;   
+        _Rigidbody = GetComponent<Rigidbody>(); 
     }
 
     private void FixedUpdate()
     {
-        var mDirection = new Vector3(Input.GetAxis("Horizontal"), _Rigidbody.velocity.y ,Input.GetAxis("Vertical"));
+        var mDirection = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed, 
+                                     _Rigidbody.velocity.y,
+                                     Input.GetAxis("Vertical") * _MovementSpeed);
         if (mDirection.x == 0 && mDirection.z == 0)
         {
             if (mDirection.y != 0) // See if we are falling
@@ -37,13 +37,6 @@ public class PlayerMovement : MonoBehaviour
             return; // exit out early
         }
         
-        _Rigidbody.velocity = ApplyRelativeCamera(mDirection) * _MovementSpeed;
-    }
-
-    private Vector3 ApplyRelativeCamera(Vector3 direction)
-    {
-        var tDirection = _Camera.transform.TransformDirection(direction);
-        tDirection.y = direction.y;
-        return tDirection.normalized;
+        _Rigidbody.velocity = transform.TransformDirection(mDirection);
     }
 }
