@@ -9,7 +9,6 @@ public class TimerUI : MonoBehaviour
     private float _Time;
 
 
-
     void Awake()
     {
         _Text = GetComponent<Text>();
@@ -27,8 +26,10 @@ public class TimerUI : MonoBehaviour
         timeLeft -= Mathf.FloorToInt(hours * _SecondsPerHour);
         int minutes = Mathf.FloorToInt(timeLeft / (_SecondsPerHour / 60));
 
-        Debug.Log(hours);
-        Debug.Log(minutes);
+        if(hours > 12)
+        {
+            hours -= 12;
+        }
 
         if (minutes < 10)
         {
@@ -37,6 +38,9 @@ public class TimerUI : MonoBehaviour
         {
             _Text.text = hours + ":" + minutes + " AM";
         }
+
+
+
 
     }
 }
