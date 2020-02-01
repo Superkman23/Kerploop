@@ -41,7 +41,6 @@ public class TimerUI : MonoBehaviour
             _DidChange = true;
         }
 
-
         if (minutes < 10)
             _Text.text = hours + ":0" + minutes;
         else
@@ -51,7 +50,5 @@ public class TimerUI : MonoBehaviour
             _Text.text += " AM";
         else
             _Text.text += " PM";
-
-        Debug.Log(hours);
     }
 }
