@@ -3,8 +3,8 @@ using TMPro;
 
 public class TimerUI : MonoBehaviour
 {
-    [SerializeField] float _SecondsPerHour = 60;
-    [SerializeField] bool _IsAm;
+    [SerializeField] int _SecondsPerHour = 60;
+    [SerializeField] bool _IsAm = false;
     bool _DidChange;
 
     TextMeshProUGUI _Text;
@@ -31,21 +31,13 @@ public class TimerUI : MonoBehaviour
             _Time -= 12 * _SecondsPerHour;
         }
 
-        if(hours == 12 && minutes == 0 && !_DidChange)
+        if (hours == 12 && minutes == 0 && !_DidChange)
         {
-            if (_IsAm)
-                _IsAm = false;
-            else
-                _IsAm = true;
-
+            _IsAm = !_IsAm;
             _DidChange = true;
         }
 
-        if (minutes < 10)
-            _Text.text = hours + ":0" + minutes;
-        else
-            _Text.text = hours + ":" + minutes;
-
+        _Text.text = hours + ((minutes < 10) ? ":0" : ":") + minutes;
         _Text.text += _IsAm ? " AM" : " PM"; 
     }
 }
