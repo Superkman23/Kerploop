@@ -14,38 +14,44 @@ public class CameraSwivel : MonoBehaviour
 	
 	
 	[Header("Settings")]
-	[SerializeField] Vector3 _FirstRotation;
-	Quaternion _QFRotation;
-	[SerializeField] Vector3 _SecondRotation;
-	Quaternion _QSRotation;
-	[SerializeField] [Range(0, 1)] float _Speed = 0.9f;
+	[SerializeField] Vector3 _Rotation1;
+	[SerializeField] Vector3 _Rotation2;
+	Quaternion _RotQuat1;
+	Quaternion _RotQuat2;
+	[SerializeField] float _Speed = 0.9f;
 	bool _GoingSecond = false;
+	float _Time;
 
 	private void Awake()
 	{
-		_QFRotation = Quaternion.Euler(_FirstRotation);
-		_QSRotation = Quaternion.Euler(_SecondRotation);
+		_RotQuat1 = Quaternion.Euler(_Rotation1);
+		_RotQuat2 = Quaternion.Euler(_Rotation2);
 
-		transform.rotation = _QFRotation;
+		transform.rotation = _RotQuat1;
 	}
 	
 	private void Update()
 	{
-		if (_GoingSecond)
+		if (_GoingSecond) // 1 -> 2
 		{
-			Vector3 lerped = Vector3.Lerp(transform.eulerAngles, _SecondRotation, _Speed / 100);
-			transform.rotation = Quaternion.Euler(lerped);
+			transform.rotation = Quaternion.Slerp(_RotQuat1, _RotQuat2, _Time);
 
-			if (transform.rotation == _QSRotation)
+			if (transform.rotation == _RotQuat2)
+			{
 				_GoingSecond = false;
+				_Time = 0;
+			}
 		}
-		else
+		else // 2 -> 1
 		{
-			Vector3 lerped = Vector3.Lerp(transform.eulerAngles, _FirstRotation, _Speed / 100);
-			transform.rotation = Quaternion.Euler(lerped);
+			transform.rotation = Quaternion.Slerp(_RotQuat2, _RotQuat1, _Time);
 
-			if (transform.rotation == _QFRotation)
+			if (transform.rotation == _RotQuat1)
+			{
 				_GoingSecond = true;
+				_Time = 0;
+			}
 		}
+		_Time += Time.deltaTime * _Speed;
 	}
 }
