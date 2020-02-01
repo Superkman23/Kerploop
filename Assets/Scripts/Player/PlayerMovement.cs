@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         if (mDirection.x == 0 && mDirection.z == 0)
         {
             if (mDirection.y != 0) // See if we are falling
-                _Rigidbody.velocity = (Vector3.down * _Rigidbody.velocity.y) * _GravityMultiplier;
+                _Rigidbody.velocity = (Vector3.down * -_Rigidbody.velocity.y) * _GravityMultiplier;
 
             return; // exit out early
         }

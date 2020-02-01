@@ -21,7 +21,6 @@ public class TimerUI : MonoBehaviour
 
     private void Update()
     {
-        //Adds time to the timer
         _Time += Time.deltaTime;
         float timeLeft = _Time;
 
@@ -40,14 +39,14 @@ public class TimerUI : MonoBehaviour
         }
 
 
-        //Swaps from AM to PM when it reaches 12:00 (11:59 AM to 12:00 PM)
+        //Swaps from AM to PM when the time reaches 12:00 (11:59 AM to 12:00 PM)
         if (hours == 12 && minutes == 0 && !_DidChange)
         {
             _IsAm = !_IsAm; //Switches from AM to PM
             _DidChange = true; //Makes the if statement only trigger once each time it reaches 12
         }
 
-        //Writes the text
+        //Writes the text on the UI
         _Text.text = hours + ((minutes < 10) ? ":0" : ":") + minutes;
         _Text.text += _IsAm ? " AM" : " PM"; 
     }
