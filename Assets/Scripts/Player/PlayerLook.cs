@@ -10,16 +10,16 @@ using UnityEngine;
 public class PlayerLook : MonoBehaviour
 {
 	[Header("Settings")]
-	[SerializeField] private float _RotationSpeed = 1f;
+	[SerializeField] float _RotationSpeed = 1f;
 
 	[Header("Y-axis Clamping")]
-	[SerializeField] private float _YRotationMin = -90f;
-	[SerializeField] private float _YRotationMax = 90f;
+	[SerializeField] float _YRotationMin = -90f;
+	[SerializeField] float _YRotationMax = 90f;
 
-	private float _XRotation = 0;
-	private float _YRotation = 0;
+	float _XRotation = 0;
+	float _YRotation = 0;
 
-	private Camera _MainCamera;
+	Camera _MainCamera;
 	
 	private void OnEnable()
 	{

@@ -3,10 +3,10 @@ using TMPro;
 
 public class TimerUI : MonoBehaviour
 {
-    [SerializeField] private float _SecondsPerHour = 60;
+    [SerializeField] float _SecondsPerHour = 60;
 
-    private TextMeshProUGUI _Text;
-    private float _Time;
+    TextMeshProUGUI _Text;
+    float _Time;
 
     private void Awake()
     {

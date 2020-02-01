@@ -11,12 +11,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float _MovementSpeed = 5;
+    [SerializeField] float _MovementSpeed = 5;
     
     [Header("Gravity")]
-    [SerializeField] private float _GravityMultiplier = 1;
+    [SerializeField] float _GravityMultiplier = 1;
 
-    private Rigidbody _Rigidbody;
+    Rigidbody _Rigidbody;
 
     private void Awake()
     {
