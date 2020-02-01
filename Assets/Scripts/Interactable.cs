@@ -5,7 +5,9 @@
  * Created for: needing a simple interface that 
  */
 
+using UnityEngine;
+
 public interface Interactable
 {
-	void OnInteractStart();
+	void OnInteractStart(GameObject interacting);
 }

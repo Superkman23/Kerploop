@@ -32,7 +32,7 @@ public class PlayerControls : MonoBehaviour
 				var interactable = hitInfo.transform.GetComponent<Interactable>();
 				if (interactable != null)
 				{
-					interactable.OnInteractStart();
+					interactable.OnInteractStart(gameObject);
 				}
 			}
 		}

@@ -9,11 +9,10 @@ using UnityEngine;
 
 public class TestInteract : MonoBehaviour, Interactable
 {
-    [SerializeField] Vector3 _Direction = Vector3.up;
     [SerializeField] float _Force = 250;
 
-    public void OnInteractStart()
+    public void OnInteractStart(GameObject interacting)
     {
-        GetComponent<Rigidbody>().AddForce(_Direction * _Force);
+        GetComponent<Rigidbody>().AddForce((interacting.transform.forward.normalized) * _Force);
     }
 }
