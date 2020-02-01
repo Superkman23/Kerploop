@@ -5,7 +5,7 @@ public class TimerUI : MonoBehaviour
 {
 
     private Text _Text;
-    [SerializeField] private float _SecondsPerMinute;
+    [SerializeField] private float _SecondsPerHour;
     private float _Time;
 
 
@@ -13,16 +13,30 @@ public class TimerUI : MonoBehaviour
     void Awake()
     {
         _Text = GetComponent<Text>();
+        _Time = _SecondsPerHour * 12;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _Time += Time.deltaTime;
-        int hours = Mathf.FloorToInt(_Time / (_SecondsPerMinute * 60));
-        int minutes = Mathf.FloorToInt((_Time - hours) / _SecondsPerMinute); 
 
-        _Text.text = hours + ":" + minutes + "AM";
+        _Time += Time.deltaTime;
+        float timeLeft = _Time;
+
+        int hours = Mathf.FloorToInt(_Time / _SecondsPerHour);
+        timeLeft -= Mathf.FloorToInt(hours * _SecondsPerHour);
+        int minutes = Mathf.FloorToInt(timeLeft / (_SecondsPerHour / 60));
+
+        Debug.Log(hours);
+        Debug.Log(minutes);
+
+        if (minutes < 10)
+        {
+            _Text.text = hours + ":0" + minutes + " AM";
+        } else
+        {
+            _Text.text = hours + ":" + minutes + " AM";
+        }
 
     }
 }
