@@ -12,7 +12,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float _MovementSpeed = 5;
-
+    
+    [Header("Gravity")]
+    [SerializeField] private float _GravityMultiplier = 1;
 
     private Rigidbody _Rigidbody;
 
@@ -21,10 +23,15 @@ public class PlayerMovement : MonoBehaviour
         _Rigidbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         var input = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed, _Rigidbody.velocity.y ,Input.GetAxis("Vertical") * _MovementSpeed);
+        if ((input.x == 0 && input.z == 0) && input.y != 0)
+        {
+            _Rigidbody.velocity = (Vector3.down * _Rigidbody.velocity.y) * _GravityMultiplier;
+            return; // exit out early
+        }
+        
         _Rigidbody.velocity = transform.TransformDirection(input);
     }
 }
