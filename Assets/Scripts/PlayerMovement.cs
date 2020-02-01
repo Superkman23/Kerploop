@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float _MovementSpeed = 5;
-    [SerializeField] [Range(0, 1)] private float _InputCutoff = 0.5f;
     
     [Header("Gravity")]
     [SerializeField] private float _GravityMultiplier = 1;
@@ -29,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         var mDirection = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed, 
                                      _Rigidbody.velocity.y,
                                      Input.GetAxis("Vertical") * _MovementSpeed);
-        
+
         if (mDirection.x == 0 && mDirection.z == 0)
         {
             if (mDirection.y != 0) // See if we are falling
