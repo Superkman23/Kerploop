@@ -408,6 +408,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 375653195498208156, guid: 68d393a93a129e64c84715dda91c0c7b,
+        type: 3}
+      propertyPath: _InputCutoff
+      value: 0.049
+      objectReference: {fileID: 0}
     - target: {fileID: 375653195498208157, guid: 68d393a93a129e64c84715dda91c0c7b,
         type: 3}
       propertyPath: m_LocalPosition.x
