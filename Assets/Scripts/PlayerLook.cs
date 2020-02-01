@@ -26,10 +26,19 @@ public class PlayerLook : MonoBehaviour
 		Cursor.lockState = CursorLockMode.Locked;
 		_MainCamera = Camera.main;
 	}
+
+	private void Awake() 
+	{
+		_XRotation = transform.eulerAngles.y;
+	}
 	
 	private void Update()
 	{
 		var lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+		// Don't rotate if player isn't even moving mouse
+		if (lookDirection == Vector2.zero)
+			return;
+
 		lookDirection *= _RotationSpeed;
 		_XRotation += lookDirection.x;
 		_YRotation += lookDirection.y;
