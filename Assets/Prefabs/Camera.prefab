@@ -230,8 +230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db9b05db0e895ef41821b8b7bc481a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _FirstRotation: {x: 30, y: 15, z: 0}
-  _SecondRotation: {x: 30, y: 60, z: 0}
+  _Rotation1: {x: 0, y: 0, z: 0}
+  _Rotation2: {x: 0, y: 0, z: 0}
   _Speed: 0.9
 --- !u!1 &2014909642334645557
 GameObject:
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 5757825482819316573}
   - component: {fileID: 4382846727938648360}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Camera Shaft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -526,7 +526,7 @@ GameObject:
   - component: {fileID: 7081945175943996739}
   - component: {fileID: 2460468302840406407}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Wall Shaft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

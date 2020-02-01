@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 822888632900212641}
   - component: {fileID: 3917514859948125679}
   m_Layer: 0
-  m_Name: Cylinder (6)
+  m_Name: Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 5783976123473477770}
   - component: {fileID: 6480532972386854315}
   m_Layer: 0
-  m_Name: Cylinder (5)
+  m_Name: Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 4713065376458444378}
   - component: {fileID: 929721008201585137}
   m_Layer: 0
-  m_Name: Cylinder (3)
+  m_Name: Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -460,7 +460,7 @@ GameObject:
   - component: {fileID: 880024368778620848}
   - component: {fileID: 642474606490672574}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 5122885342079265684}
   - component: {fileID: 8220157155277526278}
   m_Layer: 0
-  m_Name: Cylinder (4)
+  m_Name: Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
