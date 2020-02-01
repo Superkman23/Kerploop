@@ -41,7 +41,6 @@ public class TimerUI : MonoBehaviour
             _DidChange = true;
         }
 
-
         if (minutes < 10)
             _Text.text = hours + ":0" + minutes;
         else
