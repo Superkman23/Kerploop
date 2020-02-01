@@ -169,6 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac43e9bc32e309041b61f5d711fbf9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Direction: {x: 0, y: 1, z: 0}
+  _Force: 250
 --- !u!65 &1906019
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -508,7 +510,7 @@ PrefabInstance:
     - target: {fileID: 8964095297828320153, guid: 68d393a93a129e64c84715dda91c0c7b,
         type: 3}
       propertyPath: _InteractDistance
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68d393a93a129e64c84715dda91c0c7b, type: 3}
@@ -801,8 +803,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1726669482}
-  - {fileID: 1273968237}
   - {fileID: 1181996966}
+  - {fileID: 1273968237}
   m_Father: {fileID: 635506079}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -836,7 +838,7 @@ Transform:
   - {fileID: 1906017}
   - {fileID: 178063002}
   m_Father: {fileID: 1064464410}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1273968237 stripped
 Transform:

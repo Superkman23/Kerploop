@@ -9,18 +9,14 @@ using UnityEngine;
 
 public class CameraSwivel : MonoBehaviour
 {
-	// Uncomment these when there are variables in place
-	//[Header("Components")]
-	
-	
 	[Header("Settings")]
-	[SerializeField] Vector3 _Rotation1;
-	[SerializeField] Vector3 _Rotation2;
+	[SerializeField] Vector3 _Rotation1 = Vector3.zero;
+	[SerializeField] Vector3 _Rotation2 = Vector3.zero;
 	Quaternion _RotQuat1;
 	Quaternion _RotQuat2;
 	[SerializeField] float _Speed = 0.9f;
 	bool _GoingSecond = false;
-	float _Time;
+	float _Time = 0;
 
 	private void Awake()
 	{

@@ -47,11 +47,6 @@ public class TimerUI : MonoBehaviour
         else
             _Text.text = hours + ":" + minutes;
 
-        if (_IsAm)
-            _Text.text += " AM";
-        else
-            _Text.text += " PM";
-
-        Debug.Log(hours);
+        _Text.text += _IsAm ? " AM" : " PM"; 
     }
 }
