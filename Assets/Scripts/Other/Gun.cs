@@ -17,11 +17,11 @@ public enum MouseButton
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AudioSource))]
-public class Gun : MonoBehaviour, Interactable
+public abstract class Gun : MonoBehaviour, Interactable
 {	
 	[Header("Components")]
-	[SerializeField] AudioClip _ShootNoise;
-	AudioSource _AudioSource;
+	[SerializeField] protected AudioClip _ShootNoise;
+	protected AudioSource _AudioSource;
 
 	[Header("Settings")]
 	[SerializeField] Vector3 _OffsetFromCamera = Vector3.right;
@@ -29,14 +29,14 @@ public class Gun : MonoBehaviour, Interactable
 
 	[Header("Shooting")]
 	[Tooltip("Maximum distance a bullet can go and still effect another object")]
-	[SerializeField] float _BulletMaxDistance = 3000;
+	[SerializeField] protected float _BulletMaxDistance = 3000;
 	[Tooltip("The force applied to an object that has a rigidbody and has been shot")]
-	[SerializeField] float _RigidbodyForce = 10;
+	[SerializeField] protected float _RigidbodyForce = 10;
 
-	[SerializeField] [Range(0, 1)] float _ShootNoiseVolume = 0.75f;
+	[SerializeField] [Range(0, 1)] protected float _ShootNoiseVolume = 0.75f;
 
 	bool _IsGunEquipped = false;
-	Camera _MainCamera;
+	protected Camera _MainCamera;
 
 	private void Awake() 
 	{
@@ -87,21 +87,8 @@ public class Gun : MonoBehaviour, Interactable
 		CF.RecursiveSetColliders(transform, false);
 	}
 
-    void Shoot()
+    public virtual void Shoot()
     {
-        // Play the audio of the gun shooting
-        _AudioSource.PlayOneShot(_ShootNoise, _ShootNoiseVolume);
 
-        if (Physics.Raycast(
-            _MainCamera.transform.position, // Shoots from the main camera
-            _MainCamera.transform.forward,  // Shoots forwards
-            out RaycastHit hit, _BulletMaxDistance))
-        {
-            var hitRB = hit.rigidbody;
-            if (hitRB != null)
-            {
-                hitRB.AddForce(_MainCamera.transform.forward * _RigidbodyForce, ForceMode.Impulse);
-            }
-        }
     }
 }

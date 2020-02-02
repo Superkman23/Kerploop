@@ -7,22 +7,21 @@
 
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHealth
 {
 	[Header("Settings")]
 	[SerializeField] KeyCode _DropButton = KeyCode.F;
 	[SerializeField] float _ThrowForce = 5;
 
 	Camera _MainCamera;
-	[HideInInspector] public GameObject _CurrentGun = null;	
+	[HideInInspector] public GameObject _CurrentGun = null;
 
-	/*
-	100 = MAX,
-	0   = DEAD
-	*/
-	public int _Health = 100;
 
-	private void Awake() 
+	
+    public int _Health { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public int _MaxHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+    private void Awake() 
 	{
 		_MainCamera = Camera.main;
 		Globals._MainPlayer = this;

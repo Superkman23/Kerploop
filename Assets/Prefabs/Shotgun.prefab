@@ -546,16 +546,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5804872474989941849}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 957f730edc8e1f74fa502c19726ff900, type: 3}
+  m_Script: {fileID: 11500000, guid: 8df0aae98f4b7ce4d8ce053ecd38d036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ShootNoise: {fileID: 8300000, guid: c8690922d39230e41a8a6e95d5219c68, type: 3}
+  _ShootNoise: {fileID: 8300000, guid: c2611eefdaf058a479be46bf506e30f6, type: 3}
   _OffsetFromCamera: {x: 0.5, y: -0.325, z: 0.6}
   _ShootButton: 0
-  _DropButton: 102
   _BulletMaxDistance: 3000
-  _RigidbodyForce: 30
-  _ShootNoiseVolume: 0.95
+  _RigidbodyForce: 10
+  _ShootNoiseVolume: 0.75
 --- !u!54 &59757725
 Rigidbody:
   m_ObjectHideFlags: 0
