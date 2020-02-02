@@ -550,10 +550,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ShootNoise: {fileID: 8300000, guid: c2611eefdaf058a479be46bf506e30f6, type: 3}
+  _BulletLine: {fileID: 0}
   _OffsetFromCamera: {x: 0.5, y: -0.325, z: 0.6}
   _ShootButton: 0
   _BulletMaxDistance: 3000
-  _RigidbodyForce: 10
+  _RigidbodyForce: 15
+  _ClipSize: 5
+  _ReloadTime: 2
+  _ShotDelay: 60
+  _Automatic: 1
   _ShootNoiseVolume: 0.75
   _IsGunEquipped: 0
   _PelletsPerShot: 10

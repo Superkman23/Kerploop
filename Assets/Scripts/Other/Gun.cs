@@ -5,6 +5,7 @@
  * Created for: shooting a gun
  */
 
+using System.Collections;
 using UnityEngine;
 
 public enum MouseButton 
@@ -22,7 +23,7 @@ public abstract class Gun : MonoBehaviour, Interactable
 	[SerializeField] protected AudioClip _ShootNoise;
 	protected AudioSource _AudioSource;
 
-	[Header("Settings")]
+    [Header("Settings")]
 	[SerializeField] Vector3 _OffsetFromCamera = Vector3.right;
 	[SerializeField] MouseButton _ShootButton = MouseButton.Left;
 
@@ -31,14 +32,28 @@ public abstract class Gun : MonoBehaviour, Interactable
 	[SerializeField] protected float _BulletMaxDistance = 3000;
 	[Tooltip("The force applied to an object that has a rigidbody and has been shot")]
 	[SerializeField] protected float _RigidbodyForce = 10;
+    [Tooltip("How Many Shots can be taken before needing to reload")]
+    [SerializeField] protected int _ClipSize = 1;
+    int _ShotsRemaining;
+    [Tooltip("How long it takes to reload")]
+    [SerializeField] protected float _ReloadTime = 1;
+    bool _IsReloading = false;
+    [Tooltip("Minimum amount of time between shots")]
+    [SerializeField] protected int _ShotDelay = 1;
+    int _TimeUntilNextShot;
+    [Tooltip("Determines whether you can hold the mouse down to repeatedly shoot")]
+    [SerializeField] protected bool _Automatic;
 
-	[SerializeField] [Range(0, 1)] protected float _ShootNoiseVolume = 0.75f;
+
+
+    [SerializeField] [Range(0, 1)] protected float _ShootNoiseVolume = 0.75f;
 
 	[HideInInspector] public bool _IsGunEquipped = false;
 	protected Camera _MainCamera;
 
 	private void Awake() 
 	{
+        _ShotsRemaining = _ClipSize;
 		_MainCamera = Camera.main;
 		_AudioSource = GetComponent<AudioSource>();
 	}
@@ -48,13 +63,50 @@ public abstract class Gun : MonoBehaviour, Interactable
 		if (_IsGunEquipped)
 		{
 			// If the player has attempted to shoot
-			if (Input.GetMouseButtonDown((int)_ShootButton))
+			if (Input.GetMouseButtonDown((int)_ShootButton) && _ShotsRemaining > 0 && _TimeUntilNextShot == 0 && !_Automatic)
 			{
                 Shoot();
+                _ShotsRemaining--;
+                _TimeUntilNextShot = _ShotDelay;
 			}
+
+            if (Input.GetMouseButton((int)_ShootButton) && _ShotsRemaining > 0 && _TimeUntilNextShot == 0 && _Automatic)
+            {
+                Shoot();
+                _ShotsRemaining--;
+                _TimeUntilNextShot = _ShotDelay;
+            }
+
+            if (_ShotsRemaining <= 0 || Input.GetKeyDown(KeyCode.R))
+            {
+                if (!_IsReloading)
+                {
+                    StartCoroutine(Reload());
+                }
+            }
+
 		}
 	}
-	
+
+    private void FixedUpdate()
+    {
+        if(_TimeUntilNextShot > 0)
+        {
+            _TimeUntilNextShot--;
+        }
+    }
+
+
+
+    IEnumerator Reload()
+    {
+        _IsReloading = true;
+        yield return new WaitForSeconds(_ReloadTime);
+        _ShotsRemaining = _ClipSize;
+        _IsReloading = false;
+    }
+
+
 	void Interactable.OnInteractStart(GameObject interacting)
 	{
 		// If the player is trying to interact with the gun
