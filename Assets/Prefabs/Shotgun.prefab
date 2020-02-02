@@ -557,12 +557,13 @@ MonoBehaviour:
   _BulletSpread: 0.05
   _BulletMaxDistance: 10
   _DefaultPosition: {x: 0.5, y: -0.325, z: 0.6}
-  _AimingPosition: {x: 0, y: -0.2, z: 0.4}
+  _AimingPosition: {x: 0, y: -0.15, z: 0.4}
   _ShotDelay: 60
   _ShotVolume: 0.5
   _MaxAmmo: 0
   _ClipSize: 5
   _ReloadTime: 2
+  _IsReloading: 0
   _FlashIntensity: 60
   _ShootButton: 0
   _AimButton: 1
