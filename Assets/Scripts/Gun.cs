@@ -1,8 +1,8 @@
 ﻿/*
  * Gun.cs
- * Created by: #AUTHOR#
- * Created on: #CREATIONDATE# (dd/mm/yy)
- * Created for: #PURPOSE#
+ * Created by: Ambrosia
+ * Created on: 2/1/2020 (dd/mm/yy)
+ * Created for: shooting a gun
  */
 
 using UnityEngine;
