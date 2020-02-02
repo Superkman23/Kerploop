@@ -15,6 +15,7 @@ public class Player : MonoBehaviour, IHealth
     [SerializeField] TextMeshProUGUI _HealthText;
     [SerializeField] TextMeshProUGUI _TotalAmmoText;
     [SerializeField] TextMeshProUGUI _ClipAmmoText;
+    Transform _AmmoUIParent = null;
     List<CanvasRenderer> _HealthDisplayObjs = new List<CanvasRenderer>();
 
     [Header("Throwing Weapon")]
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour, IHealth
 
         _LocalHealth = _LocalMaxHealth;
         _MainCamera = Camera.main;
+        _AmmoUIParent = _ClipAmmoText.transform.parent;
         
         _Rigidbody = GetComponent<Rigidbody>();
 
@@ -71,7 +73,14 @@ public class Player : MonoBehaviour, IHealth
     private void DisplayAmmo()
     {
         if (_CurrentGun == null)
+        {
+            if (_AmmoUIParent.gameObject.activeInHierarchy)
+                _AmmoUIParent.gameObject.SetActive(false);
             return;
+        }
+
+        if (!_AmmoUIParent.gameObject.activeInHierarchy)
+            _AmmoUIParent.gameObject.SetActive(true);
         
         _TotalAmmoText.text = _CurrentGunComponent.GetCurrentTotalAmmo().ToString();
         _ClipAmmoText.text = _CurrentGunComponent.GetCurrentClipAmmo().ToString();
