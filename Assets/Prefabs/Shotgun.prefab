@@ -552,12 +552,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ShootNoise: {fileID: 8300000, guid: c2611eefdaf058a479be46bf506e30f6, type: 3}
   _Flash: {fileID: 3517230377726789263}
+  _FlashIntensity: 60
   _OffsetFromCamera: {x: 0.5, y: -0.325, z: 0.6}
   _AimingOffset: {x: 0, y: -0.2, z: 0.4}
   _ShootButton: 0
   _AimButton: 1
-  _IsAiming: 0
-  _Thrown: 0
   _BulletMaxDistance: 10
   _Spread: 0.1
   _RigidbodyForce: 15
@@ -567,6 +566,7 @@ MonoBehaviour:
   _Automatic: 1
   _ShootNoiseVolume: 0.75
   _IsGunEquipped: 0
+  _ToThrow: 0
   _PelletsPerShot: 10
 --- !u!54 &59757725
 Rigidbody:
@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 6460883027085024804}
   - component: {fileID: 3517230377726789263}
   m_Layer: 0
-  m_Name: Point Light
+  m_Name: Muzzle Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -704,13 +704,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6405688581056814668}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.081, y: 0.237, z: -2.021}
+  m_LocalRotation: {x: 0.67302954, y: -0, z: -0, w: 0.7396157}
+  m_LocalPosition: {x: 0.002, y: 0.367, z: -2.135}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1279526257204771813}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 84.603004, y: 0, z: 0}
 --- !u!108 &3517230377726789263
 Light:
   m_ObjectHideFlags: 0
@@ -720,16 +720,16 @@ Light:
   m_GameObject: {fileID: 6405688581056814668}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 2
+  m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0.73170733, b: 0, a: 1}
-  m_Intensity: 60
-  m_Range: 1
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_Intensity: 100
+  m_Range: 100
+  m_SpotAngle: 179
+  m_InnerSpotAngle: 118.69876
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -762,7 +762,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1

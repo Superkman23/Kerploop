@@ -23,7 +23,7 @@ public abstract class Gun : MonoBehaviour, Interactable
 	[SerializeField] protected AudioClip _ShootNoise;
 	protected AudioSource _AudioSource;
     [SerializeField] Light _Flash;
-    float _FlashIntensity;
+    [SerializeField] float _FlashIntensity;
 
 
     [Header("Settings")]
@@ -69,7 +69,6 @@ public abstract class Gun : MonoBehaviour, Interactable
 
 	private void Awake() 
 	{
-        _FlashIntensity = _Flash.intensity;
         _Flash.intensity = 0;
         _ShotsRemaining = _ClipSize;
 		_MainCamera = Camera.main;
@@ -87,35 +86,25 @@ public abstract class Gun : MonoBehaviour, Interactable
 
         if (_IsGunEquipped)
 		{
-            if(_ShotsRemaining > 0 && _TimeUntilNextShot == 0)
             HandleAiming();
-
-			// If the player has attempted to shoot
-			if (Input.GetMouseButtonDown((int)_ShootButton) && _ShotsRemaining > 0 && _TimeUntilNextShot == 0 && !_Automatic)
-			{
-                Shoot();
-                _ShotsRemaining--;
-                _TimeUntilNextShot = _ShotDelay;
-			}
-
-            if (Input.GetMouseButton((int)_ShootButton) && _ShotsRemaining > 0 && _TimeUntilNextShot == 0 && _Automatic)
+            if (_ShotsRemaining > 0 && _TimeUntilNextShot == 0)
             {
-                // If the player has attempted to shoot
-                if (Input.GetMouseButtonDown((int)_ShootButton) && !_Automatic)
-                {
-                    Shoot();
-                    StartFlash();
-                    _ShotsRemaining--;
-                    _TimeUntilNextShot = _ShotDelay;
-                }
+                    // If the player has attempted to shoot
+                    if (Input.GetMouseButtonDown((int)_ShootButton) && !_Automatic)
+                    {
+                        Shoot();
+                        StartFlash();
+                        _ShotsRemaining--;
+                        _TimeUntilNextShot = _ShotDelay;
+                    }
 
-                if (Input.GetMouseButton((int)_ShootButton) && _Automatic)
-                {
-                    Shoot();
-                    StartFlash();
-                    _ShotsRemaining--;
-                    _TimeUntilNextShot = _ShotDelay;
-                }
+                    if (Input.GetMouseButton((int)_ShootButton) && _Automatic)
+                    {
+                        Shoot();
+                        StartFlash();
+                        _ShotsRemaining--;
+                        _TimeUntilNextShot = _ShotDelay;
+                    }
             }
 
             if (_ShotsRemaining <= 0 || Input.GetKeyDown(KeyCode.R))
@@ -230,6 +219,6 @@ public abstract class Gun : MonoBehaviour, Interactable
 
     void FlashDecay()
     {
-        _Flash.intensity = Mathf.Lerp(_Flash.intensity, 0, .2f);
+        _Flash.intensity = Mathf.Lerp(_Flash.intensity, 0, .1f);
     }
 }
