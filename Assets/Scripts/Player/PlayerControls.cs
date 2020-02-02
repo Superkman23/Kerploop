@@ -28,7 +28,6 @@ public class PlayerControls : MonoBehaviour
 	{
 		if (Input.GetKeyDown(_InteractKey))
 		{
-			Debug.DrawRay(_MainCamera.transform.position, _MainCamera.transform.forward, Color.green, 5);
 			if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward, out RaycastHit hitInfo, _InteractDistance))
 			{
 				var interactable = hitInfo.transform.GetComponent<Interactable>();
