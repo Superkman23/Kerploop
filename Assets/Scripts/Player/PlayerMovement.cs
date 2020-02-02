@@ -49,11 +49,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         _Grounded = true;
     }
 
+    private void OnCollisionExit(Collision collision)
+    {
+        _Grounded = false;
+    }
 
     void Movement()
     {
