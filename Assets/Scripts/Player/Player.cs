@@ -37,5 +37,6 @@ public class Player : MonoBehaviour
 		cgRB.isKinematic = false;
 		CF.RecursiveSetColliders(cgRB.transform, true);
 		cgRB.AddForce(transform.forward * 5, ForceMode.Impulse);
+		_CurrentGun = null;
 	}
 }
