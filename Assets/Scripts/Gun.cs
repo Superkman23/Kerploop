@@ -33,7 +33,7 @@ public class Gun : MonoBehaviour, Interactable
 	[SerializeField] float _BulletMaxDistance = 3000;
 	[Tooltip("The force applied to an object that has a rigidbody and has been shot")]
 	[SerializeField] float _RigidbodyForce = 10;
-	[SerializeField] [Range(0, 1)] float _GunNoiseVolume = 0.75f;
+	[SerializeField] [Range(0, 1)] float _ShootNoiseVolume = 0.75f;
 
 	bool _PlayerHasGun = false;
 	Camera _MainCamera;
@@ -56,7 +56,7 @@ public class Gun : MonoBehaviour, Interactable
                     _ParticleSystemPosition.position,
                     Quaternion.Euler(0, -90 + transform.localEulerAngles.y, 0));
 				// Play the audio of the gun shooting
-				_AudioSource.PlayOneShot(_ShootNoise, _GunNoiseVolume);
+				_AudioSource.PlayOneShot(_ShootNoise, _ShootNoiseVolume);
 
 				if (Physics.Raycast(
                     _MainCamera.transform.position, // Shoots from the main camera
