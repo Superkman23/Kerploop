@@ -11,9 +11,16 @@ public class Player : MonoBehaviour
 {
 	[Header("Settings")]
 	[SerializeField] KeyCode _DropButton = KeyCode.F;
+	[SerializeField] float _ThrowForce = 5;
 
 	Camera _MainCamera;
 	[HideInInspector] public GameObject _CurrentGun = null;	
+
+	/*
+	100 = MAX,
+	0   = DEAD
+	*/
+	public int _Health = 100;
 
 	private void Awake() 
 	{
@@ -38,7 +45,7 @@ public class Player : MonoBehaviour
 		var cgRB = _CurrentGun.GetComponent<Rigidbody>();
 		cgRB.isKinematic = false;
 		CF.RecursiveSetColliders(cgRB.transform, true);
-		cgRB.AddForce(_MainCamera.transform.forward * 5, ForceMode.Impulse);
+		cgRB.AddForce(_MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse);
 		_CurrentGun = null;
 	}
 }
