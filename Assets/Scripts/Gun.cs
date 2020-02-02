@@ -14,6 +14,7 @@ public enum MouseButton
 	ScrollWheel
 }
 
+[RequireComponent(typeof(Rigidbody))]
 public class Gun : MonoBehaviour, Interactable
 {	
 	[Header("Settings")]
@@ -21,7 +22,8 @@ public class Gun : MonoBehaviour, Interactable
 	[SerializeField] MouseButton _ShootButton = MouseButton.Left;
 
 	[Header("Shooting")]
-	[SerializeField] float _BulletMaxDistance = 3000f;
+	[SerializeField] float _BulletMaxDistance = 3000;
+	[SerializeField] float _RigidbodyForce = 10;
 
 	bool _PlayerHasGun = false;
 	Camera _MainCamera;
@@ -46,7 +48,7 @@ public class Gun : MonoBehaviour, Interactable
 					var hitRB = hit.rigidbody;
 					if (hitRB != null)
 					{
-						hitRB.AddForce(_MainCamera.transform.forward * 10, ForceMode.Impulse);
+						hitRB.AddForce(_MainCamera.transform.forward * _RigidbodyForce, ForceMode.Impulse);
 					}
 				}
 			}
