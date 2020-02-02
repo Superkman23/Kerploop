@@ -555,6 +555,9 @@ MonoBehaviour:
   _BulletMaxDistance: 3000
   _RigidbodyForce: 10
   _ShootNoiseVolume: 0.75
+  _IsGunEquipped: 0
+  _PelletsPerShot: 10
+  _Spread: 1
 --- !u!54 &59757725
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -21,12 +21,12 @@ public class Shotgun : Gun
 
         while (pelletsleft > 0)
         {
-            float spreadZ = Random.Range(-_Spread, _Spread);
+            float spreadX = Random.Range(-_Spread, _Spread);
             float spreadY = Random.Range(-_Spread, _Spread);
-            Vector3 spread = new Vector3(0, spreadY, spreadZ);
+            Vector3 spread = new Vector3(spreadX, spreadY, 0);
 
             Debug.DrawRay(_MainCamera.transform.position, _MainCamera.transform.forward + spread,Color.green,2);
-            if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward + spread, out hit, _BulletMaxDistance))
+            if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward + transform.InverseTransformDirection(spread), out hit, _BulletMaxDistance))
             {
                 var hitRB = hit.rigidbody;
                 if (hitRB != null)
