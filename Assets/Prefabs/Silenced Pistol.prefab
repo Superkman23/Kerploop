@@ -430,7 +430,7 @@ MonoBehaviour:
   _Flash: {fileID: 231330543719449085}
   _IsAutomatic: 0
   _AimingAccuracyMultiplier: 2
-  _BulletSpread: 0
+  _BulletSpread: 0.1
   _BulletMaxDistance: 50
   _DefaultPosition: {x: 0.5, y: -0.325, z: 0.6}
   _AimingPosition: {x: 0, y: -0.2, z: 0.4}
