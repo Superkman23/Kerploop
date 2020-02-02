@@ -292,6 +292,7 @@ MonoBehaviour:
   _DropButton: 102
   _ThrowForce: 5
   _LocalMaxHealth: 100
+  _LocalHealth: 0
   _CurrentGun: {fileID: 0}
 --- !u!1 &487450295305183534
 GameObject:
@@ -1022,11 +1023,11 @@ RectTransform:
   m_Father: {fileID: 2852792784288023540}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -807, y: -431}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 50, y: 50}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &5576175173964221250
 GameObject:
   m_ObjectHideFlags: 0
