@@ -35,7 +35,7 @@ public class Gun : MonoBehaviour, Interactable
 
 	[SerializeField] [Range(0, 1)] float _ShootNoiseVolume = 0.75f;
 
-	bool _PlayerHasGun = false;
+	bool _IsGunEquipped = false;
 	Camera _MainCamera;
 
 	private void Awake() 
@@ -46,7 +46,7 @@ public class Gun : MonoBehaviour, Interactable
 
 	private void Update()
 	{
-		if (_PlayerHasGun)
+		if (_IsGunEquipped)
 		{
 			// If the player has attempted to shoot
 			if (Input.GetMouseButtonDown((int)_ShootButton))
@@ -82,11 +82,11 @@ public class Gun : MonoBehaviour, Interactable
 			{
 				var currentGun = Globals._MainPlayer._CurrentGun;
 				currentGun.transform.parent = null;
-				
+
 				var cgRB = currentGun.GetComponent<Rigidbody>();
 				cgRB.isKinematic = false;
 				RecursiveSetColliders(cgRB.transform, true);
-				cgRB.AddForce(_MainCamera.transform.forward * 10, ForceMode.Impulse);
+				cgRB.AddForce(_MainCamera.transform.forward * 5, ForceMode.Impulse);
 				
 				PickupGun();
 			}
@@ -95,7 +95,7 @@ public class Gun : MonoBehaviour, Interactable
 
 	private void PickupGun()
 	{
-		_PlayerHasGun = true;
+		_IsGunEquipped = true;
 		Globals._MainPlayer._CurrentGun = gameObject;
 
 		GetComponent<Rigidbody>().isKinematic = true;
