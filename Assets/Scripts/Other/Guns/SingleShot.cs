@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-public class Pistol : PlayerGun
+public class SingleShot : PlayerGun //for guns that shoot 1 bullet at a time
 {
     [SerializeField] float _RigidbodyForce = 5f;
 

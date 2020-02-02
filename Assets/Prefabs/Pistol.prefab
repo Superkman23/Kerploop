@@ -707,21 +707,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ShootNoise: {fileID: 8300000, guid: c8690922d39230e41a8a6e95d5219c68, type: 3}
   _Flash: {fileID: 5237853628248639943}
+  _IsAutomatic: 0
+  _AimingAccuracyMultiplier: 2
+  _BulletSpread: 0
+  _BulletMaxDistance: 60
+  _DefaultPosition: {x: 0.5, y: -0.325, z: 0.6}
+  _AimingPosition: {x: 0, y: -0.2, z: 0.4}
+  _ShotDelay: 5
+  _ShotVolume: 0.5
+  _MaxAmmo: 0
+  _ClipSize: 16
+  _ReloadTime: 1
   _FlashIntensity: 60
-  _OffsetFromCamera: {x: 0.5, y: -0.325, z: 0.6}
-  _AimingOffset: {x: 0, y: -0.2, z: 0.4}
   _ShootButton: 0
   _AimButton: 1
+  _IsEquipped: 0
+  _GoingToThrow: 0
   _RigidbodyForce: 10
-  _ReloadTime: 1
-  _ShotDelay: 5
-  _Automatic: 0
-  _ShootNoiseVolume: 0.75
-  _BulletMaxDistance: 60
-  _Spread: 0.05
-  _ClipSize: 16
-  _IsGunEquipped: 0
-  _ToThrow: 0
 --- !u!54 &5452104186706466831
 Rigidbody:
   m_ObjectHideFlags: 0
