@@ -712,9 +712,9 @@ MonoBehaviour:
   _AimingOffset: {x: 0, y: -0.2, z: 0.4}
   _ShootButton: 0
   _AimButton: 1
+  _RigidbodyForce: 10
   _BulletMaxDistance: 60
   _Spread: 0.05
-  _RigidbodyForce: 10
   _ClipSize: 16
   _ReloadTime: 1
   _ShotDelay: 5
@@ -952,7 +952,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7467802611728886175}
   m_LocalRotation: {x: 0.7071068, y: -0.7071068, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.056, z: -0.349}
+  m_LocalPosition: {x: 0, y: 0.113, z: -0.349}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3880703820528483129}
