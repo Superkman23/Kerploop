@@ -12,11 +12,13 @@ public class Player : MonoBehaviour
 	[Header("Settings")]
 	[SerializeField] KeyCode _DropButton = KeyCode.F;
 
+	Camera _MainCamera;
 	[HideInInspector] public GameObject _CurrentGun = null;	
 
 	private void Awake() 
 	{
-		Globals._MainPlayer = this;	
+		_MainCamera = Camera.main;
+		Globals._MainPlayer = this;
 	}
 
 	private void Update() 
@@ -36,7 +38,7 @@ public class Player : MonoBehaviour
 		var cgRB = _CurrentGun.GetComponent<Rigidbody>();
 		cgRB.isKinematic = false;
 		CF.RecursiveSetColliders(cgRB.transform, true);
-		cgRB.AddForce(transform.forward * 5, ForceMode.Impulse);
+		cgRB.AddForce(_MainCamera.transform.forward * 5, ForceMode.Impulse);
 		_CurrentGun = null;
 	}
 }
