@@ -73,9 +73,10 @@ public class Player : MonoBehaviour, IHealth
 		_CurrentGun.transform.parent = null;
 
 		var cgG = _CurrentGun.GetComponent<Gun>();
-		cgG._IsGunEquipped = false;
+        cgG._IsGunEquipped = false;
+        cgG._Thrown = true;
 
-		var cgRB = _CurrentGun.GetComponent<Rigidbody>();
+        var cgRB = _CurrentGun.GetComponent<Rigidbody>();
 		cgRB.isKinematic = false;
 		CF.RecursiveSetColliders(cgRB.transform, true);
 		cgRB.AddForce(_MainCamera.transform.forward * _ThrowForce + _Rigidbody.velocity, ForceMode.Impulse);
