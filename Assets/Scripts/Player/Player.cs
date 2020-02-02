@@ -9,11 +9,22 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-	[HideInInspector] public GameObject _CurrentGun = null;
+	[Header("Settings")]
+	[SerializeField] KeyCode _DropButton = KeyCode.F;
+
+	[HideInInspector] public GameObject _CurrentGun = null;	
 
 	private void Awake() 
 	{
 		Globals._MainPlayer = this;	
+	}
+
+	private void Update() 
+	{
+		if (Input.GetKeyDown(_DropButton))
+		{
+			DropWeapon();
+		}
 	}
 
 	public void DropWeapon()

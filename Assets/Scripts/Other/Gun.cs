@@ -49,14 +49,6 @@ public class Gun : MonoBehaviour, Interactable
 	{
 		if (_IsGunEquipped)
 		{
-			if (Input.GetKeyDown(_DropButton))
-			{
-				Globals._MainPlayer.DropWeapon();
-			}
-		}
-
-		if (_IsGunEquipped)
-		{
 			// If the player has attempted to shoot
 			if (Input.GetMouseButtonDown((int)_ShootButton))
 			{
