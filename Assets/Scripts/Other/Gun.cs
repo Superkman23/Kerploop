@@ -25,9 +25,14 @@ public abstract class Gun : MonoBehaviour, Interactable
 
     [Header("Settings")]
 	[SerializeField] Vector3 _OffsetFromCamera = Vector3.right;
+    [SerializeField] Vector3 _AimingOffset = Vector3.right;
+    Vector3 _CurrentOffset;
 	[SerializeField] MouseButton _ShootButton = MouseButton.Left;
+    [SerializeField] MouseButton _AimButton = MouseButton.Right;
+    [HideInInspector] public bool _IsAiming;
+    [HideInInspector] public bool _Thrown;
 
-	[Header("Shooting")]
+    [Header("Shooting")]
 	[Tooltip("Maximum distance a bullet can go and still effect another object")]
 	[SerializeField] protected float _BulletMaxDistance = 3000;
     [Tooltip("How inaccurate a gun is")]
@@ -58,12 +63,19 @@ public abstract class Gun : MonoBehaviour, Interactable
         _ShotsRemaining = _ClipSize;
 		_MainCamera = Camera.main;
 		_AudioSource = GetComponent<AudioSource>();
+        _CurrentOffset = _OffsetFromCamera;
 	}
 
 	private void Update()
 	{
-		if (_IsGunEquipped)
+        // If the player threw the gun
+        if (_Thrown)
+        {
+            Thrown();
+        }
+        if (_IsGunEquipped)
 		{
+
 			// If the player has attempted to shoot
 			if (Input.GetMouseButtonDown((int)_ShootButton) && _ShotsRemaining > 0 && _TimeUntilNextShot == 0 && !_Automatic)
 			{
@@ -77,6 +89,18 @@ public abstract class Gun : MonoBehaviour, Interactable
                 Shoot();
                 _ShotsRemaining--;
                 _TimeUntilNextShot = _ShotDelay;
+            }
+
+            if(Input.GetMouseButtonDown((int)_AimButton)) 
+            {
+                AimStart();
+                GotoOffset();
+            }
+
+            if (Input.GetMouseButtonUp((int)_AimButton))
+            {
+                AimStop();
+                GotoOffset();
             }
 
             if (_ShotsRemaining <= 0 || Input.GetKeyDown(KeyCode.R))
@@ -114,12 +138,13 @@ public abstract class Gun : MonoBehaviour, Interactable
 		// If the player is trying to interact with the gun
 		if (interacting.CompareTag("Player"))
 		{
-			if (Globals._MainPlayer._CurrentGun == null)
+            if (Globals._MainPlayer._CurrentGun == null)
 			{
 				PickupGun();
 			}
 			else
 			{
+                AimStop();
 				Globals._MainPlayer.DropWeapon();				
 				PickupGun();
 			}
@@ -135,10 +160,42 @@ public abstract class Gun : MonoBehaviour, Interactable
 			
 		Camera mainCamera = Camera.main; // Grab the camera so we don't have to reference it multiple times
 		transform.parent = mainCamera.transform; // Parent the gun onto the camera
-		transform.localPosition = _OffsetFromCamera; // We've parented, so that'll be the camera's transform
+		transform.localPosition = _CurrentOffset; // We've parented, so that'll be the camera's transform
 		transform.localRotation = Quaternion.Euler(0, 180, 0); // Rotate the gun to point forward
 		CF.RecursiveSetColliders(transform, false);
 	}
 
+    private void AimStart()
+    {
+        if (!_IsAiming)
+        {
+            _CurrentOffset = _AimingOffset;
+            _Spread /= 2;
+            _IsAiming = true;
+        }
+    }
+
+    private void AimStop()
+    {
+        if(_IsAiming)
+        {
+            _CurrentOffset = _OffsetFromCamera;
+            _Spread *= 2;
+            _IsAiming = false;
+        }
+    }
+
+    void GotoOffset()
+    {
+        transform.localPosition = _CurrentOffset;
+    }
+
     public abstract void Shoot();
+
+    public void Thrown()
+    {
+        AimStop();
+        _Thrown = false;
+    }
+
 }
