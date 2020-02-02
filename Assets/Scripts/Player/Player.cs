@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IHealth
 	[SerializeField] KeyCode _DropButton = KeyCode.F;
 	[SerializeField] float _ThrowForce = 5;
     [SerializeField] int _LocalMaxHealth = 100;
-	int _LocalHealth = 0;
+	[SerializeField] int _LocalHealth = 0;
 
 	Camera _MainCamera;
     Rigidbody _Rigidbody;
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour, IHealth
 
 		foreach (var backgroundObj in _HealthDisplayBackground)
 		{
-			backgroundObj.SetColor(Color.Lerp(Color.red, Color.green, _Health / 100));
+			backgroundObj.SetColor(Color.Lerp(Color.red, Color.green, (float)_Health / _MaxHealth));
 		}
 		_HealthText.text = _Health.ToString();
 	}
