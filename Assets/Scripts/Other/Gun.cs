@@ -30,7 +30,9 @@ public abstract class Gun : MonoBehaviour, Interactable
 	[Header("Shooting")]
 	[Tooltip("Maximum distance a bullet can go and still effect another object")]
 	[SerializeField] protected float _BulletMaxDistance = 3000;
-	[Tooltip("The force applied to an object that has a rigidbody and has been shot")]
+    [Tooltip("How inaccurate a gun is")]
+    public float _Spread;
+    [Tooltip("The force applied to an object that has a rigidbody and has been shot")]
 	[SerializeField] protected float _RigidbodyForce = 10;
     [Tooltip("How Many Shots can be taken before needing to reload")]
     [SerializeField] protected int _ClipSize = 1;
