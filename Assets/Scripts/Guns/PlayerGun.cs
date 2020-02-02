@@ -22,6 +22,7 @@ public abstract class PlayerGun : CoreGun, Interactable
     {
         base.Awake();
         _MainCamera = Camera.main;
+        _CurrentInClip = _ClipSize;
     }
 
     private void Update()
