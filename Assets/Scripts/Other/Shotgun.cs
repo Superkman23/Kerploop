@@ -14,11 +14,11 @@ public class Shotgun : Gun
 
 	public override void Shoot()
 	{
-        int pelletsleft = _PelletsPerShot;
         // Play the audio of the gun shooting
         _AudioSource.PlayOneShot(_ShootNoise, _ShootNoiseVolume);
-        RaycastHit hit;
 
+        RaycastHit hit;
+        int pelletsleft = _PelletsPerShot;
         while (pelletsleft > 0)
         {
             float spreadX = Random.Range(-_Spread, _Spread);
