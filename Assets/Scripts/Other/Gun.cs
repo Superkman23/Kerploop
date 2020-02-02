@@ -26,7 +26,6 @@ public class Gun : MonoBehaviour, Interactable
 	[Header("Settings")]
 	[SerializeField] Vector3 _OffsetFromCamera = Vector3.right;
 	[SerializeField] MouseButton _ShootButton = MouseButton.Left;
-	[SerializeField] KeyCode _DropButton = KeyCode.F;
 
 	[Header("Shooting")]
 	[Tooltip("Maximum distance a bullet can go and still effect another object")]
