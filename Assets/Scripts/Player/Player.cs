@@ -17,9 +17,15 @@ public class Player : MonoBehaviour, IHealth
 	[HideInInspector] public GameObject _CurrentGun = null;
 
 
-	
-    public int _Health { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public int _MaxHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+	int _LocalHealth = 0;
+    public int _Health 
+	{ 
+		get => _LocalHealth; 
+		set { if (value > _LocalMaxHealth) value = _LocalMaxHealth;
+			_LocalHealth = value; }
+	}
+    int _LocalMaxHealth = 0;
+	public int _MaxHealth { get => _LocalMaxHealth; set => _LocalMaxHealth = value; }
 
     private void Awake() 
 	{

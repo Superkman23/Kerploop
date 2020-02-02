@@ -87,8 +87,5 @@ public abstract class Gun : MonoBehaviour, Interactable
 		CF.RecursiveSetColliders(transform, false);
 	}
 
-    public virtual void Shoot()
-    {
-
-    }
+    public abstract void Shoot();
 }
