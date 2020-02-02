@@ -557,14 +557,14 @@ MonoBehaviour:
   _AimingOffset: {x: 0, y: -0.2, z: 0.4}
   _ShootButton: 0
   _AimButton: 1
-  _BulletMaxDistance: 10
-  _Spread: 0.1
   _RigidbodyForce: 15
-  _ClipSize: 5
   _ReloadTime: 2
   _ShotDelay: 60
   _Automatic: 1
   _ShootNoiseVolume: 0.75
+  _BulletMaxDistance: 10
+  _Spread: 0.1
+  _ClipSize: 5
   _IsGunEquipped: 0
   _ToThrow: 0
   _PelletsPerShot: 10
@@ -724,7 +724,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.73170733, b: 0, a: 1}
   m_Intensity: 1000
-  m_Range: 100
+  m_Range: 3
   m_SpotAngle: 179
   m_InnerSpotAngle: 36.136154
   m_CookieSize: 10
