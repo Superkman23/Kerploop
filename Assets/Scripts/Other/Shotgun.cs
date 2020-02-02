@@ -11,8 +11,8 @@ public class Shotgun : Gun
 {
     [SerializeField] int _PelletsPerShot = 10;
 
-	public override void Shoot()
-	{
+    public override void Shoot()
+    {
         // Play the audio of the gun shooting
         _AudioSource.PlayOneShot(_ShootNoise, _ShootNoiseVolume);
 
@@ -24,7 +24,7 @@ public class Shotgun : Gun
             float spreadY = Random.Range(-_Spread, _Spread);
             Vector3 spread = new Vector3(spreadX, spreadY, 0);
 
-            Debug.DrawRay(_MainCamera.transform.position, (_MainCamera.transform.forward + spread) * _BulletMaxDistance, Color.green,2);
+            Debug.DrawRay(_MainCamera.transform.position, (_MainCamera.transform.forward + spread) * _BulletMaxDistance, Color.green, 2);
             if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward + transform.InverseTransformDirection(spread), out hit, _BulletMaxDistance))
             {
                 var hitRB = hit.rigidbody;

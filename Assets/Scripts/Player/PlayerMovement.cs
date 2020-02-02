@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] float _MovementSpeed = 5;
-    
+
     [Header("Gravity")]
     [SerializeField] float _GravityMultiplier = 1;
 
@@ -20,12 +20,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        _Rigidbody = GetComponent<Rigidbody>(); 
+        _Rigidbody = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        var mDirection = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed, 
+        var mDirection = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed,
                                      _Rigidbody.velocity.y,
                                      Input.GetAxis("Vertical") * _MovementSpeed);
 
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
             return; // exit out early
         }
-        
+
         _Rigidbody.velocity = transform.TransformDirection(mDirection);
     }
 }

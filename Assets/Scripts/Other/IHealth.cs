@@ -5,17 +5,17 @@
  * Created for: #PURPOSE#
  */
 
- public interface IHealth
- {
-	int _Health
-	{
-		get;
-		set;
-	}
+public interface IHealth
+{
+    int _Health
+    {
+        get;
+        set;
+    }
 
-	int _MaxHealth
-	{
-		get;
-		set;
-	}	
- }
+    int _MaxHealth
+    {
+        get;
+        set;
+    }
+}

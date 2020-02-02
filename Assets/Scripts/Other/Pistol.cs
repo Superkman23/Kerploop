@@ -9,9 +9,9 @@ using UnityEngine;
 
 public class Pistol : Gun
 {
-	public override void Shoot()
-	{
-		// Play the audio of the gun shooting
+    public override void Shoot()
+    {
+        // Play the audio of the gun shooting
         _AudioSource.PlayOneShot(_ShootNoise, _ShootNoiseVolume);
 
         float spreadX = Random.Range(-_Spread, _Spread);
@@ -30,5 +30,5 @@ public class Pistol : Gun
                 hitRB.AddForce(_MainCamera.transform.forward * _RigidbodyForce, ForceMode.Impulse);
             }
         }
-	}
+    }
 }

@@ -9,5 +9,5 @@ using UnityEngine;
 
 public interface Interactable
 {
-	void OnInteractStart(GameObject interacting);
+    void OnInteractStart(GameObject interacting);
 }
