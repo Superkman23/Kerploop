@@ -19,7 +19,7 @@ public class SpreadShot : PlayerGun
 
         RaycastHit hit;
         int pelletsleft = _PelletsPerShot;
-        while (pelletsleft > 0)
+        while (pelletsleft-- > 0)
         {
             float spreadX = Random.Range(-_BulletSpread, _BulletSpread);
             float spreadY = Random.Range(-_BulletSpread, _BulletSpread);
@@ -34,7 +34,6 @@ public class SpreadShot : PlayerGun
                     hitRB.AddForce(_MainCamera.transform.forward * _RigidbodyForce, ForceMode.Impulse);
                 }
             }
-            pelletsleft--;
         }
     }
 
