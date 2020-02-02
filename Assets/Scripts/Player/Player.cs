@@ -47,10 +47,15 @@ public class Player : MonoBehaviour, IHealth
 			return;
 		 
 		_CurrentGun.transform.parent = null;
+
+		var cgG = _CurrentGun.GetComponent<Gun>();
+		cgG._IsGunEquipped = false;
+
 		var cgRB = _CurrentGun.GetComponent<Rigidbody>();
 		cgRB.isKinematic = false;
 		CF.RecursiveSetColliders(cgRB.transform, true);
 		cgRB.AddForce(_MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse);
+		
 		_CurrentGun = null;
 	}
 }

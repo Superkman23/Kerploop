@@ -5,7 +5,6 @@
  * Created for: shooting a gun
  */
 
-using System.Collections;
 using UnityEngine;
 
 public enum MouseButton 
@@ -35,7 +34,7 @@ public abstract class Gun : MonoBehaviour, Interactable
 
 	[SerializeField] [Range(0, 1)] protected float _ShootNoiseVolume = 0.75f;
 
-	bool _IsGunEquipped = false;
+	[HideInInspector] public bool _IsGunEquipped = false;
 	protected Camera _MainCamera;
 
 	private void Awake() 
