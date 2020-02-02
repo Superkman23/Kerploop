@@ -1200,11 +1200,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90.00001
       objectReference: {fileID: 0}
+    - target: {fileID: 2729934016726006676, guid: 6b994081f7d85044ea0b59582a885a90,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 97d2ed1faf7aa7a46b10861d87fd31b3, type: 2}
+    - target: {fileID: 4914942766583556397, guid: 6b994081f7d85044ea0b59582a885a90,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 97d2ed1faf7aa7a46b10861d87fd31b3, type: 2}
+    - target: {fileID: 4921384000212581135, guid: 6b994081f7d85044ea0b59582a885a90,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 97d2ed1faf7aa7a46b10861d87fd31b3, type: 2}
+    - target: {fileID: 5651473338619743551, guid: 6b994081f7d85044ea0b59582a885a90,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 97d2ed1faf7aa7a46b10861d87fd31b3, type: 2}
     - target: {fileID: 5804872474989941849, guid: 6b994081f7d85044ea0b59582a885a90,
         type: 3}
       propertyPath: m_Name
       value: Shotgun
       objectReference: {fileID: 0}
+    - target: {fileID: 7519366229852975231, guid: 6b994081f7d85044ea0b59582a885a90,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 97d2ed1faf7aa7a46b10861d87fd31b3, type: 2}
+    - target: {fileID: 7903219682401499646, guid: 6b994081f7d85044ea0b59582a885a90,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 97d2ed1faf7aa7a46b10861d87fd31b3, type: 2}
+    - target: {fileID: 7903219682804472074, guid: 6b994081f7d85044ea0b59582a885a90,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 97d2ed1faf7aa7a46b10861d87fd31b3, type: 2}
+    - target: {fileID: 8274493729306090549, guid: 6b994081f7d85044ea0b59582a885a90,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 97d2ed1faf7aa7a46b10861d87fd31b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b994081f7d85044ea0b59582a885a90, type: 3}
 --- !u!1 &1498686666
