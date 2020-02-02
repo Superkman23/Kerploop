@@ -82,7 +82,7 @@ public class Gun : MonoBehaviour, Interactable
 			{
 				var currentGun = Globals._MainPlayer._CurrentGun;
 				currentGun.transform.parent = null;
-				// We know it always has a rigidbody
+				
 				var cgRB = currentGun.GetComponent<Rigidbody>();
 				cgRB.isKinematic = false;
 				RecursiveSetColliders(cgRB.transform, true);
