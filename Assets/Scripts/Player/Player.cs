@@ -75,9 +75,9 @@ public class Player : MonoBehaviour, IHealth
 
         _CurrentGun.transform.parent = null;
 
-        var cgG = _CurrentGun.GetComponent<Gun>();
-        cgG._IsGunEquipped = false;
-        cgG._ToThrow = true;
+        var cgG = _CurrentGun.GetComponent<PlayerGun>();
+        cgG._IsEquipped = false;
+        cgG._GoingToThrow = true;
 
         var cgRB = _CurrentGun.GetComponent<Rigidbody>();
         cgRB.isKinematic = false;

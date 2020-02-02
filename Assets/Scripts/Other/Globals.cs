@@ -26,4 +26,11 @@ public struct CF // stands for Common Functions
             RecursiveSetColliders(child, value);
         }
     }
+
+    public enum MButton
+    {
+        Left,
+        Right,
+        ScrollWheel
+    }
 }
