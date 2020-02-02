@@ -292,6 +292,7 @@ MonoBehaviour:
   _DropButton: 102
   _ThrowForce: 5
   _LocalMaxHealth: 100
+  _LocalHealth: 0
   _CurrentGun: {fileID: 0}
 --- !u!1 &487450295305183534
 GameObject:

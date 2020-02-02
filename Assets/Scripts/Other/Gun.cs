@@ -22,6 +22,8 @@ public abstract class Gun : MonoBehaviour, Interactable
 	[Header("Components")]
 	[SerializeField] protected AudioClip _ShootNoise;
 	protected AudioSource _AudioSource;
+    [SerializeField] Light _Flash;
+    float _FlashIntensity;
 
     [Header("Settings")]
 	[SerializeField] Vector3 _OffsetFromCamera = Vector3.right;
@@ -60,6 +62,8 @@ public abstract class Gun : MonoBehaviour, Interactable
 
 	private void Awake() 
 	{
+        _FlashIntensity = _Flash.intensity;
+        _Flash.intensity = 0;
         _ShotsRemaining = _ClipSize;
 		_MainCamera = Camera.main;
 		_AudioSource = GetComponent<AudioSource>();
@@ -75,20 +79,24 @@ public abstract class Gun : MonoBehaviour, Interactable
         }
         if (_IsGunEquipped)
 		{
-
-			// If the player has attempted to shoot
-			if (Input.GetMouseButtonDown((int)_ShootButton) && _ShotsRemaining > 0 && _TimeUntilNextShot == 0 && !_Automatic)
-			{
-                Shoot();
-                _ShotsRemaining--;
-                _TimeUntilNextShot = _ShotDelay;
-			}
-
-            if (Input.GetMouseButton((int)_ShootButton) && _ShotsRemaining > 0 && _TimeUntilNextShot == 0 && _Automatic)
+            if(_ShotsRemaining > 0 && _TimeUntilNextShot == 0)
             {
-                Shoot();
-                _ShotsRemaining--;
-                _TimeUntilNextShot = _ShotDelay;
+                // If the player has attempted to shoot
+                if (Input.GetMouseButtonDown((int)_ShootButton) && !_Automatic)
+                {
+                    Shoot();
+                    StartFlash();
+                    _ShotsRemaining--;
+                    _TimeUntilNextShot = _ShotDelay;
+                }
+
+                if (Input.GetMouseButton((int)_ShootButton) && _Automatic)
+                {
+                    Shoot();
+                    StartFlash();
+                    _ShotsRemaining--;
+                    _TimeUntilNextShot = _ShotDelay;
+                }
             }
 
             if(Input.GetMouseButtonDown((int)_AimButton)) 
@@ -110,9 +118,11 @@ public abstract class Gun : MonoBehaviour, Interactable
                     StartCoroutine(Reload());
                 }
             }
-
 		}
-	}
+
+        FlashDecay();
+
+    }
 
     private void FixedUpdate()
     {
@@ -198,4 +208,13 @@ public abstract class Gun : MonoBehaviour, Interactable
         _Thrown = false;
     }
 
+    void StartFlash()
+    {
+        _Flash.intensity = _FlashIntensity;
+    }
+
+    void FlashDecay()
+    {
+        _Flash.intensity = Mathf.Lerp(_Flash.intensity, 0, .2f);
+    }
 }
