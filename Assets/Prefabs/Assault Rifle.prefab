@@ -263,8 +263,8 @@ MonoBehaviour:
   _ShootNoise: {fileID: 8300000, guid: c8690922d39230e41a8a6e95d5219c68, type: 3}
   _Flash: {fileID: 4875469657548597665}
   _IsAutomatic: 1
-  _AimingAccuracyMultiplier: 2
-  _BulletSpread: 0
+  _AimingAccuracyMultiplier: 4
+  _BulletSpread: 0.1
   _BulletMaxDistance: 200
   _DefaultPosition: {x: 0.5, y: -0.325, z: 0.6}
   _AimingPosition: {x: 0, y: -0.2, z: 0.4}
