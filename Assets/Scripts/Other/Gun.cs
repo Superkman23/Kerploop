@@ -74,22 +74,49 @@ public class Gun : MonoBehaviour, Interactable
 		// If the player is trying to interact with the gun
 		if (interacting.CompareTag("Player"))
 		{
-			// We've picked the gun up
-			_PlayerHasGun = true;
-			GetComponent<Rigidbody>().isKinematic = true;
-			
-			Camera mainCamera = Camera.main; // Grab the camera so we don't have to reference it multiple times
-			transform.parent = mainCamera.transform; // Parent the gun onto the camera
-			transform.localPosition = _OffsetFromCamera; // We've parented, so that'll be the camera's transform
-			transform.localRotation = Quaternion.Euler(0, -90, 0); // Rotate the gun to point forward
-
-			// Loops through all of the gun's parts
-			foreach (Transform child in transform)
+			if (Globals._MainPlayer._CurrentGun == null)
 			{
-				var collider = child.GetComponent<Collider>();
-				if (collider != null) // Disable the collider
-					collider.enabled = false;
+				PickupGun();
 			}
+			else
+			{
+				var currentGun = Globals._MainPlayer._CurrentGun;
+				currentGun.transform.parent = null;
+				// We know it always has a rigidbody
+				var cgRB = currentGun.GetComponent<Rigidbody>();
+				cgRB.isKinematic = false;
+				RecursiveSetColliders(cgRB.transform, true);
+				cgRB.AddForce(_MainCamera.transform.forward * 10, ForceMode.Impulse);
+				
+				PickupGun();
+			}
+		}	
+	}
+
+	private void PickupGun()
+	{
+		_PlayerHasGun = true;
+		Globals._MainPlayer._CurrentGun = gameObject;
+
+		GetComponent<Rigidbody>().isKinematic = true;
+			
+		Camera mainCamera = Camera.main; // Grab the camera so we don't have to reference it multiple times
+		transform.parent = mainCamera.transform; // Parent the gun onto the camera
+		transform.localPosition = _OffsetFromCamera; // We've parented, so that'll be the camera's transform
+		transform.localRotation = Quaternion.Euler(0, 180, 0); // Rotate the gun to point forward
+		RecursiveSetColliders(transform, false);
+	}
+
+	private void RecursiveSetColliders(Transform root, bool value)
+	{
+		// Loops through all of the gun's parts
+		foreach (Transform child in root)
+		{
+			var collider = child.GetComponent<Collider>();
+			if (collider != null) // Disable the collider
+				collider.enabled = value;
+			
+			RecursiveSetColliders(child, value);
 		}
 	}
 }

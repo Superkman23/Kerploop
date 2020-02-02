@@ -17,6 +17,8 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] KeyCode _InteractKey = KeyCode.E;
 	[SerializeField] float _InteractDistance = 1f;
 
+	[HideInInspector] public bool _HasEquipped;
+
 	private void Awake() 
 	{
 		_MainCamera = Camera.main;
