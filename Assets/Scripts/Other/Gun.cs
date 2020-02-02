@@ -33,22 +33,10 @@ public abstract class Gun : MonoBehaviour, Interactable
     [SerializeField] MouseButton _ShootButton = MouseButton.Left;
     [SerializeField] MouseButton _AimButton = MouseButton.Right;
 
-
     [Header("Shooting")]
     [Tooltip("The force applied to an object that has a rigidbody and has been shot")]
     [SerializeField] protected float _RigidbodyForce = 10;
-
-    [Header("Bullet")]
-    [Tooltip("Maximum distance a bullet can go and still effect another object")]
-    [SerializeField] protected float _BulletMaxDistance = 3000;
-
-    [Tooltip("How inaccurate the gun is")]
-    [SerializeField] protected float _Spread;
-
-    [Tooltip("How Many Shots can be taken before needing to reload")]
-    [SerializeField] protected int _ClipSize = 1;
-    int _ShotsRemaining;
-
+    
     [Tooltip("How long it takes to reload")]
     [SerializeField] protected float _ReloadTime = 1;
     bool _IsReloading = false;
@@ -62,6 +50,17 @@ public abstract class Gun : MonoBehaviour, Interactable
 
     [Tooltip("The volume the gun shoots at")]
     [SerializeField] [Range(0, 1)] protected float _ShootNoiseVolume = 0.75f;
+
+    [Header("Bullet")]
+    [Tooltip("Maximum distance a bullet can go and still effect another object")]
+    [SerializeField] protected float _BulletMaxDistance = 3000;
+
+    [Tooltip("How inaccurate the gun is")]
+    [SerializeField] protected float _Spread;
+
+    [Tooltip("How Many Shots can be taken before needing to reload")]
+    [SerializeField] protected int _ClipSize = 1;
+    int _ShotsRemaining;
 
     [HideInInspector] public bool _IsGunEquipped = false;
     [HideInInspector] public bool _ToThrow = false; // Check to see if the gun is to be thrown
