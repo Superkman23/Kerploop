@@ -1630,41 +1630,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 375653195472278501, guid: 68d393a93a129e64c84715dda91c0c7b,
-        type: 3}
-      propertyPath: m_Antialiasing
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 375653195472278501, guid: 68d393a93a129e64c84715dda91c0c7b,
-        type: 3}
-      propertyPath: m_AntialiasingQuality
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 375653195472278501, guid: 68d393a93a129e64c84715dda91c0c7b,
-        type: 3}
-      propertyPath: m_Dithering
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 375653195472278501, guid: 68d393a93a129e64c84715dda91c0c7b,
-        type: 3}
-      propertyPath: m_StopNaN
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 375653195472278503, guid: 68d393a93a129e64c84715dda91c0c7b,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 375653195472278503, guid: 68d393a93a129e64c84715dda91c0c7b,
-        type: 3}
-      propertyPath: orthographic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 375653195472278503, guid: 68d393a93a129e64c84715dda91c0c7b,
-        type: 3}
-      propertyPath: m_FOVAxisMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 375653195498208157, guid: 68d393a93a129e64c84715dda91c0c7b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1724,21 +1689,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5205190468813823521, guid: 68d393a93a129e64c84715dda91c0c7b,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8964095297828320153, guid: 68d393a93a129e64c84715dda91c0c7b,
-        type: 3}
-      propertyPath: _InteractKey
-      value: 101
-      objectReference: {fileID: 0}
-    - target: {fileID: 8964095297828320153, guid: 68d393a93a129e64c84715dda91c0c7b,
-        type: 3}
-      propertyPath: _InteractDistance
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68d393a93a129e64c84715dda91c0c7b, type: 3}
@@ -6022,26 +5972,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461778162}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1486997376 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 375653195498208162, guid: 68d393a93a129e64c84715dda91c0c7b,
-    type: 3}
-  m_PrefabInstance: {fileID: 273507894}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1486997385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486997376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d758bf97f8d9ab248a4599f12abcf27b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _DropButton: 102
-  _CurrentGun: {fileID: 0}
 --- !u!1001 &1487550134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6049,6 +5979,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1181996966}
     m_Modifications:
+    - target: {fileID: 333489279590397638, guid: 6b994081f7d85044ea0b59582a885a90,
+        type: 3}
+      propertyPath: _BulletMaxDistance
+      value: 3000
+      objectReference: {fileID: 0}
     - target: {fileID: 1279526257204771813, guid: 6b994081f7d85044ea0b59582a885a90,
         type: 3}
       propertyPath: m_LocalPosition.x

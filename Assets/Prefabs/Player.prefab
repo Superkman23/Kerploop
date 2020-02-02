@@ -57,7 +57,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -109,8 +109,8 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 1
-  m_Antialiasing: 1
-  m_AntialiasingQuality: 2
+  m_Antialiasing: 2
+  m_AntialiasingQuality: 1
   m_StopNaN: 1
   m_Dithering: 0
   m_RequiresDepthTexture: 0
@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 375653195498208156}
   - component: {fileID: 375653195498208161}
   - component: {fileID: 8964095297828320153}
+  - component: {fileID: 1486997385}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -273,7 +274,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractKey: 101
-  _InteractDistance: 1
+  _InteractDistance: 3
+  _HasEquipped: 0
+--- !u!114 &1486997385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375653195498208162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d758bf97f8d9ab248a4599f12abcf27b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _DropButton: 102
+  _CurrentGun: {fileID: 0}
 --- !u!1 &1841853370729849531
 GameObject:
   m_ObjectHideFlags: 0
