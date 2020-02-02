@@ -511,9 +511,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1279526257204771813}
-  - component: {fileID: 4165769220692052481}
-  - component: {fileID: 3319490672782375473}
   - component: {fileID: 333489279590397638}
+  - component: {fileID: 59757725}
+  - component: {fileID: 59757724}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -537,7 +537,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &4165769220692052481
+--- !u!114 &333489279590397638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5804872474989941849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957f730edc8e1f74fa502c19726ff900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ShootNoise: {fileID: 8300000, guid: c8690922d39230e41a8a6e95d5219c68, type: 3}
+  _OffsetFromCamera: {x: 0.5, y: -0.325, z: 0.6}
+  _ShootButton: 0
+  _DropButton: 102
+  _BulletMaxDistance: 3000
+  _RigidbodyForce: 30
+  _ShootNoiseVolume: 0.95
+--- !u!54 &59757725
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -553,7 +572,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!82 &3319490672782375473
+--- !u!82 &59757724
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -649,24 +668,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &333489279590397638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5804872474989941849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 957f730edc8e1f74fa502c19726ff900, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ShootNoise: {fileID: 8300000, guid: c8690922d39230e41a8a6e95d5219c68, type: 3}
-  _OffsetFromCamera: {x: 0.5, y: -0.325, z: 0.6}
-  _ShootButton: 0
-  _BulletMaxDistance: 3000
-  _RigidbodyForce: 10
-  _ShootNoiseVolume: 0.75
 --- !u!1 &7675226841538593337
 GameObject:
   m_ObjectHideFlags: 0

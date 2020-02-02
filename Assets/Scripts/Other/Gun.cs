@@ -26,6 +26,7 @@ public class Gun : MonoBehaviour, Interactable
 	[Header("Settings")]
 	[SerializeField] Vector3 _OffsetFromCamera = Vector3.right;
 	[SerializeField] MouseButton _ShootButton = MouseButton.Left;
+	[SerializeField] KeyCode _DropButton = KeyCode.F;
 
 	[Header("Shooting")]
 	[Tooltip("Maximum distance a bullet can go and still effect another object")]
@@ -46,6 +47,14 @@ public class Gun : MonoBehaviour, Interactable
 
 	private void Update()
 	{
+		if (_IsGunEquipped)
+		{
+			if (Input.GetKeyDown(_DropButton))
+			{
+				Globals._MainPlayer.DropWeapon();
+			}
+		}
+
 		if (_IsGunEquipped)
 		{
 			// If the player has attempted to shoot
@@ -80,14 +89,7 @@ public class Gun : MonoBehaviour, Interactable
 			}
 			else
 			{
-				var currentGun = Globals._MainPlayer._CurrentGun;
-				currentGun.transform.parent = null;
-
-				var cgRB = currentGun.GetComponent<Rigidbody>();
-				cgRB.isKinematic = false;
-				RecursiveSetColliders(cgRB.transform, true);
-				cgRB.AddForce(_MainCamera.transform.forward * 5, ForceMode.Impulse);
-				
+				Globals._MainPlayer.DropWeapon();				
 				PickupGun();
 			}
 		}	
@@ -104,19 +106,6 @@ public class Gun : MonoBehaviour, Interactable
 		transform.parent = mainCamera.transform; // Parent the gun onto the camera
 		transform.localPosition = _OffsetFromCamera; // We've parented, so that'll be the camera's transform
 		transform.localRotation = Quaternion.Euler(0, 180, 0); // Rotate the gun to point forward
-		RecursiveSetColliders(transform, false);
-	}
-
-	private void RecursiveSetColliders(Transform root, bool value)
-	{
-		// Loops through all of the gun's parts
-		foreach (Transform child in root)
-		{
-			var collider = child.GetComponent<Collider>();
-			if (collider != null) // Disable the collider
-				collider.enabled = value;
-			
-			RecursiveSetColliders(child, value);
-		}
+		CF.RecursiveSetColliders(transform, false);
 	}
 }

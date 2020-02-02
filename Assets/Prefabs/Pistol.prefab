@@ -428,9 +428,10 @@ MonoBehaviour:
   _ShootNoise: {fileID: 8300000, guid: c8690922d39230e41a8a6e95d5219c68, type: 3}
   _OffsetFromCamera: {x: 0.5, y: -0.325, z: 0.6}
   _ShootButton: 0
+  _DropButton: 102
   _BulletMaxDistance: 3000
-  _RigidbodyForce: 10
-  _ShootNoiseVolume: 0.75
+  _RigidbodyForce: 25
+  _ShootNoiseVolume: 0.5
 --- !u!54 &3059597089240479659
 Rigidbody:
   m_ObjectHideFlags: 0

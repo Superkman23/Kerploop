@@ -15,4 +15,16 @@ public class Player : MonoBehaviour
 	{
 		Globals._MainPlayer = this;	
 	}
+
+	public void DropWeapon()
+	{
+		if (_CurrentGun == null)
+			return;
+		 
+		_CurrentGun.transform.parent = null;
+		var cgRB = _CurrentGun.GetComponent<Rigidbody>();
+		cgRB.isKinematic = false;
+		CF.RecursiveSetColliders(cgRB.transform, true);
+		cgRB.AddForce(transform.forward * 5, ForceMode.Impulse);
+	}
 }
