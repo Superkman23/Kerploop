@@ -14,7 +14,8 @@ public class Player : MonoBehaviour, IHealth
 	[SerializeField] float _ThrowForce = 5;
 
 	Camera _MainCamera;
-	[HideInInspector] public GameObject _CurrentGun = null;
+    Rigidbody _Rigidbody;
+    [HideInInspector] public GameObject _CurrentGun = null;
 
 
 	int _LocalHealth = 0;
@@ -30,7 +31,8 @@ public class Player : MonoBehaviour, IHealth
     private void Awake() 
 	{
 		_MainCamera = Camera.main;
-		Globals._MainPlayer = this;
+        _Rigidbody = GetComponent<Rigidbody>();
+        Globals._MainPlayer = this;
 	}
 
 	private void Update() 
@@ -54,7 +56,7 @@ public class Player : MonoBehaviour, IHealth
 		var cgRB = _CurrentGun.GetComponent<Rigidbody>();
 		cgRB.isKinematic = false;
 		CF.RecursiveSetColliders(cgRB.transform, true);
-		cgRB.AddForce(_MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse);
+		cgRB.AddForce(_MainCamera.transform.forward * _ThrowForce + _Rigidbody.velocity, ForceMode.Impulse);
 		
 		_CurrentGun = null;
 	}
