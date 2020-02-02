@@ -15,15 +15,25 @@ public enum MouseButton
 }
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
 public class Gun : MonoBehaviour, Interactable
 {	
+	[Header("Components")]
+	[SerializeField] Transform _ParticleSystemPosition;
+	[SerializeField] GameObject _ParticleSystem;
+	[SerializeField] AudioClip _ShootNoise;
+	AudioSource _AudioSource;
+
 	[Header("Settings")]
 	[SerializeField] Vector3 _OffsetFromCamera = Vector3.right;
 	[SerializeField] MouseButton _ShootButton = MouseButton.Left;
 
 	[Header("Shooting")]
+	[Tooltip("Maximum distance a bullet can go and still effect another object")]
 	[SerializeField] float _BulletMaxDistance = 3000;
+	[Tooltip("The force applied to an object that has a rigidbody and has been shot")]
 	[SerializeField] float _RigidbodyForce = 10;
+	[SerializeField] [Range(0, 1)] float _GunNoiseVolume = 0.75f;
 
 	bool _PlayerHasGun = false;
 	Camera _MainCamera;
@@ -31,6 +41,7 @@ public class Gun : MonoBehaviour, Interactable
 	private void Awake() 
 	{
 		_MainCamera = Camera.main;
+		_AudioSource = GetComponent<AudioSource>();
 	}
 
 	private void Update()
@@ -40,6 +51,13 @@ public class Gun : MonoBehaviour, Interactable
 			// If the player has attempted to shoot
 			if (Input.GetMouseButtonDown((int)_ShootButton))
 			{
+				// Create the particle system
+				var go = Instantiate(_ParticleSystem,
+                    _ParticleSystemPosition.position,
+                    Quaternion.Euler(0, -90 + transform.localEulerAngles.y, 0));
+				// Play the audio of the gun shooting
+				_AudioSource.PlayOneShot(_ShootNoise, _GunNoiseVolume);
+
 				if (Physics.Raycast(
                     _MainCamera.transform.position, // Shoots from the main camera
                     _MainCamera.transform.forward,  // Shoots forwards
@@ -47,7 +65,7 @@ public class Gun : MonoBehaviour, Interactable
 				{
 					var hitRB = hit.rigidbody;
 					if (hitRB != null)
-					{
+					{						
 						hitRB.AddForce(_MainCamera.transform.forward * _RigidbodyForce, ForceMode.Impulse);
 					}
 				}
