@@ -245,6 +245,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MovementSpeed: 5
+  _JumpKey: 32
+  _JumpForce: 5
   _GravityMultiplier: 1
 --- !u!114 &375653195498208161
 MonoBehaviour:

@@ -13,6 +13,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float _MovementSpeed = 5;
 
+    [Header("Jumping")]
+    [SerializeField] KeyCode _JumpKey = KeyCode.Space;
+    [SerializeField] float _JumpForce;
+    bool _ReadyToJump = false;
+    bool _Grounded;
+
     [Header("Gravity")]
     [SerializeField] float _GravityMultiplier = 1;
 
@@ -23,7 +29,33 @@ public class PlayerMovement : MonoBehaviour
         _Rigidbody = GetComponent<Rigidbody>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(_JumpKey) && _Grounded)
+        {
+            _ReadyToJump = true;
+        }
+    }
+
+
     private void FixedUpdate()
+    {
+        Movement();
+
+        if(_ReadyToJump)
+        {
+            _Grounded = false;
+            Jump();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        _Grounded = true;
+    }
+
+
+    void Movement()
     {
         var mDirection = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed,
                                      _Rigidbody.velocity.y,
@@ -38,5 +70,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _Rigidbody.velocity = transform.TransformDirection(mDirection);
+    }
+
+    void Jump()
+    {
+        _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _JumpForce, _Rigidbody.velocity.z);
+        _ReadyToJump = false;
     }
 }
