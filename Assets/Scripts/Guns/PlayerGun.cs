@@ -28,16 +28,6 @@ public abstract class PlayerGun : CoreGun, Interactable
     {
         _Flash.intensity = Mathf.Lerp(_Flash.intensity, 0, 0.1f);
 
-        // The rest of the code is only equip-specific so exit early if we aren't equipped
-        if (_IsEquipped == false || _IsReloading)
-            return;
-
-        if (_GoingToThrow)
-        {
-            Aim(false);
-            _GoingToThrow = false;
-        }
-
         if (Input.GetMouseButtonDown((int)_AimButton))
         {
             Aim(true);
@@ -47,6 +37,16 @@ public abstract class PlayerGun : CoreGun, Interactable
         {
             Aim(false);
             transform.localPosition = _DefaultPosition;
+        }
+
+        // The rest of the code is only equip-specific so exit early if we aren't equipped
+        if (_IsEquipped == false || _IsReloading)
+            return;
+
+        if (_GoingToThrow)
+        {
+            Aim(false);
+            _GoingToThrow = false;
         }
 
         // if we have ammo in the clip and we are allowed to shoot (from the shot delay)
