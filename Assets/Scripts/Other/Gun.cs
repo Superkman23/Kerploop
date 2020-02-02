@@ -25,40 +25,47 @@ public abstract class Gun : MonoBehaviour, Interactable
     [SerializeField] Light _Flash;
     float _FlashIntensity;
 
+
     [Header("Settings")]
 	[SerializeField] Vector3 _OffsetFromCamera = Vector3.right;
     [SerializeField] Vector3 _AimingOffset = Vector3.right;
     Vector3 _CurrentOffset;
 	[SerializeField] MouseButton _ShootButton = MouseButton.Left;
     [SerializeField] MouseButton _AimButton = MouseButton.Right;
-    [HideInInspector] public bool _IsAiming;
-    [HideInInspector] public bool _Thrown;
 
     [Header("Shooting")]
 	[Tooltip("Maximum distance a bullet can go and still effect another object")]
 	[SerializeField] protected float _BulletMaxDistance = 3000;
+
     [Tooltip("How inaccurate a gun is")]
     public float _Spread;
+
     [Tooltip("The force applied to an object that has a rigidbody and has been shot")]
 	[SerializeField] protected float _RigidbodyForce = 10;
+
     [Tooltip("How Many Shots can be taken before needing to reload")]
     [SerializeField] protected int _ClipSize = 1;
     int _ShotsRemaining;
+
     [Tooltip("How long it takes to reload")]
     [SerializeField] protected float _ReloadTime = 1;
     bool _IsReloading = false;
+
     [Tooltip("Minimum amount of time between shots")]
     [SerializeField] protected int _ShotDelay = 1;
     int _TimeUntilNextShot;
+
     [Tooltip("Determines whether you can hold the mouse down to repeatedly shoot")]
     [SerializeField] protected bool _Automatic;
 
-
-
+    [Tooltip("The volume the gun shoots at")]
     [SerializeField] [Range(0, 1)] protected float _ShootNoiseVolume = 0.75f;
 
 	[HideInInspector] public bool _IsGunEquipped = false;
+    [HideInInspector] public bool _ToThrow; // Check to see if the gun is to be thrown
+    private bool _IsAiming;
 	protected Camera _MainCamera;
+	protected AudioSource _AudioSource;
 
 	private void Awake() 
 	{
@@ -72,14 +79,26 @@ public abstract class Gun : MonoBehaviour, Interactable
 
 	private void Update()
 	{
-        // If the player threw the gun
-        if (_Thrown)
+        if (_ToThrow)
         {
-            Thrown();
+            AimStop(); // stop aiming gun to throw
+            _ToThrow = false;
         }
+
         if (_IsGunEquipped)
 		{
             if(_ShotsRemaining > 0 && _TimeUntilNextShot == 0)
+            HandleAiming();
+
+			// If the player has attempted to shoot
+			if (Input.GetMouseButtonDown((int)_ShootButton) && _ShotsRemaining > 0 && _TimeUntilNextShot == 0 && !_Automatic)
+			{
+                Shoot();
+                _ShotsRemaining--;
+                _TimeUntilNextShot = _ShotDelay;
+			}
+
+            if (Input.GetMouseButton((int)_ShootButton) && _ShotsRemaining > 0 && _TimeUntilNextShot == 0 && _Automatic)
             {
                 // If the player has attempted to shoot
                 if (Input.GetMouseButtonDown((int)_ShootButton) && !_Automatic)
@@ -97,18 +116,6 @@ public abstract class Gun : MonoBehaviour, Interactable
                     _ShotsRemaining--;
                     _TimeUntilNextShot = _ShotDelay;
                 }
-            }
-
-            if(Input.GetMouseButtonDown((int)_AimButton)) 
-            {
-                AimStart();
-                GotoOffset();
-            }
-
-            if (Input.GetMouseButtonUp((int)_AimButton))
-            {
-                AimStop();
-                GotoOffset();
             }
 
             if (_ShotsRemaining <= 0 || Input.GetKeyDown(KeyCode.R))
@@ -131,8 +138,6 @@ public abstract class Gun : MonoBehaviour, Interactable
             _TimeUntilNextShot--;
         }
     }
-
-
 
     IEnumerator Reload()
     {
@@ -175,6 +180,21 @@ public abstract class Gun : MonoBehaviour, Interactable
 		CF.RecursiveSetColliders(transform, false);
 	}
 
+    private void HandleAiming()
+    {
+        if(Input.GetMouseButtonDown((int)_AimButton)) 
+        {
+            AimStart();
+            transform.localPosition = _CurrentOffset;
+        }
+
+        if (Input.GetMouseButtonUp((int)_AimButton))
+        {
+            AimStop();
+            transform.localPosition = _CurrentOffset;
+        }
+    }
+
     private void AimStart()
     {
         if (!_IsAiming)
@@ -193,11 +213,6 @@ public abstract class Gun : MonoBehaviour, Interactable
             _Spread *= 2;
             _IsAiming = false;
         }
-    }
-
-    void GotoOffset()
-    {
-        transform.localPosition = _CurrentOffset;
     }
 
     public abstract void Shoot();
