@@ -5,6 +5,7 @@
  * Created for: shooting a gun
  */
 
+using System.Collections;
 using UnityEngine;
 
 public enum MouseButton 
@@ -19,8 +20,6 @@ public enum MouseButton
 public class Gun : MonoBehaviour, Interactable
 {	
 	[Header("Components")]
-	[SerializeField] Transform _ParticleSystemPosition;
-	[SerializeField] GameObject _ParticleSystem;
 	[SerializeField] AudioClip _ShootNoise;
 	AudioSource _AudioSource;
 
@@ -33,6 +32,7 @@ public class Gun : MonoBehaviour, Interactable
 	[SerializeField] float _BulletMaxDistance = 3000;
 	[Tooltip("The force applied to an object that has a rigidbody and has been shot")]
 	[SerializeField] float _RigidbodyForce = 10;
+
 	[SerializeField] [Range(0, 1)] float _ShootNoiseVolume = 0.75f;
 
 	bool _PlayerHasGun = false;
@@ -51,10 +51,6 @@ public class Gun : MonoBehaviour, Interactable
 			// If the player has attempted to shoot
 			if (Input.GetMouseButtonDown((int)_ShootButton))
 			{
-				// Create the particle system
-				var go = Instantiate(_ParticleSystem,
-                    _ParticleSystemPosition.position,
-                    Quaternion.Euler(0, -90 + transform.localEulerAngles.y, 0));
 				// Play the audio of the gun shooting
 				_AudioSource.PlayOneShot(_ShootNoise, _ShootNoiseVolume);
 
@@ -86,6 +82,14 @@ public class Gun : MonoBehaviour, Interactable
 			transform.parent = mainCamera.transform; // Parent the gun onto the camera
 			transform.localPosition = _OffsetFromCamera; // We've parented, so that'll be the camera's transform
 			transform.localRotation = Quaternion.Euler(0, -90, 0); // Rotate the gun to point forward
+
+			// Loops through all of the gun's parts
+			foreach (Transform child in transform)
+			{
+				var collider = child.GetComponent<Collider>();
+				if (collider != null) // Disable the collider
+					collider.enabled = false;
+			}
 		}
 	}
 }
