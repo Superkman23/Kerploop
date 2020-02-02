@@ -38,11 +38,12 @@ public class Player : MonoBehaviour, IHealth
 
     private void Awake()
     {
-        _LocalHealth = _LocalMaxHealth;
-
-        _MainCamera = Camera.main;
-        _Rigidbody = GetComponent<Rigidbody>();
         Globals._MainPlayer = this;
+
+        _LocalHealth = _LocalMaxHealth;
+        _MainCamera = Camera.main;
+        
+        _Rigidbody = GetComponent<Rigidbody>();
 
         foreach (Transform child in _HealthText.transform)
         {

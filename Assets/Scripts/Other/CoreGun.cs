@@ -23,9 +23,8 @@ public abstract class CoreGun : MonoBehaviour
 	[SerializeField] protected float _BulletMaxDistance;
 
 	[Header("Positioning")]
-	[SerializeField] protected Transform _DefaultPosition;
-	[SerializeField] protected Transform _AimingPosition;
-	protected Transform _CurrentPosition;
+	[SerializeField] protected Vector3 _DefaultPosition;
+	[SerializeField] protected Vector3 _AimingPosition;
 	protected bool _IsAiming;
 	
 	[Header("Shooting")]
@@ -37,7 +36,8 @@ public abstract class CoreGun : MonoBehaviour
 	[Header("Ammo")]
 	[SerializeField] protected int _MaxAmmo;
 	[SerializeField] protected int _ClipSize;
-	protected int _CurrentAmmo;
+	protected int _CurrentInClip;
+	protected int _CurrentAmmoTotal;
 
 	[Header("Reloading")]
 	[SerializeField] protected float _ReloadTime;
@@ -63,7 +63,9 @@ public abstract class CoreGun : MonoBehaviour
 		_IsReloading = false;
 
 		_ClipSize = 6;
-		_CurrentAmmo = _MaxAmmo;
+		_CurrentInClip = _ClipSize;
+		_MaxAmmo = _ClipSize * 10; 
+		_CurrentAmmoTotal = _MaxAmmo;
 	}
 
 	protected virtual void Awake()
@@ -78,15 +80,16 @@ public abstract class CoreGun : MonoBehaviour
 	public IEnumerator Reload()
 	{
 		// Exit out early so we don't need to do a check every time we want to reload
-		if (_CurrentAmmo == 0)
+		if (_CurrentAmmoTotal == 0 || _CurrentInClip == _ClipSize)
 			yield break;
 
 		_IsReloading = true;
 		yield return _ReloadTimeDelay;
 
-		_CurrentAmmo -= _ClipSize;
-		if (_CurrentAmmo < 0)
-			_CurrentAmmo = 0;
+		int difference = _ClipSize - _CurrentInClip;
+		int amountToDeduct = (_CurrentAmmoTotal >= difference) ? difference : _CurrentAmmoTotal;
+        _CurrentInClip += amountToDeduct;
+        _CurrentAmmoTotal -= amountToDeduct;			
 
 		_IsReloading = false;
 	}
@@ -96,21 +99,14 @@ public abstract class CoreGun : MonoBehaviour
 		if (startAim && !_IsAiming)
 		{
 			// We're now aiming
-			_CurrentPosition = _AimingPosition;
 			_BulletSpread /= _AimingAccuracyMultiplier;
 		}
 		if (!startAim && _IsAiming)
 		{
 			// No longer aiming
-			_CurrentPosition = _DefaultPosition;
 			_BulletSpread *= _AimingAccuracyMultiplier;
 		}
 
 		_IsAiming = !_IsAiming;
 	}
 }
-
-/*
-
-
-*/

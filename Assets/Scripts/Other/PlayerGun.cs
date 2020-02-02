@@ -30,6 +30,7 @@ public abstract class PlayerGun : CoreGun, Interactable
 
         if (_IsEquipped == false)
             return;
+        Debug.Log("Equipped");
 
         if (_GoingToThrow)
         {
@@ -40,22 +41,22 @@ public abstract class PlayerGun : CoreGun, Interactable
         if (Input.GetMouseButtonDown((int)_AimButton))
         {
             Aim(true);
-            transform.position = _AimingPosition.position;
+            transform.localPosition = _AimingPosition;
         }
         if (Input.GetMouseButtonUp((int)_AimButton))
         {
             Aim(false);
-            transform.position = _DefaultPosition.position;
+            transform.localPosition = _DefaultPosition;
         }
 
-        if (GetAmmoInClip() > 0 && _TimeTillNextShot == 0)
+        if (_CurrentInClip > 0 && _TimeTillNextShot == 0)
         {
             // If the player has attempted to shoot
             if (Input.GetMouseButtonDown((int)_ShootButton) && !_IsAutomatic)
             {
                 Shoot();
                 _Flash.intensity = _FlashIntensity;
-                _CurrentAmmo--;
+                _CurrentInClip--;
                 _TimeTillNextShot = _ShotDelay;
             }
 
@@ -63,14 +64,14 @@ public abstract class PlayerGun : CoreGun, Interactable
             {
                 Shoot();
                 _Flash.intensity = _FlashIntensity;
-                _CurrentAmmo--;
+                _CurrentInClip--;
                 _TimeTillNextShot = _ShotDelay;
             }
         }
 
-        if (GetAmmoInClip() == 0 || Input.GetKeyDown(KeyCode.R))
+        if (_CurrentInClip == 0 || Input.GetKeyDown(KeyCode.R))
         {
-            if (!_IsReloading && _CurrentAmmo > _ClipSize)
+            if (!_IsReloading)
             {
                 StartCoroutine(Reload());
             }
@@ -111,18 +112,9 @@ public abstract class PlayerGun : CoreGun, Interactable
 
         Camera mainCamera = Camera.main; // Grab the camera so we don't have to reference it multiple times
         transform.parent = mainCamera.transform; // Parent the gun onto the camera
-        transform.localPosition = _CurrentPosition.localPosition; // We've parented, so that'll be the camera's transform
+        transform.localPosition = _DefaultPosition; // We've parented, so that'll be the camera's transform
         transform.localRotation = Quaternion.Euler(0, 180, 0); // Rotate the gun to point forward
         CF.RecursiveSetColliders(transform, false);
     }
-
-    protected int GetAmmoInClip()
-    {
-        if (_CurrentAmmo <= 0)
-            return 0;
-        
-        return _CurrentAmmo & (_ClipSize-1);
-    }
-
     protected abstract void Shoot(); 
 }
