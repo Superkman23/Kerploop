@@ -1,13 +1,13 @@
 ﻿/*
  * Pistol.cs
- * Created by: #AUTHOR#
- * Created on: #CREATIONDATE# (dd/mm/yy)
- * Created for: #PURPOSE#
+ * Created by: Ambrosia, Kaelan
+ * Created on: 2/2/2020 (dd/mm/yy)
+ * Created for: guns that shoot 1 bullet at a time
  */
 
 using UnityEngine;
 
-public class SingleShot : PlayerGun //for guns that shoot 1 bullet at a time
+public class SingleShot : PlayerGun
 {
     [SerializeField] float _RigidbodyForce = 5f;
 

@@ -1,8 +1,8 @@
 ﻿/*
  * PlayerGun.cs
- * Created by: #AUTHOR#
- * Created on: #CREATIONDATE# (dd/mm/yy)
- * Created for: #PURPOSE#
+ * Created by: Ambrosia
+ * Created on: 2/2/2020 (dd/mm/yy)
+ * Created for: specifying a type of gun that the player can pick up, throw and shoot
  */
 
 using UnityEngine;

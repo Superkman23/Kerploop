@@ -2,12 +2,12 @@
  * SpreadShot.cs
  * Created by: Kaelan Bartlett
  * Created on: 2/2/20 (dd/mm/yy)
- * Created for: Shotguns
+ * Created for: guns that shoot pellets (Shotgun)
  */
 
 using UnityEngine;
 
-public class SpreadShot : PlayerGun //for guns that shoot pellets (Shotgun)
+public class SpreadShot : PlayerGun
 {
     [SerializeField] float _RigidbodyForce = 5;
     [SerializeField] int _PelletsPerShot = 10;
