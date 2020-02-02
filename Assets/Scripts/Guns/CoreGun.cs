@@ -42,7 +42,7 @@ public abstract class CoreGun : MonoBehaviour
 	[Header("Reloading")]
 	[SerializeField] protected float _ReloadTime;
 	protected WaitForSecondsRealtime _ReloadTimeDelay;
-	protected bool _IsReloading;
+	[HideInInspector] public bool _IsReloading;
 
 	[Header("Muzzle Flash")]
 	[SerializeField] protected float _FlashIntensity;
@@ -109,4 +109,7 @@ public abstract class CoreGun : MonoBehaviour
 
 		_IsAiming = !_IsAiming;
 	}
+
+	public int GetCurrentClipAmmo() => _CurrentInClip;
+	public int GetCurrentTotalAmmo() => _CurrentAmmoTotal;
 }

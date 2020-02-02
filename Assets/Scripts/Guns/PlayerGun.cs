@@ -28,9 +28,9 @@ public abstract class PlayerGun : CoreGun, Interactable
     {
         _Flash.intensity = Mathf.Lerp(_Flash.intensity, 0, 0.1f);
 
-        if (_IsEquipped == false)
+        // The rest of the code is only equip-specific so exit early if we aren't equipped
+        if (_IsEquipped == false || _IsReloading)
             return;
-        Debug.Log("Equipped");
 
         if (_GoingToThrow)
         {
@@ -49,9 +49,10 @@ public abstract class PlayerGun : CoreGun, Interactable
             transform.localPosition = _DefaultPosition;
         }
 
+        // if we have ammo in the clip and we are allowed to shoot (from the shot delay)
         if (_CurrentInClip > 0 && _TimeTillNextShot == 0)
         {
-            // If the player has attempted to shoot
+            // check if we're not using an automatic gun and we shoot
             if (Input.GetMouseButtonDown((int)_ShootButton) && !_IsAutomatic)
             {
                 Shoot();
@@ -60,6 +61,7 @@ public abstract class PlayerGun : CoreGun, Interactable
                 _TimeTillNextShot = _ShotDelay;
             }
 
+            // if we're using automatic
             if (Input.GetMouseButton((int)_ShootButton) && _IsAutomatic)
             {
                 Shoot();
@@ -71,10 +73,7 @@ public abstract class PlayerGun : CoreGun, Interactable
 
         if (_CurrentInClip == 0 || Input.GetKeyDown(KeyCode.R))
         {
-            if (!_IsReloading)
-            {
-                StartCoroutine(Reload());
-            }
+            StartCoroutine(Reload());
         }
     }
 
@@ -90,14 +89,14 @@ public abstract class PlayerGun : CoreGun, Interactable
         // If the player is trying to interact with the gun
         if (interacting.CompareTag("Player"))
         {
-            if (Globals._MainPlayer._CurrentGun == null)
+            if (Globals._MainPlayer.GetWeapon() == null)
             {
                 Pickup();
             }
             else
             {
                 Aim(false);
-                Globals._MainPlayer.DropWeapon();
+                Globals._MainPlayer.ThrowWeapon();
                 Pickup();
             }
         }
@@ -106,7 +105,7 @@ public abstract class PlayerGun : CoreGun, Interactable
     private void Pickup()
     {
         _IsEquipped = true;
-        Globals._MainPlayer._CurrentGun = gameObject;
+        Globals._MainPlayer.SetWeapon(this);
 
         GetComponent<Rigidbody>().isKinematic = true;
 

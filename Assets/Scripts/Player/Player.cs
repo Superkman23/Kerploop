@@ -13,17 +13,23 @@ public class Player : MonoBehaviour, IHealth
 {
     [Header("Components")]
     [SerializeField] TextMeshProUGUI _HealthText;
-    List<CanvasRenderer> _HealthDisplayBackground = new List<CanvasRenderer>();
+    [SerializeField] TextMeshProUGUI _TotalAmmoText;
+    [SerializeField] TextMeshProUGUI _ClipAmmoText;
+    List<CanvasRenderer> _HealthDisplayObjs = new List<CanvasRenderer>();
 
-    [Header("Settings")]
-    [SerializeField] KeyCode _DropButton = KeyCode.F;
+    [Header("Throwing Weapon")]
+    [SerializeField] KeyCode _ThrowButton = KeyCode.F;
     [SerializeField] float _ThrowForce = 5;
+
+    [Header("Health")]
     [SerializeField] int _LocalMaxHealth = 100;
     [SerializeField] int _LocalHealth = 0;
 
+    GameObject _CurrentGun = null;
+    CoreGun _CurrentGunComponent = null;
+
     Camera _MainCamera;
     Rigidbody _Rigidbody;
-    [HideInInspector] public GameObject _CurrentGun = null;
 
     public int _Health
     {
@@ -48,37 +54,51 @@ public class Player : MonoBehaviour, IHealth
         foreach (Transform child in _HealthText.transform)
         {
             var renderer = child.GetComponent<CanvasRenderer>();
-            if (renderer != null)
-            {
-                _HealthDisplayBackground.Add(renderer);
-            }
+            if (renderer != null)            
+                _HealthDisplayObjs.Add(renderer);            
         }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(_DropButton))
-        {
-            DropWeapon();
-        }
+        if (Input.GetKeyDown(_ThrowButton))        
+            ThrowWeapon();
 
-        foreach (var backgroundObj in _HealthDisplayBackground)
-        {
-            backgroundObj.SetColor(Color.Lerp(Color.red, Color.green, (float)_Health / _MaxHealth));
-        }
+        DisplayAmmo();
+        DisplayHealth();
+    }
+
+    private void DisplayAmmo()
+    {
+        if (_CurrentGun == null)
+            return;
+        
+        _TotalAmmoText.text = _CurrentGunComponent.GetCurrentTotalAmmo().ToString();
+        _ClipAmmoText.text = _CurrentGunComponent.GetCurrentClipAmmo().ToString();
+    }
+
+    private void DisplayHealth()
+    {
+        foreach (var obj in _HealthDisplayObjs)        
+            obj.SetColor(Color.Lerp(Color.red, Color.green, (float)_Health / _MaxHealth));        
         _HealthText.text = _Health.ToString();
     }
 
-    public void DropWeapon()
+    // Weapon specific functions
+    public void ThrowWeapon()
     {
         if (_CurrentGun == null)
             return;
 
-        _CurrentGun.transform.parent = null;
-
         var cgG = _CurrentGun.GetComponent<PlayerGun>();
+
+        if (cgG._IsReloading) // Must finish reloading first
+            return;
+
         cgG._IsEquipped = false;
         cgG._GoingToThrow = true;
+
+        _CurrentGun.transform.parent = null;
 
         var cgRB = _CurrentGun.GetComponent<Rigidbody>();
         cgRB.isKinematic = false;
@@ -86,5 +106,12 @@ public class Player : MonoBehaviour, IHealth
         cgRB.AddForce(_MainCamera.transform.forward * _ThrowForce + _Rigidbody.velocity, ForceMode.Impulse);
 
         _CurrentGun = null;
+        _CurrentGunComponent = null;
     }
+    public void SetWeapon(CoreGun setTo)
+    {
+        _CurrentGunComponent = setTo;
+        _CurrentGun = setTo.gameObject;
+    }
+    public GameObject GetWeapon() => _CurrentGun;
 }
