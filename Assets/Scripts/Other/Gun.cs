@@ -33,6 +33,7 @@ public abstract class Gun : MonoBehaviour, Interactable
 	[SerializeField] MouseButton _ShootButton = MouseButton.Left;
     [SerializeField] MouseButton _AimButton = MouseButton.Right;
 
+
     [Header("Shooting")]
 	[Tooltip("Maximum distance a bullet can go and still effect another object")]
 	[SerializeField] protected float _BulletMaxDistance = 3000;
@@ -65,7 +66,6 @@ public abstract class Gun : MonoBehaviour, Interactable
     [HideInInspector] public bool _ToThrow; // Check to see if the gun is to be thrown
     private bool _IsAiming;
 	protected Camera _MainCamera;
-	protected AudioSource _AudioSource;
 
 	private void Awake() 
 	{
@@ -220,7 +220,7 @@ public abstract class Gun : MonoBehaviour, Interactable
     public void Thrown()
     {
         AimStop();
-        _Thrown = false;
+        _ToThrow = false;
     }
 
     void StartFlash()
