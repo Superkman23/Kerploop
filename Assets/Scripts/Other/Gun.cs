@@ -94,7 +94,7 @@ public abstract class Gun : MonoBehaviour, Interactable
                 if (Input.GetMouseButtonDown((int)_ShootButton) && !_Automatic)
                 {
                     Shoot();
-                    StartFlash();
+                    _Flash.intensity = _FlashIntensity;
                     _ShotsRemaining--;
                     _TimeUntilNextShot = _ShotDelay;
                 }
@@ -102,7 +102,7 @@ public abstract class Gun : MonoBehaviour, Interactable
                 if (Input.GetMouseButton((int)_ShootButton) && _Automatic)
                 {
                     Shoot();
-                    StartFlash();
+                    _Flash.intensity = _FlashIntensity;
                     _ShotsRemaining--;
                     _TimeUntilNextShot = _ShotDelay;
                 }
@@ -117,8 +117,8 @@ public abstract class Gun : MonoBehaviour, Interactable
             }
         }
 
-        FlashDecay();
-
+        // decay the intensity of the light
+        _Flash.intensity = Mathf.Lerp(_Flash.intensity, 0, .1f);
     }
 
     private void FixedUpdate()
@@ -206,20 +206,4 @@ public abstract class Gun : MonoBehaviour, Interactable
     }
 
     public abstract void Shoot();
-
-    public void Thrown()
-    {
-        AimStop();
-        _ToThrow = false;
-    }
-
-    void StartFlash()
-    {
-        _Flash.intensity = _FlashIntensity;
-    }
-
-    void FlashDecay()
-    {
-        _Flash.intensity = Mathf.Lerp(_Flash.intensity, 0, .1f);
-    }
 }
