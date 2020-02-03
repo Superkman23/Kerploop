@@ -13,10 +13,10 @@ public abstract class PlayerGun : CoreGun, Interactable
     [SerializeField] protected CF.MButton _ShootButton = CF.MButton.Left;
     [SerializeField] protected CF.MButton _AimButton = CF.MButton.Right;
 
-    protected Camera _MainCamera;
-
     [HideInInspector] public bool _IsEquipped = false;
     [HideInInspector] public bool _GoingToThrow = false;
+    protected Camera _MainCamera;
+
 
     protected override void Awake()
     {
@@ -30,21 +30,15 @@ public abstract class PlayerGun : CoreGun, Interactable
         _Flash.intensity = Mathf.Lerp(_Flash.intensity, 0, 0.1f);
 
         // The rest of the code is only equip-specific so exit early if we aren't equipped
-        if (_IsEquipped == false || _IsReloading)
+        if (_IsEquipped == false)
             return;
 
-        if (Input.GetMouseButtonDown((int)_AimButton))
-        {
-            Aim(true);
-            transform.localPosition = _AimingPosition;
-        }
-        if (Input.GetMouseButtonUp((int)_AimButton))
-        {
-            Aim(false);
-            transform.localPosition = _DefaultPosition;
-        }
+        HandleAiming();
 
+        if (_IsReloading)
+            return;
 
+        // Handle throwing
         if (_GoingToThrow)
         {
             Aim(false);
@@ -104,6 +98,21 @@ public abstract class PlayerGun : CoreGun, Interactable
         }
     }
 
+    private void HandleAiming()
+    {
+        // Handle aiming down sights
+        if (Input.GetMouseButtonDown((int)_AimButton))
+        {
+            Aim(true);
+            transform.localPosition = _AimingPosition;
+        }
+        if (Input.GetMouseButtonUp((int)_AimButton))
+        {
+            Aim(false);
+            transform.localPosition = _DefaultPosition;
+        }
+    }
+
     private void Pickup()
     {
         _IsEquipped = true;
@@ -117,5 +126,6 @@ public abstract class PlayerGun : CoreGun, Interactable
         transform.localRotation = Quaternion.Euler(0, 180, 0); // Rotate the gun to point forward
         CF.RecursiveSetColliders(transform, false);
     }
-    protected abstract void Shoot(); 
+
+    protected abstract void Shoot();
 }
