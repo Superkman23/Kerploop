@@ -2558,7 +2558,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 59757724, guid: 6b994081f7d85044ea0b59582a885a90, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 59757725, guid: 6b994081f7d85044ea0b59582a885a90, type: 3}
+      propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 59757725, guid: 6b994081f7d85044ea0b59582a885a90, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 333489279590397638, guid: 6b994081f7d85044ea0b59582a885a90,
         type: 3}
