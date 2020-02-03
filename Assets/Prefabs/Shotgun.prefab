@@ -569,7 +569,7 @@ MonoBehaviour:
   _AimButton: 1
   _IsEquipped: 0
   _GoingToThrow: 0
-  _RigidbodyForce: 15
+  _RigidbodyForce: 5
   _PelletsPerShot: 10
 --- !u!54 &59757725
 Rigidbody:
