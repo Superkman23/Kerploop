@@ -52,7 +52,7 @@ public abstract class PlayerGun : CoreGun, Interactable
             // check if we're not using an automatic gun and we shoot
             if (Input.GetMouseButtonDown((int)_ShootButton) && !_IsAutomatic)
             {
-                Shoot();
+                Shoot(_MainCamera.transform);
                 _Flash.intensity = _FlashIntensity;
                 _CurrentInClip--;
                 _TimeTillNextShot = _ShotDelay;
@@ -61,7 +61,7 @@ public abstract class PlayerGun : CoreGun, Interactable
             // if we're using automatic
             if (Input.GetMouseButton((int)_ShootButton) && _IsAutomatic)
             {
-                Shoot();
+                Shoot(_MainCamera.transform);
                 _Flash.intensity = _FlashIntensity;
                 _CurrentInClip--;
                 _TimeTillNextShot = _ShotDelay;
@@ -128,6 +128,4 @@ public abstract class PlayerGun : CoreGun, Interactable
         transform.localRotation = Quaternion.Euler(0, 180, 0); // Rotate the gun to point forward
         CF.RecursiveSetColliders(transform, false);
     }
-
-    protected abstract void Shoot();
 }

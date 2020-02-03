@@ -11,7 +11,7 @@ public class SingleShot : PlayerGun
 {
     [SerializeField] float _RigidbodyForce = 5f;
 
-    protected override void Shoot()
+    public override void Shoot(Transform position)
     {
         // Play the audio of the gun shooting
         _AudioSource.PlayOneShot(_ShootNoise, _ShotVolume);
@@ -20,16 +20,15 @@ public class SingleShot : PlayerGun
         float spreadY = Random.Range(-_BulletSpread, _BulletSpread);
         Vector3 spread = new Vector3(spreadX, spreadY, 0);
 
-        Debug.DrawRay(_MainCamera.transform.position, (_MainCamera.transform.forward + spread) * _BulletMaxDistance, Color.green, 2);
         if (Physics.Raycast(
-            _MainCamera.transform.position, // Shoots from the main camera
-            _MainCamera.transform.forward + transform.InverseTransformDirection(spread),  // Shoots forwards
+            position.position, // Shoots from the main camera
+            position.forward + transform.InverseTransformDirection(spread),  // Shoots forwards
             out RaycastHit hit, _BulletMaxDistance))
         {
             var hitRB = hit.rigidbody;
             if (hitRB != null)
             {
-                hitRB.AddForce(_MainCamera.transform.forward * _RigidbodyForce, ForceMode.Impulse);
+                hitRB.AddForce(position.forward * _RigidbodyForce, ForceMode.Impulse);
             }
         }
     }

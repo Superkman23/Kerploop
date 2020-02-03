@@ -110,6 +110,9 @@ public abstract class CoreGun : MonoBehaviour
 		_IsAiming = !_IsAiming;
 	}
 
+	public abstract void Shoot(Transform position);
+
 	public int GetCurrentClipAmmo() => _CurrentInClip;
 	public int GetCurrentTotalAmmo() => _CurrentAmmoTotal;
+	public WaitForSecondsRealtime GetShotDelay() => _ReloadTimeDelay;
 }
