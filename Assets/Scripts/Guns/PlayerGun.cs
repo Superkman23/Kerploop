@@ -16,13 +16,14 @@ public abstract class PlayerGun : CoreGun, Interactable
     [HideInInspector] public bool _IsEquipped = false;
     [HideInInspector] public bool _GoingToThrow = false;
     protected Camera _MainCamera;
-
+    Vector3 _TargetPosition;
 
     protected override void Awake()
     {
         base.Awake();
         _MainCamera = Camera.main;
         _CurrentInClip = _ClipSize;
+        _TargetPosition = _DefaultPosition;
     }
 
     private void Update()
@@ -104,13 +105,14 @@ public abstract class PlayerGun : CoreGun, Interactable
         if (Input.GetMouseButtonDown((int)_AimButton))
         {
             Aim(true);
-            transform.localPosition = _AimingPosition;
+            _TargetPosition = _AimingPosition;
         }
         if (Input.GetMouseButtonUp((int)_AimButton))
         {
             Aim(false);
-            transform.localPosition = _DefaultPosition;
+            _TargetPosition = _DefaultPosition;
         }
+        transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, 0.1f);
     }
 
     private void Pickup()
