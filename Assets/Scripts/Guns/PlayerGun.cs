@@ -124,7 +124,7 @@ public abstract class PlayerGun : CoreGun, Interactable
 
         Camera mainCamera = Camera.main; // Grab the camera so we don't have to reference it multiple times
         transform.parent = mainCamera.transform; // Parent the gun onto the camera
-        transform.localPosition = _DefaultPosition; // We've parented, so that'll be the camera's transform
+        _TargetPosition = _DefaultPosition; // We've parented, so that'll be the camera's transform
         transform.localRotation = Quaternion.Euler(0, 180, 0); // Rotate the gun to point forward
         CF.RecursiveSetColliders(transform, false);
     }
