@@ -983,6 +983,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 281315293}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &218007510 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 333489279590397638, guid: 6b994081f7d85044ea0b59582a885a90,
+    type: 3}
+  m_PrefabInstance: {fileID: 562228223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df0aae98f4b7ce4d8ce053ecd38d036, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &226679765
 GameObject:
   m_ObjectHideFlags: 0
@@ -5450,8 +5462,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73bb4e749e1a3c94bbc8ba09a0de1d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _CurrentGun: {fileID: 218007510}
+  _ShootDelay: 1
   _ViewDistance: 10
-  _MovementSpeed: 7.5
+  _MovementSpeed: 5
   _RotationSpeed: 5
 --- !u!195 &1019124084
 NavMeshAgent:

@@ -11,6 +11,10 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    [Header("Gun Options")]
+    [SerializeField] CoreGun _CurrentGun;
+    [SerializeField] float _ShootDelay;
+
     [Header("Viewing")]
     [SerializeField] float _ViewDistance;
 
@@ -20,6 +24,7 @@ public class EnemyAI : MonoBehaviour
 
     Transform _PlayerTransform;
     NavMeshAgent _Agent;
+    bool _CanShoot = true;
 
     private void Awake()
     {
@@ -40,7 +45,26 @@ public class EnemyAI : MonoBehaviour
             if (distance > _Agent.stoppingDistance)
                 _Agent.SetDestination(_PlayerTransform.position);
             LookAtPlayer();
+
+            if (_CanShoot)
+            {
+                StartCoroutine(Shoot());
+            }
         }
+    }
+
+    private IEnumerator Shoot()
+    {
+        _CanShoot = false;
+        if (_CurrentGun.GetCurrentClipAmmo() == 0)
+        {
+            _CurrentGun.Reload();
+        }
+
+        _CurrentGun.Shoot(transform);
+        yield return new WaitForSecondsRealtime(_ShootDelay);
+
+        _CanShoot = true;
     }
 
     private void LookAtPlayer()
