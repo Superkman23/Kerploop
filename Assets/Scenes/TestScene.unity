@@ -5414,7 +5414,6 @@ GameObject:
   - component: {fileID: 1019124088}
   - component: {fileID: 1019124087}
   - component: {fileID: 1019124086}
-  - component: {fileID: 1019124085}
   - component: {fileID: 1019124084}
   - component: {fileID: 1019124083}
   m_Layer: 0
@@ -5451,8 +5450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73bb4e749e1a3c94bbc8ba09a0de1d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ViewDistance: 5
-  _MovementSpeed: 2
+  _ViewDistance: 10
+  _MovementSpeed: 7.5
   _RotationSpeed: 5
 --- !u!195 &1019124084
 NavMeshAgent:
@@ -5476,22 +5475,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &1019124085
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019124081}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!136 &1019124086
 CapsuleCollider:
   m_ObjectHideFlags: 0
