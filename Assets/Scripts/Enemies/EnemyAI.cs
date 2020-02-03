@@ -33,10 +33,12 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, _PlayerTransform.position) < _ViewDistance)
+        float distance = Vector3.Distance(transform.position, _PlayerTransform.position);
+        if (distance <= _ViewDistance)
         {
             _Agent.speed = _MovementSpeed;
-            _Agent.SetDestination(_PlayerTransform.position);
+            if (distance > _Agent.stoppingDistance)
+                _Agent.SetDestination(_PlayerTransform.position);
             LookAtPlayer();
         }
     }
