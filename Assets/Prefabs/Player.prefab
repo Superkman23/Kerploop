@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 375653195498208161}
   - component: {fileID: 8964095297828320153}
   - component: {fileID: 1486997385}
+  - component: {fileID: 2193955624248895310}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -296,8 +297,21 @@ MonoBehaviour:
   _ClipAmmoText: {fileID: 3314774377146686536}
   _ThrowButton: 102
   _ThrowForce: 5
-  _LocalMaxHealth: 100
-  _LocalHealth: 0
+--- !u!114 &2193955624248895310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375653195498208162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0c1ea86b2b3d5498b4e3165f54011a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _MaxHealth: 100
+  _CurrentHealth: 0
+  _IsPlayer: 1
 --- !u!1 &487450295305183534
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,7 +930,7 @@ GameObject:
   - component: {fileID: 7272062925848561417}
   - component: {fileID: 3535860851509547922}
   m_Layer: 0
-  m_Name: Health Text
+  m_Name: Colored Bars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1640,7 +1654,7 @@ GameObject:
   - component: {fileID: 3684423294788684042}
   - component: {fileID: 5150453822283222852}
   m_Layer: 0
-  m_Name: Coloured Bars
+  m_Name: Colored Bars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1686,7 +1700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.9294118, g: 0.9294118, b: 0.9294118, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1853,7 +1867,7 @@ GameObject:
   - component: {fileID: 2741002936680367006}
   - component: {fileID: 491829761461562687}
   m_Layer: 0
-  m_Name: Coloured Bars
+  m_Name: Colored Bars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1899,7 +1913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

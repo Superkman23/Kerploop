@@ -9,7 +9,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
-public class Player : MonoBehaviour, IHealth
+public class Player : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] TextMeshProUGUI _HealthText;
@@ -22,32 +22,18 @@ public class Player : MonoBehaviour, IHealth
     [SerializeField] KeyCode _ThrowButton = KeyCode.F;
     [SerializeField] float _ThrowForce = 5;
 
-    [Header("Health")]
-    [SerializeField] int _LocalMaxHealth = 100;
-    [SerializeField] int _LocalHealth = 0;
-
     GameObject _CurrentGun = null;
     CoreGun _CurrentGunComponent = null;
 
     Camera _MainCamera;
     Rigidbody _Rigidbody;
+    HealthManager _PlayerHealth;
 
-    public int _Health
-    {
-        get => _LocalHealth;
-        set
-        {
-            if (value > _LocalMaxHealth) value = _LocalMaxHealth;
-            _LocalHealth = value;
-        }
-    }
-    public int _MaxHealth { get => _LocalMaxHealth; set => _LocalMaxHealth = value; }
 
     private void Awake()
     {
         Globals._MainPlayer = this;
-
-        _LocalHealth = _LocalMaxHealth;
+        _PlayerHealth = GetComponent<HealthManager>();
         _MainCamera = Camera.main;
         _AmmoUIParent = _ClipAmmoText.transform.parent;
         
@@ -88,9 +74,9 @@ public class Player : MonoBehaviour, IHealth
 
     private void DisplayHealth()
     {
-        foreach (var obj in _HealthDisplayObjs)        
-            obj.SetColor(Color.Lerp(Color.red, Color.green, (float)_Health / _MaxHealth));        
-        _HealthText.text = _Health.ToString();
+        foreach (var obj in _HealthDisplayObjs)
+            obj.SetColor(Color.Lerp(Color.red, Color.green, (float)_PlayerHealth._CurrentHealth / _PlayerHealth._MaxHealth));
+        _HealthText.text = _PlayerHealth._CurrentHealth.ToString();
     }
 
     // Weapon specific functions

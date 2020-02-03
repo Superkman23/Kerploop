@@ -30,6 +30,11 @@ public class SingleShot : PlayerGun
             {
                 hitRB.AddForce(position.forward * _RigidbodyForce, ForceMode.Impulse);
             }
+            var hitGO = hit.collider.gameObject.GetComponent<HealthManager>();
+            if (hitGO != null)
+            {
+                hitGO._CurrentHealth -= _BulletDamage;
+            }
         }
     }
 }

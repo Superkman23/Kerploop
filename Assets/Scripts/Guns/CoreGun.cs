@@ -21,6 +21,7 @@ public abstract class CoreGun : MonoBehaviour
     [SerializeField] protected float _AimingAccuracyMultiplier;
     [SerializeField] protected float _BulletSpread;
     [SerializeField] protected float _BulletMaxDistance;
+    [SerializeField] protected int _BulletDamage;
 
     [Header("Positioning")]
     [SerializeField] protected Vector3 _DefaultPosition;
