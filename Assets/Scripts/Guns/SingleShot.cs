@@ -5,6 +5,7 @@
  * Created for: guns that shoot 1 bullet at a time
  */
 
+using System.Collections;
 using UnityEngine;
 
 public class SingleShot : PlayerGun
@@ -25,6 +26,8 @@ public class SingleShot : PlayerGun
             position.forward + transform.InverseTransformDirection(spread),  // Shoots forwards
             out RaycastHit hit, _BulletMaxDistance))
         {
+            StartCoroutine(DrawLineTo(hit.point));
+
             var hitRB = hit.rigidbody;
             if (hitRB != null)
             {
@@ -35,6 +38,10 @@ public class SingleShot : PlayerGun
             {
                 hitGO._CurrentHealth -= _BulletDamage;
             }
+        }
+        else
+        {
+            StartCoroutine(DrawLineTo((position.forward + transform.InverseTransformDirection(spread)) * 100));
         }
     }
 }

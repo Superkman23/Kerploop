@@ -60,7 +60,8 @@ public class EnemyAI : MonoBehaviour
         if (_CurrentGun.GetCurrentClipAmmo() == 0)
         {
             _CurrentGun.Reload();
-        } else
+        }
+        else
         {
             _CurrentGun.Shoot(transform);
             _CurrentGun.RemoveBulletFromClip(1);

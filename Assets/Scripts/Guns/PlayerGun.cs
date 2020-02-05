@@ -15,6 +15,7 @@ public abstract class PlayerGun : CoreGun, Interactable
 
     [HideInInspector] public bool _IsEquipped = false;
     [HideInInspector] public bool _GoingToThrow = false;
+    protected Rigidbody _Rigidbody;
     protected Camera _MainCamera;
     Vector3 _TargetPosition;
 
@@ -83,7 +84,7 @@ public abstract class PlayerGun : CoreGun, Interactable
 
     void Interactable.OnInteractStart(GameObject interacting)
     {
-        // If the player is trying to interact with the gun
+        // If the player is trying to interact with the 
         if (interacting.CompareTag("Player"))
         {
             if (Globals._MainPlayer.GetWeapon() == null)
@@ -122,8 +123,7 @@ public abstract class PlayerGun : CoreGun, Interactable
 
         GetComponent<Rigidbody>().isKinematic = true;
 
-        Camera mainCamera = Camera.main; // Grab the camera so we don't have to reference it multiple times
-        transform.parent = mainCamera.transform; // Parent the gun onto the camera
+        transform.parent = _MainCamera.transform; // Parent the gun onto the camera
         _TargetPosition = _DefaultPosition; // We've parented, so that'll be the camera's transform
         transform.localRotation = Quaternion.Euler(0, 180, 0); // Rotate the gun to point forward
         CF.RecursiveSetColliders(transform, false);

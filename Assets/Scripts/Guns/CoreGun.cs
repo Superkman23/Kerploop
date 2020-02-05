@@ -12,9 +12,9 @@ using UnityEngine;
 public abstract class CoreGun : MonoBehaviour
 {
     [Header("Required Components")]
-    [SerializeField] protected GameObject _BulletPrefab;
     [SerializeField] protected AudioClip _ShootNoise;
     [SerializeField] protected Light _Flash;
+    protected LineRenderer _LineRenderer;
     protected AudioSource _AudioSource;
 
     [Header("General Gun Settings")]
@@ -30,7 +30,6 @@ public abstract class CoreGun : MonoBehaviour
     protected bool _IsAiming;
 
     [Header("Shooting")]
-    // Must be in frames
     [SerializeField] protected int _ShotDelay;
     [SerializeField] [Range(0, 1)] protected float _ShotVolume;
     protected int _TimeTillNextShot; // To do with shot delay
@@ -77,6 +76,9 @@ public abstract class CoreGun : MonoBehaviour
         _ReloadTimeDelay = new WaitForSecondsRealtime(_ReloadTime);
 
         _AudioSource = GetComponent<AudioSource>();
+        _LineRenderer = GetComponent<LineRenderer>();
+        _LineRenderer.enabled = false;
+        _LineRenderer.useWorldSpace = true;
     }
 
     public IEnumerator Reload()
@@ -110,6 +112,17 @@ public abstract class CoreGun : MonoBehaviour
         }
 
         _IsAiming = !_IsAiming;
+    }
+
+    public virtual IEnumerator DrawLineTo(Vector3 point)
+    {
+        _LineRenderer.enabled = true;
+        _LineRenderer.SetPosition(0, transform.position);
+        _LineRenderer.SetPosition(1, point);
+
+        yield return new WaitForSecondsRealtime(0.25f);
+
+        _LineRenderer.enabled = false;
     }
 
     public abstract void Shoot(Transform position);
