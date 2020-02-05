@@ -722,6 +722,7 @@ MonoBehaviour:
   _ReloadTime: 1
   _IsReloading: 0
   _FlashIntensity: 60
+  _BulletLineOffset: 0.4
   _ShootButton: 0
   _AimButton: 1
   _IsEquipped: 0
@@ -889,7 +890,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.07692337
+        value: 0.014118195
         inSlope: 0
         outSlope: 0
         tangentMode: 0

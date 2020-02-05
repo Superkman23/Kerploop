@@ -29,19 +29,20 @@ public class SingleShot : PlayerGun
             StartCoroutine(DrawLineTo(hit.point));
 
             var hitRB = hit.rigidbody;
-            if (hitRB != null)
-            {
-                hitRB.AddForce(position.forward * _RigidbodyForce, ForceMode.Impulse);
-            }
             var hitGO = hit.collider.gameObject.GetComponent<HealthManager>();
+
             if (hitGO != null)
             {
                 hitGO._CurrentHealth -= _BulletDamage;
             }
+            else if (hitRB != null)
+            {
+                hitRB.AddForce(position.forward * _RigidbodyForce, ForceMode.Impulse);
+            }
         }
         else
         {
-            StartCoroutine(DrawLineTo((position.forward + transform.InverseTransformDirection(spread)) * 100));
+            StartCoroutine(DrawLineTo((position.forward + transform.InverseTransformDirection(spread)) * _BulletMaxDistance ));
         }
     }
 }

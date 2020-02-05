@@ -33,12 +33,16 @@ public class SpreadShot : PlayerGun
                                 _BulletMaxDistance))
             {
                 var hitRB = hit.rigidbody;
-                if (hitRB != null)
-                    hitRB.AddForce(position.forward * _RigidbodyForce, ForceMode.Impulse);
-
                 var hitGO = hit.collider.gameObject.GetComponent<HealthManager>();
+
                 if (hitGO != null)
+                {
                     hitGO._CurrentHealth -= _BulletDamage;
+                }
+                else if(hitRB != null)
+                {
+                    hitRB.AddForce(position.forward * _RigidbodyForce, ForceMode.Impulse);
+                }
             }
             else
             {

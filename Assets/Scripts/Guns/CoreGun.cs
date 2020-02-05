@@ -45,8 +45,9 @@ public abstract class CoreGun : MonoBehaviour
     protected WaitForSecondsRealtime _ReloadTimeDelay;
     [HideInInspector] public bool _IsReloading;
 
-    [Header("Muzzle Flash")]
+    [Header("Visuals")]
     [SerializeField] protected float _FlashIntensity;
+    [SerializeField] float _BulletLineOffset;
 
     protected CoreGun()
     {
@@ -117,7 +118,7 @@ public abstract class CoreGun : MonoBehaviour
     public virtual IEnumerator DrawLineTo(Vector3 point)
     {
         _LineRenderer.enabled = true;
-        _LineRenderer.SetPosition(0, transform.position);
+        _LineRenderer.SetPosition(0, transform.position + -transform.forward * _BulletLineOffset);
         _LineRenderer.SetPosition(1, point);
 
         yield return new WaitForSecondsRealtime(0.25f);
