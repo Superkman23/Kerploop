@@ -48,7 +48,6 @@ public abstract class CoreGun : MonoBehaviour
 
     [Header("Visuals")]
     [SerializeField] protected float _FlashIntensity;
-    [SerializeField] float _BulletLineOffset;
 
     protected CoreGun()
     {
