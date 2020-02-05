@@ -39,11 +39,12 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         float distance = Vector3.Distance(transform.position, _PlayerTransform.position);
-        if (distance <= _ViewDistance)
+        if (distance <= _ViewDistance && CanSeePlayer())
         {
             _Agent.speed = _MovementSpeed;
             if (distance > _Agent.stoppingDistance)
                 _Agent.SetDestination(_PlayerTransform.position);
+
             LookAtPlayer();
 
             if (_CanShoot)
@@ -62,6 +63,7 @@ public class EnemyAI : MonoBehaviour
         } else
         {
             _CurrentGun.Shoot(transform);
+            _CurrentGun.RemoveBulletFromClip(1);
         }
 
         yield return new WaitForSecondsRealtime(_ShootDelay);
@@ -74,5 +76,17 @@ public class EnemyAI : MonoBehaviour
         Vector3 direction = (_PlayerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, _RotationSpeed * Time.deltaTime);
+    }
+
+    private bool CanSeePlayer()
+    {
+        if (Physics.Raycast(transform.position,
+                            (_PlayerTransform.position - transform.position).normalized,
+                            out RaycastHit hit,
+                            _ViewDistance))
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -54,7 +54,7 @@ public abstract class PlayerGun : CoreGun, Interactable
             {
                 Shoot(_MainCamera.transform);
                 _Flash.intensity = _FlashIntensity;
-                _CurrentInClip--;
+                RemoveBulletFromClip(1);
                 _TimeTillNextShot = _ShotDelay;
             }
 
@@ -63,7 +63,7 @@ public abstract class PlayerGun : CoreGun, Interactable
             {
                 Shoot(_MainCamera.transform);
                 _Flash.intensity = _FlashIntensity;
-                _CurrentInClip--;
+                RemoveBulletFromClip(1);
                 _TimeTillNextShot = _ShotDelay;
             }
         }

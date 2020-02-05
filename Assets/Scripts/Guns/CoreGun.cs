@@ -12,6 +12,7 @@ using UnityEngine;
 public abstract class CoreGun : MonoBehaviour
 {
     [Header("Required Components")]
+    [SerializeField] protected GameObject _BulletPrefab;
     [SerializeField] protected AudioClip _ShootNoise;
     [SerializeField] protected Light _Flash;
     protected AudioSource _AudioSource;
@@ -114,6 +115,7 @@ public abstract class CoreGun : MonoBehaviour
     public abstract void Shoot(Transform position);
 
     public int GetCurrentClipAmmo() => _CurrentInClip;
+    public void RemoveBulletFromClip(int amount) => _CurrentInClip -= amount;
     public int GetCurrentTotalAmmo() => _CurrentAmmoTotal;
     public WaitForSecondsRealtime GetShotDelay() => _ReloadTimeDelay;
 }
