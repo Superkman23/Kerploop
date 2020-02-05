@@ -59,7 +59,7 @@ public class EnemyAI : MonoBehaviour
         _CanShoot = false;
         if (_CurrentGun.GetCurrentClipAmmo() == 0)
         {
-            _CurrentGun.Reload();
+            StartCoroutine(_CurrentGun.Reload());
         }
         else
         {

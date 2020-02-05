@@ -20,13 +20,14 @@ public class SingleShot : PlayerGun
         float spreadX = Random.Range(-_BulletSpread, _BulletSpread);
         float spreadY = Random.Range(-_BulletSpread, _BulletSpread);
         Vector3 spread = new Vector3(spreadX, spreadY, 0);
+        Vector3 direction = position.forward + transform.InverseTransformDirection(spread);
 
         if (Physics.Raycast(
             position.position, // Shoots from the main camera
-            position.forward + transform.InverseTransformDirection(spread),  // Shoots forwards
+            direction,  // Shoots forwards
             out RaycastHit hit, _BulletMaxDistance))
         {
-            StartCoroutine(DrawLineTo(hit.point));
+            CreateTracer(hit.point);
 
             var hitRB = hit.rigidbody;
             var hitGO = hit.collider.gameObject.GetComponent<HealthManager>();
@@ -42,7 +43,7 @@ public class SingleShot : PlayerGun
         }
         else
         {
-            StartCoroutine(DrawLineTo((position.forward + transform.InverseTransformDirection(spread)) * _BulletMaxDistance ));
+            CreateTracer(direction.normalized * _BulletMaxDistance);
         }
     }
 }
