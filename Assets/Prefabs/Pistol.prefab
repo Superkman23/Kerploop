@@ -748,6 +748,7 @@ MonoBehaviour:
   _BulletDamage: 2
   _DefaultPosition: {x: 0.5, y: -0.325, z: 0.6}
   _AimingPosition: {x: 0, y: -0.15, z: 0.4}
+  _RecoilAmount: 0.3
   _ShotDelay: 5
   _ShotVolume: 0.5
   _MaxAmmo: 0
@@ -755,7 +756,6 @@ MonoBehaviour:
   _ReloadTime: 1
   _IsReloading: 0
   _FlashIntensity: 60
-  _BulletLineOffset: 0.4
   _ShootButton: 0
   _AimButton: 2
   _IsEquipped: 0

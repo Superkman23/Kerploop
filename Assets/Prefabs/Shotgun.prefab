@@ -502,6 +502,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5103013541675744322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2969455499590815189}
+  m_Layer: 0
+  m_Name: BulletSpwan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2969455499590815189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103013541675744322}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.136, z: -2.126}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 1279526257204771813}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5804872474989941849
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +565,7 @@ Transform:
   - {fileID: 3364555067252506017}
   - {fileID: 4406068101743614262}
   - {fileID: 6460883027085024804}
+  - {fileID: 2969455499590815189}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -552,16 +583,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ShootNoise: {fileID: 8300000, guid: c2611eefdaf058a479be46bf506e30f6, type: 3}
   _Flash: {fileID: 3517230377726789263}
-  _BulletSpawnPoint: {fileID: 0}
+  _BulletSpawnPoint: {fileID: 2969455499590815189}
   _BulletRay: {fileID: 7694731925453968384, guid: 0d7e5e51b6ff8da4c846ac0e4903e2ec,
     type: 3}
   _IsAutomatic: 1
   _AimingAccuracyMultiplier: 2
-  _BulletSpread: 0.05
-  _BulletMaxDistance: 10
+  _BulletSpread: 0.2
+  _BulletMaxDistance: 5
   _BulletDamage: 4
   _DefaultPosition: {x: 0.5, y: -0.325, z: 0.6}
   _AimingPosition: {x: 0, y: -0.15, z: 0.4}
+  _RecoilAmount: 0.6
   _ShotDelay: 60
   _ShotVolume: 0.5
   _MaxAmmo: 0
@@ -569,7 +601,6 @@ MonoBehaviour:
   _ReloadTime: 2
   _IsReloading: 0
   _FlashIntensity: 60
-  _BulletLineOffset: 0
   _ShootButton: 0
   _AimButton: 1
   _IsEquipped: 0
@@ -713,7 +744,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6405688581056814668}
   m_LocalRotation: {x: 0.9999995, y: -0, z: -0, w: 0.0009638838}
-  m_LocalPosition: {x: 0.002, y: 0.243, z: -2.131}
+  m_LocalPosition: {x: 0.002, y: 0.136, z: -2.131}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1279526257204771813}

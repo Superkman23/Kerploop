@@ -19,19 +19,22 @@ public class SpreadShot : PlayerGun
         // Play the audio of the gun shooting
         _AudioSource.PlayOneShot(_ShootNoise, _ShotVolume);
 
-        RaycastHit hit;
         int pelletsleft = _PelletsPerShot;
         while (pelletsleft-- != 0)
         {
             float spreadX = Random.Range(-_BulletSpread, _BulletSpread);
             float spreadY = Random.Range(-_BulletSpread, _BulletSpread);
             Vector3 spread = new Vector3(spreadX, spreadY, 0);
+            Vector3 direction = position.forward + transform.InverseTransformDirection(spread);
 
-            if (Physics.Raycast(position.position,
-                                position.forward + transform.InverseTransformDirection(spread),
-                                out hit,
-                                _BulletMaxDistance))
+            if (Physics.Raycast(
+                position.position, // Shoots from the main camera
+                direction,  // Shoots forwards
+                out RaycastHit hit, _BulletMaxDistance))
             {
+                CreateTracer(hit.point);
+                Debug.Log(hit.point);
+
                 var hitRB = hit.rigidbody;
                 var hitGO = hit.collider.gameObject.GetComponent<HealthManager>();
 
@@ -39,15 +42,17 @@ public class SpreadShot : PlayerGun
                 {
                     hitGO._CurrentHealth -= _BulletDamage;
                 }
-                else if(hitRB != null)
+                else if (hitRB != null)
                 {
                     hitRB.AddForce(position.forward * _RigidbodyForce, ForceMode.Impulse);
                 }
             }
             else
             {
-                // add (position.forward + transform.InverseTransformDirection(spread)) * _BulletMaxDistance
+                CreateTracer(direction.normalized * _BulletMaxDistance);
             }
+
         }
+        transform.localPosition -= new Vector3(0, 0, _RecoilAmount);
     }
 }

@@ -28,6 +28,7 @@ public abstract class CoreGun : MonoBehaviour
     [Header("Positioning")]
     [SerializeField] protected Vector3 _DefaultPosition;
     [SerializeField] protected Vector3 _AimingPosition;
+    [SerializeField] protected float _RecoilAmount;
     protected bool _IsAiming;
 
     [Header("Shooting")]
@@ -114,7 +115,7 @@ public abstract class CoreGun : MonoBehaviour
 
     public virtual void CreateTracer(Vector3 point)
     {
-        GameObject go = Instantiate(_BulletRay, _BulletSpawnPoint.position, Quaternion.identity);
+        GameObject go = Instantiate(_BulletRay, _BulletSpawnPoint.position, Quaternion.identity, gameObject.transform);
         BulletRay ray = go.GetComponent<BulletRay>();
         ray.SetRendererPosition(point);
         StartCoroutine(ray.WaitThenDestroy(0.25f));

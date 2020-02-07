@@ -45,5 +45,6 @@ public class SingleShot : PlayerGun
         {
             CreateTracer(direction.normalized * _BulletMaxDistance);
         }
+        transform.localPosition -= new Vector3(0, 0,_RecoilAmount);
     }
 }
