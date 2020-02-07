@@ -86,16 +86,23 @@ public abstract class PlayerGun : CoreGun, Interactable
         // If the player is trying to interact with the 
         if (interacting.CompareTag("Player"))
         {
-            if (Globals._MainPlayer.GetWeapon() == null)
+            if(Globals._MainPlayer.GetWeapon() != null)
             {
-                Pickup();
+                var currentGun = Globals._MainPlayer.GetWeapon().GetComponent<PlayerGun>();
+                if (currentGun._IsReloading) // Ensure you aren't reloading before you pickup a gun
+                    return;
             }
-            else
-            {
-                Aim(false);
-                Globals._MainPlayer.ThrowWeapon();
-                Pickup();
-            }
+
+                if (Globals._MainPlayer.GetWeapon() == null)
+                {
+                    Pickup();
+                }
+                else
+                {
+                    Aim(false);
+                    Globals._MainPlayer.ThrowWeapon();
+                    Pickup();
+                } 
         }
     }
 
