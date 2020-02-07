@@ -757,7 +757,7 @@ MonoBehaviour:
   _IsReloading: 0
   _FlashIntensity: 60
   _ShootButton: 0
-  _AimButton: 2
+  _AimButton: 1
   _IsEquipped: 0
   _GoingToThrow: 0
   _RigidbodyForce: 10
