@@ -2,7 +2,7 @@
  * CoreGun.cs
  * Created by: Ambrosia
  * Created on: 2/2/2020 (dd/mm/yy)
- * Created for: a base class for Gun-like objects
+ * Created for: A base class for Gun-like objects
  */
 
 using System.Collections;

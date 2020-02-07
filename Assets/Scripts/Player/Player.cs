@@ -1,8 +1,8 @@
 ﻿/*
  * Player.cs
- * Created by: #AUTHOR#
- * Created on: #CREATIONDATE# (dd/mm/yy)
- * Created for: #PURPOSE#
+ * Created by: Ambrosia
+ * Created on: 1/2/2020 (dd/mm/yy)
+ * Created for: Player specific actions
  */
 
 using UnityEngine;

@@ -1,7 +1,7 @@
 ﻿/*
  * DestroyWhenTouched.cs
  * Created by: Kaelan Bartlett
- * Created on: 2/2/20 (dd/mm/yy)
+ * Created on: 2/2/2020 (dd/mm/yy)
  * Created for: An easy way to destroy all objects that hit this object
  */
 

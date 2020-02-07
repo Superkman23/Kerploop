@@ -2,7 +2,7 @@
  * PlayerGun.cs
  * Created by: Ambrosia
  * Created on: 2/2/2020 (dd/mm/yy)
- * Created for: specifying a type of gun that the player can pick up, throw and shoot
+ * Created for: Specifying a type of gun that the player can pick up, throw and shoot
  */
 
 using UnityEngine;

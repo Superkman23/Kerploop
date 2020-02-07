@@ -2,10 +2,9 @@
  * Pistol.cs
  * Created by: Ambrosia, Kaelan
  * Created on: 2/2/2020 (dd/mm/yy)
- * Created for: guns that shoot 1 bullet at a time
+ * Created for: Guns that shoot one bullet at a time
  */
 
-using System.Collections;
 using UnityEngine;
 
 public class SingleShot : PlayerGun

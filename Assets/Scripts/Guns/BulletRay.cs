@@ -1,8 +1,8 @@
 ﻿/*
  * BulletRay.cs
- * Created by: #AUTHOR#
- * Created on: #CREATIONDATE# (dd/mm/yy)
- * Created for: #PURPOSE#
+ * Created by: Ambroisa
+ * Created on: 5/2/2020 (dd/mm/yy)
+ * Created for: Drawing bullet rays
  */
 
 using System.Collections;

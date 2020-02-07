@@ -2,7 +2,7 @@
  * PlayerLook.cs
  * Created by: Ambrosia
  * Created on: 20/01/2020 (dd/mm/yy)
- * Created for: #PURPOSE#
+ * Created for: Controlling the player's camera
  */
 
 using UnityEngine;

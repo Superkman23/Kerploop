@@ -1,12 +1,10 @@
 ﻿/*
  * SpreadShot.cs
  * Created by: Kaelan Bartlett
- * Created on: 2/2/20 (dd/mm/yy)
- * Created for: guns that shoot pellets (Shotgun)
+ * Created on: 2/2/2020 (dd/mm/yy)
+ * Created for: Guns that shoot pellets (Shotgun)
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpreadShot : PlayerGun
