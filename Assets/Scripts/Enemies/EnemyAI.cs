@@ -1,8 +1,8 @@
 ﻿/*
  * EnemyAI.cs
- * Created by: #AUTHOR#
- * Created on: #CREATIONDATE# (dd/mm/yy)
- * Created for: #PURPOSE#
+ * Created by: Ambrosia
+ * Created on: 2/2/20 (dd/mm/yy)
+ * Created for: Managing the enemy's actions
  */
 
 using System.Collections;
