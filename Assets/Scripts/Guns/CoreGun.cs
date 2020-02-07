@@ -28,6 +28,7 @@ public abstract class CoreGun : MonoBehaviour
     [Header("Positioning")]
     [SerializeField] public    Vector3 _DefaultPosition;
     [SerializeField] protected Vector3 _AimingPosition;
+    protected Vector3 _TargetPosition;
     [SerializeField] protected float _RecoilAmount;
     protected bool _IsAiming;
 
@@ -100,7 +101,6 @@ public abstract class CoreGun : MonoBehaviour
             _IsReloading = false;
         }
     }
-
     public void Aim(bool startAim)
     {
         if (startAim && !_IsAiming)
@@ -116,7 +116,6 @@ public abstract class CoreGun : MonoBehaviour
 
         _IsAiming = !_IsAiming;
     }
-
     public virtual void CreateTracer(Vector3 point)
     {
         GameObject go = Instantiate(_BulletRay, _BulletSpawnPoint.position, Quaternion.identity, gameObject.transform);
@@ -124,9 +123,11 @@ public abstract class CoreGun : MonoBehaviour
         ray.SetRendererPosition(point);
         StartCoroutine(ray.WaitThenDestroy(0.25f));
     }
-
+    public void HandlePosition()
+    {
+        transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, 0.1f);
+    }
     public abstract void Shoot(Transform position);
-
     public int GetCurrentClipAmmo() => _CurrentInClip;
     public void RemoveBulletFromClip(int amount) => _CurrentInClip -= amount;
     public int GetCurrentTotalAmmo() => _CurrentAmmoTotal;

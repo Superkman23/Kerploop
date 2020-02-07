@@ -52,7 +52,7 @@ public class EnemyAI : MonoBehaviour
                 StartCoroutine(Shoot());
             }
         }
-        _CurrentGun.transform.localPosition = _CurrentGun._DefaultPosition;
+        _CurrentGun.HandlePosition();
     }
 
     private IEnumerator Shoot()

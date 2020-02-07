@@ -42,7 +42,7 @@ public class SingleShot : PlayerGun
         }
         else
         {
-            CreateTracer(Globals._MainPlayer.transform.localPosition + (direction.normalized * _BulletMaxDistance));
+            CreateTracer(position.position + (direction.normalized * _BulletMaxDistance));
         }
         transform.localPosition -= new Vector3(0, 0,_RecoilAmount);
     }

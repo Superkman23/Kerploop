@@ -17,7 +17,6 @@ public abstract class PlayerGun : CoreGun, Interactable
     [HideInInspector] public bool _GoingToThrow = false;
     protected Rigidbody _Rigidbody;
     protected Camera _MainCamera;
-    Vector3 _TargetPosition;
 
     protected override void Awake()
     {
@@ -35,6 +34,7 @@ public abstract class PlayerGun : CoreGun, Interactable
             return;
 
         HandleAiming();
+        HandlePosition();
 
         if (_IsReloading)
             return;
@@ -120,7 +120,6 @@ public abstract class PlayerGun : CoreGun, Interactable
             Aim(false);
             _TargetPosition = _DefaultPosition;
         }
-        transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, 0.1f);
     }
 
     private void Pickup()
