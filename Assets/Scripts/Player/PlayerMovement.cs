@@ -98,11 +98,13 @@ public class PlayerMovement : MonoBehaviour
         {
             _TargetScale = _CrouchScale;
             _MovementSpeed *= _CrouchSpeedMult;
+
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             _TargetScale = _MainScale;
             _MovementSpeed /= _CrouchSpeedMult;
+            transform.localPosition += new Vector3(0, _CrouchScale.y / 2, 0);
         }
 
         transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.3f);
