@@ -19,6 +19,12 @@ public class PlayerMovement : MonoBehaviour
     bool _ReadyToJump = false;
     bool _Grounded;
 
+    [Header("Crouching")]
+    [SerializeField] [Range(0, 1)] float _CrouchSpeedMult = 0.5f;
+    [SerializeField] Vector3 _CrouchScale;
+    Vector3 _MainScale;
+    Vector3 _TargetScale;
+
     [Header("Gravity")]
     [SerializeField] float _GravityMultiplier = 1;
 
@@ -26,11 +32,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        _MainScale = transform.localScale;
+        _TargetScale = _MainScale;
         _Rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
+        ManageCrouching();
+
         if (Input.GetKeyDown(_JumpKey) && _Grounded)
         {
             _ReadyToJump = true;
@@ -80,5 +90,21 @@ public class PlayerMovement : MonoBehaviour
     {
         _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _JumpForce, _Rigidbody.velocity.z);
         _ReadyToJump = false;
+    }
+
+    void ManageCrouching()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            _TargetScale = _CrouchScale;
+            _MovementSpeed *= _CrouchSpeedMult;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            _TargetScale = _MainScale;
+            _MovementSpeed /= _CrouchSpeedMult;
+        }
+
+        transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.1f);
     }
 }
