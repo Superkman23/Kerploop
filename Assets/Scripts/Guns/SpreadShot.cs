@@ -31,7 +31,6 @@ public class SpreadShot : PlayerGun
                 out RaycastHit hit, _BulletMaxDistance))
             {
                 CreateTracer(hit.point);
-                Debug.Log(hit.point);
 
                 var hitRB = hit.rigidbody;
                 var hitGO = hit.collider.gameObject.GetComponent<HealthManager>();
