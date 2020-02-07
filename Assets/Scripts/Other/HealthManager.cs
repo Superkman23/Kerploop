@@ -31,9 +31,12 @@ public class HealthManager : MonoBehaviour
             
             //Shortened gun throw script so the enemy drops it's gun
             var cgRB = GetComponentInChildren<Rigidbody>();
-            cgRB.isKinematic = false;
-            cgRB.useGravity = true;
-            CF.RecursiveSetColliders(cgRB.transform, true);
+            if (cgRB != null)
+            {
+                cgRB.isKinematic = false;
+                cgRB.useGravity = true;
+                CF.RecursiveSetColliders(cgRB.transform, true);
+            }
 
             transform.DetachChildren();
             Destroy(gameObject);
