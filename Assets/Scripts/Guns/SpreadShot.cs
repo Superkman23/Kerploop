@@ -47,7 +47,7 @@ public class SpreadShot : PlayerGun
             }
             else
             {
-                CreateTracer(direction.normalized * _BulletMaxDistance);
+                CreateTracer(Globals._MainPlayer.transform.localPosition + (direction.normalized * _BulletMaxDistance));
             }
 
         }

@@ -26,7 +26,7 @@ public abstract class CoreGun : MonoBehaviour
     [SerializeField] protected int _BulletDamage;
 
     [Header("Positioning")]
-    [SerializeField] protected Vector3 _DefaultPosition;
+    [SerializeField] public    Vector3 _DefaultPosition;
     [SerializeField] protected Vector3 _AimingPosition;
     [SerializeField] protected float _RecoilAmount;
     protected bool _IsAiming;
