@@ -2,7 +2,7 @@
  * CoreGun.cs
  * Created by: Ambrosia
  * Created on: 2/2/2020 (dd/mm/yy)
- * Created for: A base class for Gun-like objects
+ * Created for:  base class for Gun-like objects
  */
 
 using System.Collections;
@@ -67,12 +67,13 @@ public abstract class CoreGun : MonoBehaviour
 
         _ClipSize = 6;
         _CurrentInClip = _ClipSize;
-        _MaxAmmo = _ClipSize * 10;
-        _CurrentAmmoTotal = _MaxAmmo;
     }
 
     protected virtual void Awake()
     {
+        _MaxAmmo = _ClipSize * 10;
+        _CurrentAmmoTotal = _MaxAmmo;
+
         // Zero the intensity of the flash on the muzzle
         _Flash.intensity = 0;
         _ReloadTimeDelay = new WaitForSecondsRealtime(_ReloadTime);
