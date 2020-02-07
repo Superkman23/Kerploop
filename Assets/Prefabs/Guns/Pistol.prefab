@@ -742,8 +742,8 @@ MonoBehaviour:
   _BulletRay: {fileID: 7694731925453968384, guid: 0d7e5e51b6ff8da4c846ac0e4903e2ec,
     type: 3}
   _IsAutomatic: 0
-  _AimingAccuracyMultiplier: 2
-  _BulletSpread: 0.1
+  _AimingAccuracyMultiplier: 3
+  _BulletSpread: 4
   _BulletMaxDistance: 60
   _BulletDamage: 2
   _DefaultPosition: {x: 0.5, y: -0.325, z: 0.6}
@@ -751,7 +751,6 @@ MonoBehaviour:
   _RecoilAmount: 0.3
   _ShotDelay: 5
   _ShotVolume: 0.5
-  _MaxAmmo: 0
   _ClipSize: 16
   _ReloadTime: 1
   _IsReloading: 0

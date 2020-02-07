@@ -19,7 +19,7 @@ public class SingleShot : PlayerGun
         float spreadX = Random.Range(-_BulletSpread, _BulletSpread);
         float spreadY = Random.Range(-_BulletSpread, _BulletSpread);
         Vector3 spread = new Vector3(spreadX, spreadY, 0);
-        Vector3 direction = position.forward + transform.InverseTransformDirection(spread);
+        Vector3 direction = position.forward + (transform.InverseTransformDirection(spread) / _BulletMaxDistance);
 
         if (Physics.Raycast(
             position.position, // Shoots from the main camera

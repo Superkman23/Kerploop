@@ -274,7 +274,7 @@ MonoBehaviour:
     type: 3}
   _IsAutomatic: 1
   _AimingAccuracyMultiplier: 4
-  _BulletSpread: 0.1
+  _BulletSpread: 5
   _BulletMaxDistance: 200
   _BulletDamage: 5
   _DefaultPosition: {x: 0.5, y: -0.325, z: 0.6}
@@ -282,7 +282,6 @@ MonoBehaviour:
   _RecoilAmount: 0.05
   _ShotDelay: 10
   _ShotVolume: 0.5
-  _MaxAmmo: 0
   _ClipSize: 30
   _ReloadTime: 1
   _IsReloading: 0
