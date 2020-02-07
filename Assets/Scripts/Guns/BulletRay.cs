@@ -21,7 +21,6 @@ public class BulletRay : MonoBehaviour
 
 	public void SetRendererPosition(Vector3 position)
 	{
-        Debug.Log(position);
 		_LineRenderer.enabled = true;
 		_LineRenderer.SetPosition(0, transform.position);
 		_LineRenderer.SetPosition(1, position);
