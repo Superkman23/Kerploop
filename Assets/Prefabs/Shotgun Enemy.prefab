@@ -134,7 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _CurrentGun: {fileID: 1660496787995000579}
   _ShootDelay: 1
-  _ViewDistance: 10
+  _ViewDistance: 20
+  _ShootDistance: 10
   _MovementSpeed: 5
   _RotationSpeed: 5
 --- !u!114 &1417384547170974543

@@ -17,6 +17,7 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Viewing")]
     [SerializeField] float _ViewDistance;
+    [SerializeField] float _ShootDistance;
 
     [Header("Movement/Rotation")]
     [SerializeField] float _MovementSpeed = 2;
@@ -47,7 +48,7 @@ public class EnemyAI : MonoBehaviour
 
             LookAtPlayer();
 
-            if (_CanShoot)
+            if (_CanShoot && distance <= _ShootDistance)
             {
                 StartCoroutine(Shoot());
             }
