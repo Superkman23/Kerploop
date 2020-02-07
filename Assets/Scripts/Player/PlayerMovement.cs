@@ -105,6 +105,6 @@ public class PlayerMovement : MonoBehaviour
             _MovementSpeed /= _CrouchSpeedMult;
         }
 
-        transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.1f);
+        transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.3f);
     }
 }
