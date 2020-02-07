@@ -87,12 +87,10 @@ public abstract class PlayerGun : CoreGun, Interactable
         if (interacting.CompareTag("Player"))
         {
 
-            // Ensure you aren't reloading before you pickup a gun
+            // Cancels the current reload
             if (Globals._MainPlayer.GetWeapon() != null)
             {
-                var playerGun = Globals._MainPlayer.GetWeapon().GetComponent<PlayerGun>();
-                if (playerGun._IsReloading)
-                    return;
+                Globals._MainPlayer.GetWeapon().GetComponent<PlayerGun>()._IsReloading = false;
             }
 
             //Throws current gun if you are carrying one

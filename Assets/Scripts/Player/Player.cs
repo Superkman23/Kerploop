@@ -87,9 +87,7 @@ public class Player : MonoBehaviour
 
         var cgG = _CurrentGun.GetComponent<PlayerGun>();
 
-        if (cgG._IsReloading) // Must finish reloading first
-            return;
-
+        cgG._IsReloading = false;
         cgG._IsEquipped = false;
         cgG._GoingToThrow = true;
 

@@ -90,12 +90,15 @@ public abstract class CoreGun : MonoBehaviour
         _IsReloading = true;
         yield return _ReloadTimeDelay;
 
-        int difference = _ClipSize - _CurrentInClip;
-        int amountToDeduct = (_CurrentAmmoTotal >= difference) ? difference : _CurrentAmmoTotal;
-        _CurrentInClip += amountToDeduct;
-        _CurrentAmmoTotal -= amountToDeduct;
+        if (_IsReloading) //If an action was taken that stops reloading, the gun will not reload
+        {
+            int difference = _ClipSize - _CurrentInClip;
+            int amountToDeduct = (_CurrentAmmoTotal >= difference) ? difference : _CurrentAmmoTotal;
+            _CurrentInClip += amountToDeduct;
+            _CurrentAmmoTotal -= amountToDeduct;
 
-        _IsReloading = false;
+            _IsReloading = false;
+        }
     }
 
     public void Aim(bool startAim)
