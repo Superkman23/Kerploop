@@ -37,8 +37,8 @@ public abstract class CoreGun : MonoBehaviour
     protected int _TimeTillNextShot; // To do with shot delay
 
     [Header("Ammo")]
-    [SerializeField] protected int _MaxAmmo;
     [SerializeField] protected int _ClipSize;
+    protected int _MaxAmmo;
     protected int _CurrentInClip;
     protected int _CurrentAmmoTotal;
 
