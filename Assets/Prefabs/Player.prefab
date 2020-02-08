@@ -251,6 +251,7 @@ MonoBehaviour:
   _JumpForce: 5
   _CrouchSpeedMult: 0.771
   _CrouchScale: {x: 1, y: 0.5, z: 1}
+  _CrouchGravityMult: 2
   _GravityMultiplier: 1
 --- !u!114 &375653195498208161
 MonoBehaviour:

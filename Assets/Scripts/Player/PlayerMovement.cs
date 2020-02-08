@@ -22,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Crouching")]
     [SerializeField] [Range(0, 1)] float _CrouchSpeedMult = 0.5f;
     [SerializeField] Vector3 _CrouchScale;
+    [SerializeField] float _CrouchGravityMult;
+    bool _IsCrouching = false;
+
     Vector3 _MainScale;
     Vector3 _TargetScale;
 
@@ -58,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }
     }
-
     private void OnCollisionStay(Collision collision)
     {
         _Grounded = true;
@@ -68,21 +70,11 @@ public class PlayerMovement : MonoBehaviour
     {
         _Grounded = false;
     }
-
     void Movement()
     {
         var mDirection = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed,
                                      _Rigidbody.velocity.y,
                                      Input.GetAxis("Vertical") * _MovementSpeed);
-
-        if (mDirection.x == 0 && mDirection.z == 0)
-        {
-            if (mDirection.y != 0) // See if we are falling
-                _Rigidbody.velocity = (Vector3.down * -_Rigidbody.velocity.y) * _GravityMultiplier;
-
-            return; // exit out early
-        }
-
         _Rigidbody.velocity = transform.TransformDirection(mDirection);
     }
 
@@ -91,22 +83,34 @@ public class PlayerMovement : MonoBehaviour
         _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _JumpForce, _Rigidbody.velocity.z);
         _ReadyToJump = false;
     }
-
     void ManageCrouching()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
+            _IsCrouching = true;
             _TargetScale = _CrouchScale;
             _MovementSpeed *= _CrouchSpeedMult;
 
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
+            _IsCrouching = false;
             _TargetScale = _MainScale;
             _MovementSpeed /= _CrouchSpeedMult;
-            transform.localPosition += new Vector3(0, _CrouchScale.y / 2, 0);
+
         }
 
-        transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.3f);
+        if(Mathf.Abs(transform.localScale.y - _TargetScale.y) < .1)
+        {
+            _IsCrouching = false;
+            transform.localScale = _TargetScale;
+        }
+
+        if(_IsCrouching)
+        {
+            _Rigidbody.AddForce(Physics.gravity * _CrouchGravityMult);
+        }
+
+        transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.4f);
     }
 }
