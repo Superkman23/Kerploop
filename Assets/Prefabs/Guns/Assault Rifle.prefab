@@ -276,7 +276,7 @@ MonoBehaviour:
   _AimingAccuracyMultiplier: 4
   _BulletSpread: 5
   _BulletMaxDistance: 200
-  _BulletDamage: 5
+  _BulletDamage: 10
   _DefaultPosition: {x: 0.5, y: -0.325, z: 0.6}
   _AimingPosition: {x: 0, y: -0.1, z: 0.4}
   _RecoilAmount: 0.05
