@@ -1,7 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+ * HealthBar.cs
+ * Created by: Kaelan Bartlett
+ * Created on: 3/2/2020 (dd/mm/yy)
+ * Created for: Drawing a healthbar on screen
+ */
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
@@ -22,9 +25,7 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         Vector2 targetSize = new Vector2(_FullSize.x * _HealthManager._HealthPercent, _FullSize.y);
-        Debug.Log(targetSize);
         _Bar.sizeDelta = Vector2.Lerp(_Bar.sizeDelta, targetSize, _ChangeSpeed);
         _Bar.anchoredPosition = new Vector2((_Bar.sizeDelta.x - _FullSize.x) / 2, 0);
     }
