@@ -70,10 +70,6 @@ public class Player : MonoBehaviour
         {
             _ReadyToJump = true;
         }
-        else
-        {
-            Debug.Log(_Grounded);
-        }
     }
     private void FixedUpdate()
     {
@@ -105,7 +101,6 @@ public class Player : MonoBehaviour
     {
         _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _JumpForce, _Rigidbody.velocity.z);
         _ReadyToJump = false;
-        Debug.Log("Jump!");
     }
 
     void HandleCrouching()
@@ -161,7 +156,4 @@ public class Player : MonoBehaviour
         else if (_YRotation > _YRotationMax)
             _YRotation = _YRotationMax;
     }
-
-
-
 }
