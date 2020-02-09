@@ -37,8 +37,6 @@ public class Player : MonoBehaviour
     [SerializeField] float _ThrowForce = 5;
     GameObject _CurrentGun = null;
 
-
-
     [Header("Camera")]
     [SerializeField] float _RotationSpeed = 1f;
     [SerializeField] float _YRotationMin = -90f;
@@ -97,7 +95,7 @@ public class Player : MonoBehaviour
     //Movement Functions
     void HandleMovement()
     {
-        Vector3 mDirection = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1.0f);
+        Vector3 mDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
         Vector3 newVelocity = new Vector3(mDirection.x * _MovementSpeed, _Rigidbody.velocity.y, mDirection.z * _MovementSpeed);
         _Rigidbody.velocity = transform.TransformDirection(newVelocity);
     }
