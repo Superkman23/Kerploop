@@ -12,11 +12,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("Controls")]
+    [SerializeField] KeyCode _SprintKey = KeyCode.LeftShift;
     [SerializeField] KeyCode _JumpKey = KeyCode.Space;
     [SerializeField] KeyCode _ThrowKey = KeyCode.F;
 
     [Header("Movement")]
     [SerializeField] float _MovementSpeed;
+    [SerializeField] float _SprintSpeedMult = 2;
 
     [Header("Jumping")]
     [SerializeField] float _JumpForce;
@@ -64,7 +66,9 @@ public class Player : MonoBehaviour
     void Update()
     {
         HandleCamera();
+
         HandleCrouching();
+        HandleSprinting();
 
         if (Input.GetKeyDown(_JumpKey) && _Grounded)
         {
@@ -95,6 +99,20 @@ public class Player : MonoBehaviour
     {
         Vector3 mDirection = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed, _Rigidbody.velocity.y, Input.GetAxis("Vertical") * _MovementSpeed);
         _Rigidbody.velocity = transform.TransformDirection(mDirection);
+    }
+
+    void HandleSprinting()
+    {
+        //Sprinting
+        if (Input.GetKeyDown(_SprintKey))
+        {
+            _MovementSpeed *= _SprintSpeedMult;
+
+        }
+        if (Input.GetKeyUp(_SprintKey))
+        {
+            _MovementSpeed /= _SprintSpeedMult;
+        }
     }
 
     void Jump()
