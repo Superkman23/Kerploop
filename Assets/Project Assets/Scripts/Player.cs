@@ -97,8 +97,9 @@ public class Player : MonoBehaviour
     //Movement Functions
     void HandleMovement()
     {
-        Vector3 mDirection = new Vector3(Input.GetAxis("Horizontal") * _MovementSpeed, _Rigidbody.velocity.y, Input.GetAxis("Vertical") * _MovementSpeed);
-        _Rigidbody.velocity = transform.TransformDirection(mDirection);
+        Vector3 mDirection = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1.0f);
+        Vector3 newVelocity = new Vector3(mDirection.x * _MovementSpeed, _Rigidbody.velocity.y, mDirection.z * _MovementSpeed);
+        _Rigidbody.velocity = transform.TransformDirection(newVelocity);
     }
 
     void HandleSprinting()
