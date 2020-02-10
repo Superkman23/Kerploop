@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] float _MovementSpeed;
     [SerializeField] float _SprintSpeedMult = 2;
     bool _IsSprinting;
+    bool _IsMoving;
 
     [Header("Jumping")]
     [SerializeField] float _JumpForce;
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
     [SerializeField] float _ThrowForce = 5;
     GameObject _CurrentGun = null;
 
+
     [Header("Camera")]
     [SerializeField] float _RotationSpeed = 1f;
     [SerializeField] float _YRotationMin = -90f;
@@ -45,12 +47,17 @@ public class Player : MonoBehaviour
     [SerializeField] float _FOVIncreasePerUnit;
     float _TargetFOV;
     float _StartingFOV;
-
-    Camera _MainCamera;
     float _XRotation = 0;
     float _YRotation = 0;
 
+    [Header("View Bobbing")]
+    [SerializeField] float _BobbingSpeed = 0.18f;
+    [SerializeField] float _BobbingAmount = 0.2f;
+    float _Midpoint = 0.5f;
+    private float _Timer = 0.0f;
 
+
+    Camera _MainCamera;
     Rigidbody _Rigidbody;
 
     void Awake()
@@ -70,6 +77,7 @@ public class Player : MonoBehaviour
         HandleCamera();
         HandleCrouching();
         HandleSprinting();
+        ApplyViewBobbing();
 
         if (Input.GetKeyDown(_JumpKey) && _Grounded)
         {
@@ -107,11 +115,13 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(_SprintKey))
         {
             _MovementSpeed *= _SprintSpeedMult;
+            _BobbingSpeed *= _SprintSpeedMult;
             _IsSprinting = true;
         }
         if (Input.GetKeyUp(_SprintKey))
         {
             _MovementSpeed /= _SprintSpeedMult;
+            _BobbingSpeed /= _SprintSpeedMult;
             _IsSprinting = false;
         }
     }
@@ -191,4 +201,42 @@ public class Player : MonoBehaviour
         else if (_YRotation > _YRotationMax)
             _YRotation = _YRotationMax;
     }
+    void ApplyViewBobbing()
+    {
+        //Code based from http://wiki.unity3d.com/index.php/Headbobber, converted to C#
+
+        float waveslice = 0.0f;
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0)
+        {
+            _Timer = 0.0f;
+        }
+        else
+        {
+            waveslice = Mathf.Sin(_Timer);
+            _Timer += _BobbingSpeed;
+            if (_Timer > Mathf.PI * 2)
+            {
+                _Timer = _Timer - (Mathf.PI * 2);
+            }
+        }
+
+        Vector3 v3T = _MainCamera.transform.localPosition;
+        if (waveslice != 0)
+        {
+            float translateChange = waveslice * _BobbingAmount;
+            float totalAxes = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
+            totalAxes = Mathf.Clamp(totalAxes, 0.0f, 1.0f);
+            translateChange *= totalAxes;
+            v3T.y = _Midpoint + translateChange;
+        }
+        else
+        {
+            v3T.y = _Midpoint;
+        }
+
+        _MainCamera.transform.localPosition = v3T;
+    }
 }
+
