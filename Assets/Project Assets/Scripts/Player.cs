@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] KeyCode _SprintKey = KeyCode.LeftShift;
     [SerializeField] KeyCode _JumpKey = KeyCode.Space;
     [SerializeField] KeyCode _ThrowKey = KeyCode.F;
+    [SerializeField] KeyCode _InteractKey = KeyCode.E;
 
     [Header("Movement")]
     [SerializeField] float _MovementSpeed;
@@ -34,6 +35,10 @@ public class Player : MonoBehaviour
     bool _IsCrouching = false;
     Vector3 _MainScale;
     Vector3 _TargetScale;
+
+    [Header("Interacting")]
+    [SerializeField] float _InteractRange;
+
 
     [Header("Guns")]
     [SerializeField] float _ThrowForce = 5;
@@ -81,6 +86,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(_JumpKey) && _Grounded)
         {
             _ReadyToJump = true;
+        }
+        if (Input.GetKeyDown(_InteractKey))
+        {
+            Interact();
         }
     }
     private void FixedUpdate()
@@ -158,6 +167,18 @@ public class Player : MonoBehaviour
 
         transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.4f);
     }
+
+    void Interact()
+    {
+        if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward, out RaycastHit hit,_InteractRange))
+        {
+            Debug.Log(hit);
+
+
+
+        }
+    }
+
 
     //Camera Functions
     void HandleCamera()

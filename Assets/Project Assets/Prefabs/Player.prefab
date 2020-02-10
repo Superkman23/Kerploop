@@ -564,16 +564,21 @@ MonoBehaviour:
   _SprintKey: 304
   _JumpKey: 32
   _ThrowKey: 102
+  _InteractKey: 101
   _MovementSpeed: 8
   _SprintSpeedMult: 2
   _JumpForce: 6
   _CrouchSpeedMult: 0.3
   _CrouchScale: 0.5
   _CrouchGravityMult: 2
+  _InteractRange: 3
   _ThrowForce: 5
   _RotationSpeed: 4
   _YRotationMin: -90
   _YRotationMax: 90
+  _FOVIncreasePerUnit: 0
+  _BobbingSpeed: 0.09
+  _BobbingAmount: 0.1
 --- !u!114 &6201596113104203498
 MonoBehaviour:
   m_ObjectHideFlags: 0
