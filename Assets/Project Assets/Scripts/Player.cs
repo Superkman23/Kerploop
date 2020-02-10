@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float _MovementSpeed;
     [SerializeField] float _SprintSpeedMult = 2;
+    bool _IsSprinting;
 
     [Header("Jumping")]
     [SerializeField] float _JumpForce;
@@ -41,6 +42,10 @@ public class Player : MonoBehaviour
     [SerializeField] float _RotationSpeed = 1f;
     [SerializeField] float _YRotationMin = -90f;
     [SerializeField] float _YRotationMax = 90f;
+    [SerializeField] float _FOVIncreasePerUnit;
+    float _TargetFOV;
+    float _StartingFOV;
+
     Camera _MainCamera;
     float _XRotation = 0;
     float _YRotation = 0;
@@ -58,13 +63,11 @@ public class Player : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         _MainCamera = Camera.main;
+        _StartingFOV = _MainCamera.fieldOfView;
     }
-
-    // Update is called once per frame
     void Update()
     {
         HandleCamera();
-
         HandleCrouching();
         HandleSprinting();
 
@@ -87,11 +90,11 @@ public class Player : MonoBehaviour
     {
         _Grounded = true;
     }
-
     private void OnCollisionExit(Collision collision)
     {
         _Grounded = false;
     }
+
     //Movement Functions
     void HandleMovement()
     {
@@ -99,27 +102,24 @@ public class Player : MonoBehaviour
         Vector3 newVelocity = new Vector3(mDirection.x * _MovementSpeed, _Rigidbody.velocity.y, mDirection.z * _MovementSpeed);
         _Rigidbody.velocity = transform.TransformDirection(newVelocity);
     }
-
     void HandleSprinting()
     {
-        //Sprinting
         if (Input.GetKeyDown(_SprintKey))
         {
             _MovementSpeed *= _SprintSpeedMult;
-
+            _IsSprinting = true;
         }
         if (Input.GetKeyUp(_SprintKey))
         {
             _MovementSpeed /= _SprintSpeedMult;
+            _IsSprinting = false;
         }
     }
-
     void Jump()
     {
         _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _JumpForce, _Rigidbody.velocity.z);
         _ReadyToJump = false;
     }
-
     void HandleCrouching()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -153,7 +153,26 @@ public class Player : MonoBehaviour
     //Camera Functions
     void HandleCamera()
     {
+        CameraFOV();
+        CameraDirection();
+    }
+    void CameraFOV()
+    {
+        if (_IsSprinting)
+        {
+            _TargetFOV = _StartingFOV + _Rigidbody.velocity.magnitude * _FOVIncreasePerUnit;
+            _MainCamera.fieldOfView = Mathf.Lerp(_MainCamera.fieldOfView, _TargetFOV, 0.1f);
+        }
+        else
+        {
+            _TargetFOV = _StartingFOV;
+        }
+        _MainCamera.fieldOfView = Mathf.Lerp(_MainCamera.fieldOfView, _TargetFOV, 0.1f);
+    }
+    void CameraDirection()
+    {
         Vector2 lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
         if (lookDirection == Vector2.zero)
             return;
 
@@ -164,7 +183,6 @@ public class Player : MonoBehaviour
 
         _MainCamera.transform.rotation = Quaternion.Euler(-_YRotation, _MainCamera.transform.eulerAngles.y, 0);
         transform.rotation = Quaternion.Euler(0, _XRotation, 0);
-
     }
     void ClampRotation()
     {
