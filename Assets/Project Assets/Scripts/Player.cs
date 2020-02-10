@@ -39,7 +39,6 @@ public class Player : MonoBehaviour
     [SerializeField] float _ThrowForce = 5;
     GameObject _CurrentGun = null;
 
-
     [Header("Camera")]
     [SerializeField] float _RotationSpeed = 1f;
     [SerializeField] float _YRotationMin = -90f;
@@ -208,7 +207,7 @@ public class Player : MonoBehaviour
         float waveslice = 0.0f;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0)
+        if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0 || !_Grounded)
         {
             _Timer = 0.0f;
         }
@@ -218,25 +217,24 @@ public class Player : MonoBehaviour
             _Timer += _BobbingSpeed;
             if (_Timer > Mathf.PI * 2)
             {
-                _Timer = _Timer - (Mathf.PI * 2);
+                _Timer -= Mathf.PI * 2;
             }
         }
 
-        Vector3 v3T = _MainCamera.transform.localPosition;
+        Vector3 cameraPosition = _MainCamera.transform.localPosition;
         if (waveslice != 0)
         {
             float translateChange = waveslice * _BobbingAmount;
             float totalAxes = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
             totalAxes = Mathf.Clamp(totalAxes, 0.0f, 1.0f);
             translateChange *= totalAxes;
-            v3T.y = _Midpoint + translateChange;
+            cameraPosition.y = _Midpoint + translateChange;
         }
         else
         {
-            v3T.y = _Midpoint;
+            cameraPosition.y = _Midpoint;
         }
 
-        _MainCamera.transform.localPosition = v3T;
+        _MainCamera.transform.localPosition = cameraPosition;
     }
 }
-
