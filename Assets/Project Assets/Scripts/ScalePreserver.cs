@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * ScalePreserver.cs
+ * Created by: Kaelan Bartlett
+ * Created on: 10/2/2020 (dd/mm/yy)
+ * Created for: Nullifying the parent's scale
+ */
+using UnityEngine;
 
 public class ScalePreserver : MonoBehaviour
 {

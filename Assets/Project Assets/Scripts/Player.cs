@@ -185,7 +185,6 @@ public class Player : MonoBehaviour
             {
                 if(_CurrentGun == null)
                 {
-                    Debug.Log("Pickup");
                     targetGun.Pickup(_MainCamera.transform);
                     _CurrentGun = targetGun.gameObject;
                 }

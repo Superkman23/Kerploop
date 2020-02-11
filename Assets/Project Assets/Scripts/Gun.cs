@@ -67,8 +67,9 @@ public class Gun : MonoBehaviour
         }
     }
 
-    public void Pickup(Transform target)
+    public void Pickup(Transform target) //Runs when the gun is picked up
     {
+        Global.RecursiveSetColliders(transform, false);
         transform.parent = target;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         _Rigidbody.isKinematic = true;
@@ -77,6 +78,7 @@ public class Gun : MonoBehaviour
 
     public void Drop()
     {
+        Global.RecursiveSetColliders(this.transform, true);
         transform.parent = null;
         _Rigidbody.isKinematic = false;
         _IsEquipped = false;
