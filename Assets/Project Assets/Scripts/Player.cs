@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     [SerializeField] float _CrouchScale;
     [SerializeField] float _CrouchGravityMult;
     bool _IsCrouching = false;
+    bool _IsCrouchTransitioning;
     Vector3 _MainScale;
     Vector3 _TargetScale;
 
@@ -121,8 +122,8 @@ public class Player : MonoBehaviour
     //Movement Functions
     void HandleMovement()
     {
-        Vector3 mDirection = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1.0f);
-        Vector3 newVelocity = new Vector3(mDirection.x * _MovementSpeed, _Rigidbody.velocity.y, mDirection.z * _MovementSpeed);
+        Vector3 mDirection = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1.0f); // Get user input
+        Vector3 newVelocity = new Vector3(mDirection.x * _MovementSpeed, _Rigidbody.velocity.y, mDirection.z * _MovementSpeed); // Multiply velocity by speed (prevents _MovementSpeed from being clamped)
         _Rigidbody.velocity = transform.TransformDirection(newVelocity);
     }
     void HandleSprinting()
@@ -150,6 +151,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             _IsCrouching = true;
+            _IsCrouchTransitioning = true;
             _TargetScale = new Vector3(_TargetScale.x, _CrouchScale,_TargetScale.z );
             _MovementSpeed *= _CrouchSpeedMult;
 
@@ -161,18 +163,18 @@ public class Player : MonoBehaviour
             _MovementSpeed /= _CrouchSpeedMult;
         }
 
-        if (Mathf.Abs(transform.localScale.y - _TargetScale.y) < .1)
+        if (Mathf.Abs(transform.localScale.y - _TargetScale.y) < .1) // No longer transitioning if scales are close enough
         {
-            _IsCrouching = false;
+            _IsCrouchTransitioning = false;
             transform.localScale = _TargetScale;
         }
 
-        if (_IsCrouching)
+        if (_IsCrouchTransitioning) // Increase gravity while crouching to fall faster
         {
             _Rigidbody.AddForce(Physics.gravity * _CrouchGravityMult);
         }
 
-        transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.4f);
+        transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.4f); // Smoothly transition into and out of crouching
     }
 
     //Gun functions
@@ -181,19 +183,13 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward, out RaycastHit hit,_InteractRange))
         {
             Gun targetGun = hit.collider.gameObject.transform.parent.GetComponent<Gun>();
-            if (targetGun != null)
+            if (targetGun != null) // Only run if the player interacted with a gun
             {
-                if(_CurrentGun == null)
-                {
-                    targetGun.Pickup(_MainCamera.transform);
-                    _CurrentGun = targetGun.gameObject;
-                }
-                else
-                {
+                if(_CurrentGun != null) // Throw the existing gun if the player is already holding one
                     DropGun();
-                    targetGun.Pickup(_MainCamera.transform);
-                    _CurrentGun = targetGun.gameObject;
-                }
+
+                targetGun.Pickup(_MainCamera.transform); // Pickup the gun
+                _CurrentGun = targetGun.gameObject; //Set the current gun as this gun
             }
         }
     }
@@ -206,9 +202,9 @@ public class Player : MonoBehaviour
     //Camera Functions
     void HandleCamera()
     {
-            Vector2 lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            Vector2 lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); //Get player input
 
-            if (lookDirection == Vector2.zero)
+            if (lookDirection == Vector2.zero) //Only run if the player's mouse has moved
                 return;
 
             lookDirection *= _RotationSpeed;
