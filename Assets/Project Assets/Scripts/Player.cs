@@ -91,6 +91,13 @@ public class Player : MonoBehaviour
         {
             Interact();
         }
+
+        if(_CurrentGun != null && Input.GetKeyDown(_ThrowKey))
+        {
+            DropGun();
+        }
+
+
     }
     private void FixedUpdate()
     {
@@ -168,18 +175,34 @@ public class Player : MonoBehaviour
         transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.4f);
     }
 
+    //Gun functions
     void Interact()
     {
         if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward, out RaycastHit hit,_InteractRange))
         {
-            Debug.Log(hit);
-
-
-
+            Gun targetGun = hit.collider.gameObject.transform.parent.GetComponent<Gun>();
+            if (targetGun != null)
+            {
+                if(_CurrentGun == null)
+                {
+                    Debug.Log("Pickup");
+                    targetGun.Pickup(_MainCamera.transform);
+                    _CurrentGun = targetGun.gameObject;
+                }
+                else
+                {
+                    DropGun();
+                    targetGun.Pickup(_MainCamera.transform);
+                    _CurrentGun = targetGun.gameObject;
+                }
+            }
         }
     }
-
-
+    void DropGun()
+    {
+        _CurrentGun.GetComponent<Gun>().Drop(); //drop held gun
+        _CurrentGun = null; //set current gun to none because it's no longer held
+    }
     //Camera Functions
     void HandleCamera()
     {

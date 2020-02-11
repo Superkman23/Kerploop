@@ -924,6 +924,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4302443291902582768, guid: 55baeab30a6d3c64d9da74ebb51dd177,
+        type: 3}
+      propertyPath: _DefaultPosition.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4302443291902582768, guid: 55baeab30a6d3c64d9da74ebb51dd177,
+        type: 3}
+      propertyPath: _DefaultPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4302443291902582768, guid: 55baeab30a6d3c64d9da74ebb51dd177,
+        type: 3}
+      propertyPath: _DefaultPosition.y
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6880137816626571537, guid: 55baeab30a6d3c64d9da74ebb51dd177,
         type: 3}
       propertyPath: m_Name
@@ -1457,6 +1472,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _MaxHealth
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6903651195875064802, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
+        type: 3}
+      propertyPath: m_Name
+      value: Scale Preserver
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f26233fe9168cf4b8d9c1e3f75423c8, type: 3}

@@ -24,7 +24,7 @@ public class Gun : MonoBehaviour
     [SerializeField] protected float _BulletSpread;
     [SerializeField] protected float _BulletMaxDistance;
     [SerializeField] protected int _BulletDamage;
-
+    bool _IsEquipped;
 
     [Header("Positioning")]
     [SerializeField] protected Vector3 _DefaultPosition;
@@ -59,6 +59,23 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (_IsEquipped)
+        {
+            transform.localPosition = _DefaultPosition;
+        }
     }
+
+    public void Pickup(Transform target)
+    {
+        transform.parent = target;
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
+        _IsEquipped = true;
+    }
+
+    public void Drop()
+    {
+        transform.parent = null;
+        _IsEquipped = false;
+    }
+
 }

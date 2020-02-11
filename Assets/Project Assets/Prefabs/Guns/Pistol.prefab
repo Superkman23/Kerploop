@@ -969,6 +969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1127990983860390042}
+  - component: {fileID: 4302443291902582768}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -997,6 +998,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4302443291902582768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880137816626571537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef574e6ce5ed53c498e7e511ae37e519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ShootNoise: {fileID: 0}
+  _Flash: {fileID: 0}
+  _BulletSpawnPoint: {fileID: 0}
+  _BulletRay: {fileID: 0}
+  _IsAutomatic: 0
+  _AimingAccuracyMultiplier: 0
+  _BulletSpread: 0
+  _BulletMaxDistance: 0
+  _BulletDamage: 0
+  _DefaultPosition: {x: 0, y: 0, z: 0}
+  _AimingPosition: {x: 0, y: 0, z: 0}
+  _RecoilAmount: 0
+  _ShotDelay: 0
+  _ShotVolume: 0
+  _ClipSize: 0
+  _ReloadTime: 0
+  _IsReloading: 0
+  _FlashIntensity: 0
 --- !u!1 &8896101985220659791
 GameObject:
   m_ObjectHideFlags: 0
