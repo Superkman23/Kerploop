@@ -199,43 +199,25 @@ public class Player : MonoBehaviour
     }
     void DropGun()
     {
-        _CurrentGun.GetComponent<Gun>().Drop(); //drop held gun
-        _CurrentGun.GetComponent<Gun>()._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); //adds a force to the gun when you throw it
-        _CurrentGun = null; //set current gun to none because it's no longer held
+        _CurrentGun.GetComponent<Gun>().Drop(); // Drop held gun
+        _CurrentGun.GetComponent<Gun>()._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
+        _CurrentGun = null; // Set current gun to none because it's no longer held
     }
     //Camera Functions
     void HandleCamera()
     {
-        CameraFOV();
-        CameraDirection();
-    }
-    void CameraFOV()
-    {
-        if (_IsSprinting)
-        {
-            _TargetFOV = _StartingFOV + _Rigidbody.velocity.magnitude * _FOVIncreasePerUnit;
-            _MainCamera.fieldOfView = Mathf.Lerp(_MainCamera.fieldOfView, _TargetFOV, 0.1f);
-        }
-        else
-        {
-            _TargetFOV = _StartingFOV;
-        }
-        _MainCamera.fieldOfView = Mathf.Lerp(_MainCamera.fieldOfView, _TargetFOV, 0.1f);
-    }
-    void CameraDirection()
-    {
-        Vector2 lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            Vector2 lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
-        if (lookDirection == Vector2.zero)
-            return;
+            if (lookDirection == Vector2.zero)
+                return;
 
-        lookDirection *= _RotationSpeed;
-        _XRotation += lookDirection.x;
-        _YRotation += lookDirection.y;
-        ClampRotation();
+            lookDirection *= _RotationSpeed;
+            _XRotation += lookDirection.x;
+            _YRotation += lookDirection.y;
+            ClampRotation();
 
-        _MainCamera.transform.rotation = Quaternion.Euler(-_YRotation, _MainCamera.transform.eulerAngles.y, 0);
-        transform.rotation = Quaternion.Euler(0, _XRotation, 0);
+            _MainCamera.transform.rotation = Quaternion.Euler(-_YRotation, _MainCamera.transform.eulerAngles.y, 0);
+            transform.rotation = Quaternion.Euler(0, _XRotation, 0);
     }
     void ClampRotation()
     {
