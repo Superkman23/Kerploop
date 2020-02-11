@@ -32,8 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] [Range(0, 1)] float _CrouchSpeedMult = 0.5f;
     [SerializeField] float _CrouchScale;
     [SerializeField] float _CrouchGravityMult;
-    bool _IsCrouching = false;
-    bool _IsCrouchTransitioning;
+    bool _IsStartingCrouch;
     Vector3 _MainScale;
     Vector3 _TargetScale;
 
@@ -49,9 +48,6 @@ public class Player : MonoBehaviour
     [SerializeField] float _RotationSpeed = 1f;
     [SerializeField] float _YRotationMin = -90f;
     [SerializeField] float _YRotationMax = 90f;
-    [SerializeField] float _FOVIncreasePerUnit;
-    float _TargetFOV;
-    float _StartingFOV;
     float _XRotation = 0;
     float _YRotation = 0;
 
@@ -75,7 +71,6 @@ public class Player : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         _MainCamera = Camera.main;
-        _StartingFOV = _MainCamera.fieldOfView;
     }
     void Update()
     {
@@ -88,6 +83,7 @@ public class Player : MonoBehaviour
         {
             _ReadyToJump = true;
         }
+
         if (Input.GetKeyDown(_InteractKey))
         {
             Interact();
@@ -122,7 +118,7 @@ public class Player : MonoBehaviour
     //Movement Functions
     void HandleMovement()
     {
-        Vector3 mDirection = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1.0f); // Get user input
+        Vector3 mDirection = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1.0f); // Gets player input and caps the magnitude at one (prevents moving faster than you should)
         Vector3 newVelocity = new Vector3(mDirection.x * _MovementSpeed, _Rigidbody.velocity.y, mDirection.z * _MovementSpeed); // Multiply velocity by speed (prevents _MovementSpeed from being clamped)
         _Rigidbody.velocity = transform.TransformDirection(newVelocity);
     }
@@ -150,29 +146,20 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            _IsCrouching = true;
-            _IsCrouchTransitioning = true;
-            _TargetScale = new Vector3(_TargetScale.x, _CrouchScale,_TargetScale.z );
+            _IsStartingCrouch = true; // Is only set to true here because we don't want more gravity while returning to normal size
+            _TargetScale = new Vector3(_TargetScale.x, _CrouchScale,_TargetScale.z);
             _MovementSpeed *= _CrouchSpeedMult;
 
-        }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        } if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            _IsCrouching = false;
             _TargetScale = _MainScale;
             _MovementSpeed /= _CrouchSpeedMult;
         }
 
         if (Mathf.Abs(transform.localScale.y - _TargetScale.y) < .1) // No longer transitioning if scales are close enough
-        {
-            _IsCrouchTransitioning = false;
-            transform.localScale = _TargetScale;
-        }
-
-        if (_IsCrouchTransitioning) // Increase gravity while crouching to fall faster
-        {
+            _IsStartingCrouch = false;
+        if (_IsStartingCrouch) // Increase gravity while crouching to fall faster, exists to make starting crouching faster
             _Rigidbody.AddForce(Physics.gravity * _CrouchGravityMult);
-        }
 
         transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.4f); // Smoothly transition into and out of crouching
     }
@@ -199,21 +186,22 @@ public class Player : MonoBehaviour
         _CurrentGun.GetComponent<Gun>()._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
         _CurrentGun = null; // Set current gun to none because it's no longer held
     }
+
     //Camera Functions
     void HandleCamera()
     {
-            Vector2 lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); //Get player input
+            Vector2 lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); // Gets player input
 
             if (lookDirection == Vector2.zero) //Only run if the player's mouse has moved
                 return;
 
-            lookDirection *= _RotationSpeed;
+            lookDirection *= _RotationSpeed; 
             _XRotation += lookDirection.x;
             _YRotation += lookDirection.y;
-            ClampRotation();
+            ClampRotation(); //Prevents the camera from over rotating
 
-            _MainCamera.transform.rotation = Quaternion.Euler(-_YRotation, _MainCamera.transform.eulerAngles.y, 0);
-            transform.rotation = Quaternion.Euler(0, _XRotation, 0);
+            _MainCamera.transform.rotation = Quaternion.Euler(-_YRotation, _MainCamera.transform.eulerAngles.y, 0); // Rotate the camera around the X axis to look up or down
+            transform.rotation = Quaternion.Euler(0, _XRotation, 0); // Rotates the player around the Y axis to look left or right. Doing this rotates the camera so we don't need to rotate the camera.
     }
     void ClampRotation()
     {
