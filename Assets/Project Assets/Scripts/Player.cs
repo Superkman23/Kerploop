@@ -201,6 +201,7 @@ public class Player : MonoBehaviour
     void DropGun()
     {
         _CurrentGun.GetComponent<Gun>().Drop(); //drop held gun
+        _CurrentGun.GetComponent<Gun>()._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); //adds a force to the gun when you throw it
         _CurrentGun = null; //set current gun to none because it's no longer held
     }
     //Camera Functions

@@ -51,9 +51,11 @@ public class Gun : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] protected float _FlashIntensity;
 
+    [HideInInspector] public Rigidbody _Rigidbody;
+
     void Awake()
     {
-        
+        _Rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -69,12 +71,14 @@ public class Gun : MonoBehaviour
     {
         transform.parent = target;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
+        _Rigidbody.isKinematic = true;
         _IsEquipped = true;
     }
 
     public void Drop()
     {
         transform.parent = null;
+        _Rigidbody.isKinematic = false;
         _IsEquipped = false;
     }
 
