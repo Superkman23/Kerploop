@@ -111,6 +111,8 @@ public class Gun : MonoBehaviour
         Vector3 spread = new Vector3(spreadX, spreadY, 0);
         Vector3 direction = _BulletSpawnPoint.forward + (transform.InverseTransformDirection(spread) / _BulletMaxDistance);
 
+        transform.localPosition -= new Vector3(0, 0, _RecoilAmount);
+
         if (Physics.Raycast(_BulletSpawnPoint.position, direction, out RaycastHit hit, _BulletMaxDistance))
         {
             CreateTracer(hit.point);
