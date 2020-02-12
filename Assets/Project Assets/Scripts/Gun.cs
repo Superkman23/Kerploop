@@ -9,56 +9,71 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    [Header("Required Components")]
+    [Header("Components")]
     [SerializeField] AudioClip _ShootNoise;
     [SerializeField] Light _Flash;
     [SerializeField] Transform _BulletSpawnPoint;
     [SerializeField] GameObject _BulletRay;
-    protected AudioSource _AudioSource;
+    AudioSource _AudioSource;
+    [HideInInspector] public Rigidbody _Rigidbody;
 
-    [Header("General Gun Settings")]
-    [SerializeField] bool _IsAutomatic;
-    [SerializeField] float _AimingAccuracyMultiplier;
-    [SerializeField] float _BulletSpread;
-    [SerializeField] float _BulletMaxDistance;
+    //Variables that don't fit any category
     bool _IsEquipped;
 
     [Header("Positioning")]
     [SerializeField] Vector3 _DefaultPosition;
     [SerializeField] Vector3 _AimingPosition;
     Vector3 _TargetPosition;
-    [SerializeField] [Range(0, 1)]  float _AimSpeed;
-    [SerializeField] float _RecoilAmount;
-    protected bool _IsAiming;
+
+
+    [Header("Aiming")]
+    [SerializeField] [Range(0, 1)] float _AimSpeed;
+    [SerializeField] float _AimingAccuracyMultiplier;
+    bool _IsAiming;
+
 
     [Header("Shooting")]
+    [SerializeField] bool _IsAutomatic;
+
+    // Variables that affect the bullet's functions
+    [SerializeField] float _BulletSpread;
+    [SerializeField] float _BulletMaxDistance;
     [SerializeField] int _BulletDamage;
     [SerializeField] int _BulletForce;
     [SerializeField] int _BulletsPerShot = 1;
-    [SerializeField] [Range(0, 1)] protected float _ShotVolume;
-    [SerializeField] protected int _ShotDelay;
-    protected int _TimeTillNextShot; // To do with shot delay
+
+    // Variables that are used when limiting how fast a gun can shoot
+    [SerializeField] int _ShotDelay;
+    int _TimeTillNextShot;
+
 
     [Header("Ammo")]
-    [SerializeField] protected int _ClipSize;
+    [SerializeField] int _ClipSize;
     protected int _MaxAmmo; 
     protected int _CurrentInClip;
     protected int _CurrentAmmoTotal;
 
+
     [Header("Reloading")]
-    [SerializeField] protected float _ReloadTime;
-    protected WaitForSecondsRealtime _ReloadTimeDelay;
-    [HideInInspector] public bool _IsReloading;
+    [SerializeField] float _ReloadTime;
+    WaitForSecondsRealtime _ReloadTimeDelay;
+    [HideInInspector] bool _IsReloading;
 
-    [Header("Visuals")]
+
+    [Header("Feedback")]
+    // Visual feedback
     [SerializeField] protected float _FlashIntensity;
-
-    [HideInInspector] public Rigidbody _Rigidbody;
+    [SerializeField] float _ShotRecoil;
+    // Audio Feedback
+    [SerializeField] [Range(0, 1)] float _ShotVolume;
 
     void Awake()
     {
+
         _Rigidbody = GetComponent<Rigidbody>();
         _TargetPosition = _DefaultPosition;
+
+        _CurrentInClip = _ClipSize;
     }
 
     // Update is called once per frame
@@ -107,6 +122,7 @@ public class Gun : MonoBehaviour
     public void Shoot()
     {
         float shotsLeft = _BulletsPerShot;
+
         while (shotsLeft-- > 0)
         {
 
@@ -128,7 +144,8 @@ public class Gun : MonoBehaviour
                 CreateBullet(transform.position + (direction.normalized * _BulletMaxDistance));
             }
         }
-        transform.localPosition -= new Vector3(0, 0, _RecoilAmount);
+
+        transform.localPosition -= new Vector3(0, 0, _ShotRecoil);
     }
 
     void CreateBullet(Vector3 point) // Creates the line the gullet follows
