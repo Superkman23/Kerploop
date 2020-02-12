@@ -34,6 +34,7 @@ public class Gun : MonoBehaviour
     [Header("Shooting")]
     [SerializeField] int _BulletDamage;
     [SerializeField] int _BulletForce;
+    [SerializeField] int _BulletsPerShot = 1;
     [SerializeField] [Range(0, 1)] protected float _ShotVolume;
     [SerializeField] protected int _ShotDelay;
     protected int _TimeTillNextShot; // To do with shot delay
@@ -105,28 +106,32 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        float spreadX = Random.Range(-_BulletSpread, _BulletSpread);
-        float spreadY = Random.Range(-_BulletSpread, _BulletSpread);
+        float shotsLeft = _BulletsPerShot;
+        while (shotsLeft-- > 0)
+        {
 
-        Vector3 spread = new Vector3(spreadX, spreadY, 0);
-        Vector3 direction = _BulletSpawnPoint.forward + (transform.InverseTransformDirection(spread) / _BulletMaxDistance);
+            float spreadX = Random.Range(-_BulletSpread, _BulletSpread);
+            float spreadY = Random.Range(-_BulletSpread, _BulletSpread);
 
+            Vector3 spread = new Vector3(spreadX, spreadY, 0);
+            Vector3 direction = _BulletSpawnPoint.forward + (transform.InverseTransformDirection(spread) / _BulletMaxDistance);
+
+            if (Physics.Raycast(_BulletSpawnPoint.position, direction, out RaycastHit hit, _BulletMaxDistance))
+            {
+                CreateBullet(hit.point);
+                var targetComponent = hit.rigidbody;
+                if (targetComponent != null)
+                    hit.rigidbody.AddForce(_BulletSpawnPoint.forward * _BulletForce, ForceMode.Impulse);
+            }
+            else
+            {
+                CreateBullet(transform.position + (direction.normalized * _BulletMaxDistance));
+            }
+        }
         transform.localPosition -= new Vector3(0, 0, _RecoilAmount);
-
-        if (Physics.Raycast(_BulletSpawnPoint.position, direction, out RaycastHit hit, _BulletMaxDistance))
-        {
-            CreateTracer(hit.point);
-            var targetComponent = hit.rigidbody;
-            if(targetComponent != null)
-                hit.rigidbody.AddForce(_BulletSpawnPoint.forward * _BulletForce, ForceMode.Impulse);
-        }
-        else
-        {
-            CreateTracer(transform.position + (direction.normalized * _BulletMaxDistance));
-        }
     }
 
-    void CreateTracer(Vector3 point)
+    void CreateBullet(Vector3 point) // Creates the line the gullet follows
     {
         GameObject go = Instantiate(_BulletRay, _BulletSpawnPoint.position, Quaternion.identity);
         BulletRay ray = go.GetComponent<BulletRay>();
