@@ -158,11 +158,13 @@ public class Player : MonoBehaviour
         {
             _IsStartingCrouch = true; // Is only set to true here because we don't want more gravity while returning to normal size
             _TargetScale = new Vector3(_TargetScale.x, _CrouchScale,_TargetScale.z);
+            _Midpoint *= _CrouchScale;
             _MovementSpeed *= _CrouchSpeedMult;
 
         } if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             _TargetScale = _MainScale;
+            _Midpoint /= _CrouchScale;
             _MovementSpeed /= _CrouchSpeedMult;
         }
 
