@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] KeyCode _ThrowKey = KeyCode.F;
     [SerializeField] KeyCode _InteractKey = KeyCode.E;
     [SerializeField] int _AimButton = 1;
+    [SerializeField] int _ShootButton = 0;
 
     [Header("Movement")]
     [SerializeField] float _MovementSpeed;
@@ -88,6 +89,10 @@ public class Player : MonoBehaviour
             if (Input.GetMouseButtonUp(_AimButton))
             {
                 equippedGun.Aim(false);
+            }
+            if (Input.GetMouseButtonDown(_ShootButton))
+            {
+                equippedGun.Shoot();
             }
         }
 

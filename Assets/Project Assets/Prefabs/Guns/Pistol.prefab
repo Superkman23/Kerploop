@@ -1018,7 +1018,7 @@ MonoBehaviour:
   _IsAutomatic: 0
   _AimingAccuracyMultiplier: 0
   _BulletSpread: 0
-  _BulletMaxDistance: 0
+  _BulletMaxDistance: 100
   _BulletDamage: 0
   _DefaultPosition: {x: 0.3, y: -0.2, z: 0.5}
   _AimingPosition: {x: 0, y: -0.07, z: 0.4}

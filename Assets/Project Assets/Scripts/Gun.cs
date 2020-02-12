@@ -72,9 +72,9 @@ public class Gun : MonoBehaviour
     {
         Global.RecursiveSetColliders(transform, false);
         transform.parent = target;
-        transform.localRotation = Quaternion.Euler(0, 0, 0);
         _Rigidbody.isKinematic = true;
         _IsEquipped = true;
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void Drop()
@@ -98,13 +98,19 @@ public class Gun : MonoBehaviour
             _IsAiming = false;
             _TargetPosition = _DefaultPosition;
         }
-
     }
 
     public void Shoot()
     {
+        float spreadX = Random.Range(-_BulletSpread, _BulletSpread);
+        float spreadY = Random.Range(-_BulletSpread, _BulletSpread);
 
+        Vector3 spread = new Vector3(spreadX, spreadY, 0);
+        if(Physics.Raycast(transform.position, transform.forward + spread, out RaycastHit hit, _BulletMaxDistance))
+        {
+            Debug.Log("Nice job you hit something");
+
+
+        }
     }
-
-
 }
