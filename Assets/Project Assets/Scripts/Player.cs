@@ -5,8 +5,6 @@
  * Created for: Controlling the player
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -16,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] KeyCode _JumpKey = KeyCode.Space;
     [SerializeField] KeyCode _ThrowKey = KeyCode.F;
     [SerializeField] KeyCode _InteractKey = KeyCode.E;
+    [SerializeField] int _AimButton = 1;
 
     [Header("Movement")]
     [SerializeField] float _MovementSpeed;
@@ -79,6 +78,19 @@ public class Player : MonoBehaviour
         HandleSprinting();
         ApplyViewBobbing();
 
+        if(_CurrentGun != null)
+        {
+            Gun equippedGun = _CurrentGun.GetComponent<Gun>();
+            if (Input.GetMouseButtonDown(_AimButton))
+            {
+                equippedGun.Aim(true);
+            }
+            if (Input.GetMouseButtonUp(_AimButton))
+            {
+                equippedGun.Aim(false);
+            }
+        }
+
         if (Input.GetKeyDown(_JumpKey) && _Grounded)
         {
             _ReadyToJump = true;
@@ -93,8 +105,6 @@ public class Player : MonoBehaviour
         {
             DropGun();
         }
-
-
     }
     private void FixedUpdate()
     {
@@ -182,8 +192,9 @@ public class Player : MonoBehaviour
     }
     void DropGun()
     {
-        _CurrentGun.GetComponent<Gun>().Drop(); // Drop held gun
-        _CurrentGun.GetComponent<Gun>()._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
+        Gun equippedGun = _CurrentGun.GetComponent<Gun>();
+        equippedGun.Drop(); // Drop held gun
+        equippedGun._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
         _CurrentGun = null; // Set current gun to none because it's no longer held
     }
 

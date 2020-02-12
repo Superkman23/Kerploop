@@ -1020,8 +1020,9 @@ MonoBehaviour:
   _BulletSpread: 0
   _BulletMaxDistance: 0
   _BulletDamage: 0
-  _DefaultPosition: {x: 0, y: 0, z: 0}
-  _AimingPosition: {x: 0, y: 0, z: 0}
+  _DefaultPosition: {x: 0.3, y: -0.2, z: 0.5}
+  _AimingPosition: {x: 0, y: -0.07, z: 0.4}
+  _AimSpeed: 0.101
   _RecoilAmount: 0
   _ShotDelay: 0
   _ShotVolume: 0
@@ -1029,6 +1030,7 @@ MonoBehaviour:
   _ReloadTime: 0
   _IsReloading: 0
   _FlashIntensity: 0
+  _Rigidbody: {fileID: 0}
 --- !u!54 &-7837288968697464831
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -303,7 +303,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -565,6 +565,7 @@ MonoBehaviour:
   _JumpKey: 32
   _ThrowKey: 102
   _InteractKey: 101
+  _AimButton: 1
   _MovementSpeed: 8
   _SprintSpeedMult: 2
   _JumpForce: 6
@@ -576,7 +577,6 @@ MonoBehaviour:
   _RotationSpeed: 4
   _YRotationMin: -90
   _YRotationMax: 90
-  _FOVIncreasePerUnit: 0
   _BobbingSpeed: 0.09
   _BobbingAmount: 0.1
 --- !u!114 &6201596113104203498

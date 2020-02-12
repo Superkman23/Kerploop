@@ -5,31 +5,31 @@
  * Created for: Controlling all guns' actions
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
     [Header("Required Components")]
-    [SerializeField] protected AudioClip _ShootNoise;
-    [SerializeField] protected Light _Flash;
-    [SerializeField] protected Transform _BulletSpawnPoint;
-    [SerializeField] protected GameObject _BulletRay;
+    [SerializeField] AudioClip _ShootNoise;
+    [SerializeField] Light _Flash;
+    [SerializeField] Transform _BulletSpawnPoint;
+    [SerializeField] GameObject _BulletRay;
     protected AudioSource _AudioSource;
 
     [Header("General Gun Settings")]
-    [SerializeField] protected bool _IsAutomatic;
-    [SerializeField] protected float _AimingAccuracyMultiplier;
-    [SerializeField] protected float _BulletSpread;
-    [SerializeField] protected float _BulletMaxDistance;
-    [SerializeField] protected int _BulletDamage;
+    [SerializeField] bool _IsAutomatic;
+    [SerializeField] float _AimingAccuracyMultiplier;
+    [SerializeField] float _BulletSpread;
+    [SerializeField] float _BulletMaxDistance;
+    [SerializeField] int _BulletDamage;
     bool _IsEquipped;
 
     [Header("Positioning")]
-    [SerializeField] protected Vector3 _DefaultPosition;
-    [SerializeField] protected Vector3 _AimingPosition;
-    [SerializeField] protected float _RecoilAmount;
+    [SerializeField] Vector3 _DefaultPosition;
+    [SerializeField] Vector3 _AimingPosition;
+    Vector3 _TargetPosition;
+    [SerializeField] [Range(0, 1)]  float _AimSpeed;
+    [SerializeField] float _RecoilAmount;
     protected bool _IsAiming;
 
     [Header("Shooting")]
@@ -56,6 +56,7 @@ public class Gun : MonoBehaviour
     void Awake()
     {
         _Rigidbody = GetComponent<Rigidbody>();
+        _TargetPosition = _DefaultPosition;
     }
 
     // Update is called once per frame
@@ -63,7 +64,7 @@ public class Gun : MonoBehaviour
     {
         if (_IsEquipped)
         {
-            transform.localPosition = _DefaultPosition;
+            transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _AimSpeed);
         }
     }
 
@@ -78,10 +79,32 @@ public class Gun : MonoBehaviour
 
     public void Drop()
     {
-        Global.RecursiveSetColliders(this.transform, true);
+        Aim(false);
+        Global.RecursiveSetColliders(transform, true);
         transform.parent = null;
         _Rigidbody.isKinematic = false;
         _IsEquipped = false;
     }
+
+    public void Aim(bool isAiming)
+    {
+        if(isAiming == true)
+        {
+            _IsAiming = true;
+            _TargetPosition = _AimingPosition;
+        }
+        else
+        {
+            _IsAiming = false;
+            _TargetPosition = _DefaultPosition;
+        }
+
+    }
+
+    public void Shoot()
+    {
+
+    }
+
 
 }
