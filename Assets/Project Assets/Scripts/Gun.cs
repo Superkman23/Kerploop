@@ -21,7 +21,6 @@ public class Gun : MonoBehaviour
     [SerializeField] float _AimingAccuracyMultiplier;
     [SerializeField] float _BulletSpread;
     [SerializeField] float _BulletMaxDistance;
-    [SerializeField] int _BulletDamage;
     bool _IsEquipped;
 
     [Header("Positioning")]
@@ -33,8 +32,10 @@ public class Gun : MonoBehaviour
     protected bool _IsAiming;
 
     [Header("Shooting")]
-    [SerializeField] protected int _ShotDelay;
+    [SerializeField] int _BulletDamage;
+    [SerializeField] int _BulletForce;
     [SerializeField] [Range(0, 1)] protected float _ShotVolume;
+    [SerializeField] protected int _ShotDelay;
     protected int _TimeTillNextShot; // To do with shot delay
 
     [Header("Ammo")]
@@ -91,11 +92,13 @@ public class Gun : MonoBehaviour
         if(isAiming == true)
         {
             _IsAiming = true;
+            _BulletSpread /= _AimingAccuracyMultiplier;
             _TargetPosition = _AimingPosition;
         }
         else
         {
             _IsAiming = false;
+            _BulletSpread *= _AimingAccuracyMultiplier;
             _TargetPosition = _DefaultPosition;
         }
     }
@@ -106,11 +109,26 @@ public class Gun : MonoBehaviour
         float spreadY = Random.Range(-_BulletSpread, _BulletSpread);
 
         Vector3 spread = new Vector3(spreadX, spreadY, 0);
-        if(Physics.Raycast(transform.position, transform.forward + spread, out RaycastHit hit, _BulletMaxDistance))
+        Vector3 direction = _BulletSpawnPoint.forward + (transform.InverseTransformDirection(spread) / _BulletMaxDistance);
+
+        if (Physics.Raycast(_BulletSpawnPoint.position, direction, out RaycastHit hit, _BulletMaxDistance))
         {
-            Debug.Log("Nice job you hit something");
-
-
+            CreateTracer(hit.point);
+            var targetComponent = hit.rigidbody;
+            if(targetComponent != null)
+                hit.rigidbody.AddForce(_BulletSpawnPoint.forward * _BulletForce, ForceMode.Impulse);
         }
+        else
+        {
+            CreateTracer(transform.position + (direction.normalized * _BulletMaxDistance));
+        }
+    }
+
+    void CreateTracer(Vector3 point)
+    {
+        GameObject go = Instantiate(_BulletRay, _BulletSpawnPoint.position, Quaternion.identity);
+        BulletRay ray = go.GetComponent<BulletRay>();
+        ray.SetRendererPosition(point);
+        StartCoroutine(ray.WaitThenDestroy(0.1f));
     }
 }
