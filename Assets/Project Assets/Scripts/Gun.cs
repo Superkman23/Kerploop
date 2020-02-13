@@ -105,6 +105,10 @@ public class Gun : MonoBehaviour
 
     public void Aim(bool isAiming)
     {
+        if(isAiming == _IsAiming) // If we're already in the position, don't switch
+        {
+            return;
+        }
         if(isAiming == true)
         {
             _IsAiming = true;
