@@ -1023,8 +1023,10 @@ MonoBehaviour:
   _AimSpeed: 0.101
   _DefaultSpread: 3
   _AimingSpread: 1
-  _SpreadTime: 0.034
+  _DefaultSpreadTime: 0.035
+  _AimingSpreadTime: 0.096
   _SpreadPerShot: 2
+  _CurrentSpread: 0
   _IsAutomatic: 0
   _BulletMaxDistance: 60
   _BulletDamage: 2

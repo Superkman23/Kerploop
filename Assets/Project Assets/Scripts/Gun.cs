@@ -33,7 +33,8 @@ public class Gun : MonoBehaviour
     [Header("Spread")]
     [SerializeField] float _DefaultSpread; // Starting Spread (Not aiming)
     [SerializeField] float _AimingSpread; // The gun's spread while aiming
-    [SerializeField] [Range(0, 1)] float _SpreadTime; // How quickly the gun returns to its target spread
+    [SerializeField] [Range(0, 1)] float _DefaultSpreadTime; // How quickly the gun returns to its target spread
+    [SerializeField] [Range(0, 1)] float _AimingSpreadTime; // How quickly the gun returns to its target spread while aiming
     [SerializeField] float _SpreadPerShot; // How much the spread increases by per shot
     float _TargetSpread; // Spread the gun is trying to reach
     [HideInInspector] public float _CurrentSpread; // The spread the gun fires with
@@ -88,7 +89,16 @@ public class Gun : MonoBehaviour
         if (_IsEquipped)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _AimSpeed);
-            _CurrentSpread = Mathf.Lerp(_CurrentSpread, _TargetSpread, _SpreadTime);
+        }
+    }
+    void FixedUpdate()
+    {
+        if (_IsEquipped)
+        {
+            if(_IsAiming)
+                _CurrentSpread = Mathf.Lerp(_CurrentSpread, _TargetSpread, _AimingSpreadTime);
+            else
+                _CurrentSpread = Mathf.Lerp(_CurrentSpread, _TargetSpread, _DefaultSpreadTime);
         }
     }
 

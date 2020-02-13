@@ -46,10 +46,11 @@ public class Crosshair : MonoBehaviour
 
         if (_PlayerGun != null)
         {
-            _Left.anchoredPosition = new Vector2(-_Gun._CurrentSpread * 15, 0);
-            _Right.anchoredPosition = new Vector2(_Gun._CurrentSpread * 15, 0);
-            _Bottom.anchoredPosition = new Vector2(0, -_Gun._CurrentSpread * 15);
-            _Top.anchoredPosition = new Vector2(0, _Gun._CurrentSpread * 15);
+            float spread = _Gun._CurrentSpread;
+            _Left.anchoredPosition = new Vector2(-spread * 15, 0);
+            _Right.anchoredPosition = new Vector2(spread * 15, 0);
+            _Bottom.anchoredPosition = new Vector2(0, -spread * 15);
+            _Top.anchoredPosition = new Vector2(0, spread * 15);
         }
     }
 }
