@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
 
     [Header("Guns")]
     [SerializeField] float _ThrowForce = 5;
-    GameObject _CurrentGun = null;
+    [HideInInspector] public GameObject _CurrentGun = null;
 
     [Header("Camera")]
     [SerializeField] float _RotationSpeed = 1f;

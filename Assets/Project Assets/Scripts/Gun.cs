@@ -36,7 +36,7 @@ public class Gun : MonoBehaviour
     [SerializeField] [Range(0, 1)] float _SpreadTime; // How quickly the gun returns to its target spread
     [SerializeField] float _SpreadPerShot; // How much the spread increases by per shot
     float _TargetSpread; // Spread the gun is trying to reach
-    float _CurrentSpread; // The spread the gun fires with
+    [HideInInspector] public float _CurrentSpread; // The spread the gun fires with
 
     [Header("Shooting")]
     [SerializeField] bool _IsAutomatic;
