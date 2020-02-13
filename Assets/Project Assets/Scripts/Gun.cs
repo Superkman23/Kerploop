@@ -28,15 +28,20 @@ public class Gun : MonoBehaviour
 
     [Header("Aiming")]
     [SerializeField] [Range(0, 1)] float _AimSpeed;
-    [SerializeField] float _AimingAccuracyMultiplier;
     bool _IsAiming;
 
+    [Header("Spread")]
+    [SerializeField] float _DefaultSpread; // Starting Spread (Not aiming)
+    [SerializeField] float _AimingSpread; // The gun's spread while aiming
+    [SerializeField] [Range(0, 1)] float _SpreadTime; // How quickly the gun returns to its target spread
+    [SerializeField] float _SpreadPerShot; // How much the spread increases by per shot
+    float _TargetSpread; // Spread the gun is trying to reach
+    float _CurrentSpread; // The spread the gun fires with
 
     [Header("Shooting")]
     [SerializeField] bool _IsAutomatic;
 
     // Variables that affect the bullet's functions
-    [SerializeField] float _BulletSpread;
     [SerializeField] float _BulletMaxDistance;
     [SerializeField] int _BulletDamage;
     [SerializeField] int _BulletForce;
@@ -71,7 +76,8 @@ public class Gun : MonoBehaviour
     {
 
         _Rigidbody = GetComponent<Rigidbody>();
-        _TargetPosition = _DefaultPosition;
+
+        Aim(false); // Sets default position and spread
 
         _CurrentInClip = _ClipSize;
     }
@@ -82,6 +88,7 @@ public class Gun : MonoBehaviour
         if (_IsEquipped)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _AimSpeed);
+            _CurrentSpread = Mathf.Lerp(_CurrentSpread, _TargetSpread, _SpreadTime);
         }
     }
 
@@ -97,6 +104,7 @@ public class Gun : MonoBehaviour
     public void Drop()
     {
         Aim(false);
+        _CurrentSpread = _TargetSpread;
         Global.RecursiveSetColliders(transform, true);
         transform.parent = null;
         _Rigidbody.isKinematic = false;
@@ -105,20 +113,16 @@ public class Gun : MonoBehaviour
 
     public void Aim(bool isAiming)
     {
-        if(isAiming == _IsAiming) // If we're already in the position, don't switch
-        {
-            return;
-        }
-        if(isAiming == true)
+        if(isAiming)
         {
             _IsAiming = true;
-            _BulletSpread /= _AimingAccuracyMultiplier;
+            _TargetSpread = _AimingSpread;
             _TargetPosition = _AimingPosition;
         }
         else
         {
             _IsAiming = false;
-            _BulletSpread *= _AimingAccuracyMultiplier;
+            _TargetSpread = _DefaultSpread;
             _TargetPosition = _DefaultPosition;
         }
     }
@@ -130,8 +134,8 @@ public class Gun : MonoBehaviour
         while (shotsLeft-- > 0)
         {
 
-            float spreadX = Random.Range(-_BulletSpread, _BulletSpread);
-            float spreadY = Random.Range(-_BulletSpread, _BulletSpread);
+            float spreadX = Random.Range(-_CurrentSpread, _CurrentSpread);
+            float spreadY = Random.Range(-_CurrentSpread, _CurrentSpread);
 
             Vector3 spread = new Vector3(spreadX, spreadY, 0);
             Vector3 direction = _BulletSpawnPoint.forward + (transform.InverseTransformDirection(spread) / _BulletMaxDistance);
@@ -149,6 +153,7 @@ public class Gun : MonoBehaviour
             }
         }
 
+        _CurrentSpread += _SpreadPerShot;
         transform.localPosition -= new Vector3(0, 0, _ShotRecoil);
     }
 

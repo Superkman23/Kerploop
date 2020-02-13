@@ -1021,9 +1021,11 @@ MonoBehaviour:
   _DefaultPosition: {x: 0.3, y: -0.2, z: 0.5}
   _AimingPosition: {x: 0, y: -0.07, z: 0.4}
   _AimSpeed: 0.101
-  _AimingAccuracyMultiplier: 3
+  _DefaultSpread: 3
+  _AimingSpread: 1
+  _SpreadTime: 0.034
+  _SpreadPerShot: 2
   _IsAutomatic: 0
-  _BulletSpread: 4
   _BulletMaxDistance: 60
   _BulletDamage: 2
   _BulletForce: 5
