@@ -104,7 +104,7 @@ public class Gun : MonoBehaviour
     public void Drop()
     {
         Aim(false);
-        _CurrentSpread = _TargetSpread;
+        _CurrentSpread = 0;
         Global.RecursiveSetColliders(transform, true);
         transform.parent = null;
         _Rigidbody.isKinematic = false;
