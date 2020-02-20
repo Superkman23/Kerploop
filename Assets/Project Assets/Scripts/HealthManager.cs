@@ -10,22 +10,20 @@ using UnityEngine.SceneManagement;
 public class HealthManager : MonoBehaviour
 {
     [SerializeField] public float _MaxHealth;
-    [HideInInspector] public float _CurrentHealth;
+    float _CurrentHealth;
     [HideInInspector] public float _HealthPercent;
     [SerializeField] bool _IsPlayer = false;
-
 
     private void Awake()
     {
         _CurrentHealth = _MaxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         _HealthPercent = _CurrentHealth / _MaxHealth;
 
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.Y) && _IsPlayer)
         {
             _CurrentHealth--;
         }
@@ -43,4 +41,21 @@ public class HealthManager : MonoBehaviour
             }
         }
     }
+
+    // Health Functions
+    public void AddHealth(float toAdd)
+    {
+        _CurrentHealth += toAdd;
+
+        if (_CurrentHealth > _MaxHealth)
+            _CurrentHealth = _MaxHealth;
+    }
+    public void RemoveHealth(float toRem)
+    {
+        _CurrentHealth -= toRem;
+
+        if (_CurrentHealth < 0)
+            _CurrentHealth = 0;
+    }
+    public float GetHealth() => _CurrentHealth;
 }

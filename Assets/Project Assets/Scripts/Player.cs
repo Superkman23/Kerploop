@@ -1,6 +1,6 @@
 ﻿/*
  * Player.cs
- * Created by: Kaelan Bartlett
+ * Created by: Kaelan Bartlett, Ambrosia
  * Created on: 9/2/2020 (dd/mm/yy)
  * Created for: Controlling the player
  */
@@ -211,23 +211,19 @@ public class Player : MonoBehaviour
         transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.4f); // Smoothly transition into and out of crouching
     }
 
-    //Gun functions
     void Interact()
     {
         if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward, out RaycastHit hit, _InteractRange))
         {
-            Gun targetGun = hit.transform.GetComponentInParent<Gun>();
-            if (targetGun != null) // Only run if the player interacted with a gun
-            {
-                if (_CurrentGun != null) // Throw the existing gun if the player is already holding one
-                    DropGun();
+            IInteractable interactable = hit.transform.GetComponent<IInteractable>();
 
-                targetGun.Pickup(_MainCamera.transform); // Pickup the new gun
-                _CurrentGun = targetGun; //Set the current gun as this gun
-            }
+            if (interactable != null)
+                interactable.OnInteractStart(gameObject);
         }
     }
-    void DropGun()
+
+    //Gun functions
+    public void DropGun()
     {
         _CurrentGun.Drop(); // Drop held gun
         _CurrentGun._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it

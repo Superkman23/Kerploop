@@ -16,11 +16,11 @@ public class HealthBar : MonoBehaviour
     [SerializeField] Text _Amount;
 
     [Header("Misc")]
-    [SerializeField] [Range(0,1)] float _ChangeSpeed;
+    [SerializeField] [Range(0, 1)] float _ChangeSpeed;
 
     void Update()
     {
         _Bar.fillAmount = Mathf.Lerp(_Bar.fillAmount, _HealthManager._HealthPercent, _ChangeSpeed);
-        _Amount.text = _HealthManager._CurrentHealth.ToString();
+        _Amount.text = _HealthManager.GetHealth().ToString();
     }
 }
