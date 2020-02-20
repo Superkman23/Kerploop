@@ -9,11 +9,17 @@ using UnityEngine;
 public class BulletRay : MonoBehaviour
 {
     LineRenderer _LineRenderer;
+    [SerializeField] [Range(0, 1)] float _LerpSpeed;
     private void Awake()
     {
         _LineRenderer = GetComponent<LineRenderer>();
         _LineRenderer.enabled = false;
         _LineRenderer.useWorldSpace = true;
+    }
+
+    private void Update()
+    {
+        _LineRenderer.SetPosition(0, Vector3.Lerp(_LineRenderer.GetPosition(0), _LineRenderer.GetPosition(1), _LerpSpeed));
     }
 
     public void SetRendererPosition(Vector3 position)
