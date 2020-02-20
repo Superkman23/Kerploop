@@ -15,6 +15,9 @@ public class Crosshair : MonoBehaviour
     [SerializeField] RectTransform _Top;
     [SerializeField] RectTransform _Bottom;
 
+    [SerializeField] float _DistancePerUnitOfSpread = 15;
+    [SerializeField] float _BaseZoom = 15;
+
     GameObject _PlayerGun;
     Gun _Gun;
 
@@ -33,10 +36,10 @@ public class Crosshair : MonoBehaviour
             if (_PlayerGun == null)
             {
                 _Gun = null;
-                _Left.anchoredPosition = new Vector2(-15, 0);
-                _Right.anchoredPosition = new Vector2(15, 0);
-                _Bottom.anchoredPosition = new Vector2(0, -15);
-                _Top.anchoredPosition = new Vector2(0, 15);
+                _Left.anchoredPosition = new Vector2(-_BaseZoom, 0);
+                _Right.anchoredPosition = new Vector2(_BaseZoom, 0);
+                _Bottom.anchoredPosition = new Vector2(0, -_BaseZoom);
+                _Top.anchoredPosition = new Vector2(0, _BaseZoom);
             }
             else
             {
@@ -47,10 +50,10 @@ public class Crosshair : MonoBehaviour
         if (_PlayerGun != null)
         {
             float spread = _Gun._CurrentSpread;
-            _Left.anchoredPosition = new Vector2(-spread * 15, 0);
-            _Right.anchoredPosition = new Vector2(spread * 15, 0);
-            _Bottom.anchoredPosition = new Vector2(0, -spread * 15);
-            _Top.anchoredPosition = new Vector2(0, spread * 15);
+            _Left.anchoredPosition = new Vector2(-spread * _DistancePerUnitOfSpread - _BaseZoom, 0);
+            _Right.anchoredPosition = new Vector2(spread * _DistancePerUnitOfSpread + _BaseZoom, 0);
+            _Bottom.anchoredPosition = new Vector2(0, -spread * _DistancePerUnitOfSpread - _BaseZoom);
+            _Top.anchoredPosition = new Vector2(0, spread * _DistancePerUnitOfSpread + _BaseZoom);
         }
     }
 }
