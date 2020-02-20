@@ -16,30 +16,25 @@ public class Crosshair : MonoBehaviour
     [SerializeField] RectTransform _Bottom;
 
     [SerializeField] float _DistancePerUnitOfSpread = 15;
-    [SerializeField] float _BaseZoom = 15;
+    [SerializeField] float _BaseDistance = 15;
 
     GameObject _PlayerGun;
     Gun _Gun;
 
-    void Awake()
-    {
-        _PlayerGun = _Player._CurrentGun;
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if(_PlayerGun != _Player._CurrentGun) //The player's gun has changed, switch to the new gun
+        if(_PlayerGun != _Player._CurrentGun.gameObject) //The player's gun has changed, switch to the new gun
         {
-            _PlayerGun = _Player._CurrentGun;
+            _PlayerGun = _Player._CurrentGun.gameObject;
 
             if (_PlayerGun == null)
             {
                 _Gun = null;
-                _Left.anchoredPosition = new Vector2(-_BaseZoom, 0);
-                _Right.anchoredPosition = new Vector2(_BaseZoom, 0);
-                _Bottom.anchoredPosition = new Vector2(0, -_BaseZoom);
-                _Top.anchoredPosition = new Vector2(0, _BaseZoom);
+                _Left.anchoredPosition = new Vector2(-_BaseDistance, 0);
+                _Right.anchoredPosition = new Vector2(_BaseDistance, 0);
+                _Bottom.anchoredPosition = new Vector2(0, -_BaseDistance);
+                _Top.anchoredPosition = new Vector2(0, _BaseDistance);
             }
             else
             {
@@ -50,10 +45,10 @@ public class Crosshair : MonoBehaviour
         if (_PlayerGun != null)
         {
             float spread = _Gun._CurrentSpread;
-            _Left.anchoredPosition = new Vector2(-spread * _DistancePerUnitOfSpread - _BaseZoom, 0);
-            _Right.anchoredPosition = new Vector2(spread * _DistancePerUnitOfSpread + _BaseZoom, 0);
-            _Bottom.anchoredPosition = new Vector2(0, -spread * _DistancePerUnitOfSpread - _BaseZoom);
-            _Top.anchoredPosition = new Vector2(0, spread * _DistancePerUnitOfSpread + _BaseZoom);
+            _Left.anchoredPosition = new Vector2(-spread * _DistancePerUnitOfSpread - _BaseDistance, 0);
+            _Right.anchoredPosition = new Vector2(spread * _DistancePerUnitOfSpread + _BaseDistance, 0);
+            _Bottom.anchoredPosition = new Vector2(0, -spread * _DistancePerUnitOfSpread - _BaseDistance);
+            _Top.anchoredPosition = new Vector2(0, spread * _DistancePerUnitOfSpread + _BaseDistance);
         }
     }
 }

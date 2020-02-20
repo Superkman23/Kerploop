@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField] KeyCode _InteractKey = KeyCode.E;
     [SerializeField] MouseButton _AimButton = MouseButton.RMB;
     [SerializeField] MouseButton _ShootButton = MouseButton.LMB;
+    [SerializeField] KeyCode _ReloadKey = KeyCode.R;
 
     [Header("Movement")]
     [SerializeField] float _MovementSpeed;
@@ -46,7 +47,7 @@ public class Player : MonoBehaviour
 
     [Header("Guns")]
     [SerializeField] float _ThrowForce = 5;
-    [HideInInspector] public GameObject _CurrentGun = null;
+    [HideInInspector] public Gun _CurrentGun = null;
 
     [Header("Camera")]
     [SerializeField] float _RotationSpeed = 1f;
@@ -86,23 +87,6 @@ public class Player : MonoBehaviour
         HandleSprinting();
         ApplyViewBobbing();
 
-        if (_CurrentGun != null)
-        {
-            Gun equippedGun = _CurrentGun.GetComponent<Gun>();
-            if (Input.GetMouseButtonDown((int)_AimButton))
-            {
-                equippedGun.Aim(true);
-            }
-            if (Input.GetMouseButtonUp((int)_AimButton))
-            {
-                equippedGun.Aim(false);
-            }
-            if (Input.GetMouseButtonDown((int)_ShootButton))
-            {
-                equippedGun.Shoot();
-            }
-        }
-
         if (Input.GetKeyDown(_JumpKey) && _Grounded)
         {
             _ReadyToJump = true;
@@ -113,9 +97,29 @@ public class Player : MonoBehaviour
             Interact();
         }
 
-        if (_CurrentGun != null && Input.GetKeyDown(_ThrowKey))
+        if (_CurrentGun != null) // All the things the player can do with the gun
         {
-            DropGun();
+            if (Input.GetKeyDown(_ThrowKey))
+            {
+                DropGun();
+            }
+            if (Input.GetMouseButtonDown((int)_AimButton))
+            {
+                _CurrentGun.Aim(true);
+            }
+            if (Input.GetMouseButtonUp((int)_AimButton))
+            {
+                _CurrentGun.Aim(false);
+            }
+            if (Input.GetKeyDown(_ReloadKey) || _CurrentGun._CurrentInClip <= 0)
+            {
+
+                _CurrentGun.StartReloading();
+            }
+            if (Input.GetMouseButtonDown((int)_ShootButton) && !_CurrentGun._IsReloading && _CurrentGun._CurrentInClip > 0)
+            {
+                _CurrentGun.Shoot();
+            }
         }
     }
 
@@ -214,7 +218,7 @@ public class Player : MonoBehaviour
                     DropGun();
 
                 targetGun.Pickup(_MainCamera.transform); // Pickup the gun
-                _CurrentGun = targetGun.gameObject; //Set the current gun as this gun
+                _CurrentGun = targetGun; //Set the current gun as this gun
             }
         }
     }

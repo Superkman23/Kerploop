@@ -55,15 +55,15 @@ public class Gun : MonoBehaviour
 
     [Header("Ammo")]
     [SerializeField] int _ClipSize;
-    protected int _MaxAmmo; 
-    protected int _CurrentInClip;
-    protected int _CurrentAmmoTotal;
+    [SerializeField] int _MaxAmmo; 
+    [HideInInspector] public int _CurrentInClip;
+    int _CurrentAmmoTotal;
 
 
     [Header("Reloading")]
     [SerializeField] float _ReloadTime;
-    WaitForSecondsRealtime _ReloadTimeDelay;
-    [HideInInspector] bool _IsReloading;
+    float _ReloadTimeLeft;
+    public bool _IsReloading;
 
 
     [Header("Feedback")]
@@ -75,12 +75,10 @@ public class Gun : MonoBehaviour
 
     void Awake()
     {
-
         _Rigidbody = GetComponent<Rigidbody>();
-
         Aim(false); // Sets default position and spread
-
         _CurrentInClip = _ClipSize;
+        _CurrentAmmoTotal = _MaxAmmo;
     }
 
     // Update is called once per frame
@@ -89,6 +87,19 @@ public class Gun : MonoBehaviour
         if (_IsEquipped)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _AimSpeed);
+        }
+
+        if(_ReloadTimeLeft <= 0)
+        {
+            if (_IsReloading) // Ensure the gun is still reloading
+            {
+                FinishReloading();
+            }
+            _ReloadTimeLeft = 0;
+        }
+        else
+        {
+            _ReloadTimeLeft -= Time.deltaTime;
         }
     }
     void FixedUpdate()
@@ -114,6 +125,7 @@ public class Gun : MonoBehaviour
     public void Drop()
     {
         Aim(false);
+        _IsReloading = false; // Interupt reload process
         _CurrentSpread = 0;
         Global.RecursiveSetColliders(transform, true);
         transform.parent = null;
@@ -162,16 +174,35 @@ public class Gun : MonoBehaviour
                 CreateBullet(transform.position + (direction.normalized * _BulletMaxDistance));
             }
         }
-
+        _CurrentInClip--;
         _CurrentSpread += _SpreadPerShot;
         transform.localPosition -= new Vector3(0, 0, _ShotRecoil);
     }
 
-    void CreateBullet(Vector3 point) // Creates the line the gullet follows
+    void CreateBullet(Vector3 point) // Creates the line the bullet follows
     {
         GameObject go = Instantiate(_BulletRay, _BulletSpawnPoint.position, Quaternion.identity);
         BulletRay ray = go.GetComponent<BulletRay>();
         ray.SetRendererPosition(point);
         StartCoroutine(ray.WaitThenDestroy(0.1f));
+    }
+
+    public void StartReloading()
+    {
+        if (!_IsReloading) // Can't start if you're already reloading
+        {
+            _IsReloading = true;
+            _ReloadTimeLeft = _ReloadTime;
+        }
+    }
+    void FinishReloading()
+    {
+        int fillPotential = _ClipSize - _CurrentInClip; // Max amount of ammo that can be filled
+        int fillActual = (_CurrentAmmoTotal >= fillPotential) ? fillPotential : _CurrentAmmoTotal; // Actual amount of ammo filled
+
+        _CurrentInClip += fillActual;
+        _CurrentAmmoTotal -= fillActual;
+
+        _IsReloading = false;
     }
 }
