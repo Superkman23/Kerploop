@@ -99,10 +99,6 @@ public class Player : MonoBehaviour
 
         if (_CurrentGun != null) // All the things the player can do with the gun
         {
-            if (Input.GetKeyDown(_ThrowKey))
-            {
-                DropGun();
-            }
             if (Input.GetMouseButtonDown((int)_AimButton))
             {
                 _CurrentGun.Aim(true);
@@ -113,12 +109,15 @@ public class Player : MonoBehaviour
             }
             if (Input.GetKeyDown(_ReloadKey) || _CurrentGun._CurrentInClip <= 0)
             {
-
                 _CurrentGun.StartReloading();
             }
             if (Input.GetMouseButtonDown((int)_ShootButton) && !_CurrentGun._IsReloading && _CurrentGun._CurrentInClip > 0)
             {
                 _CurrentGun.Shoot();
+            }
+            if (Input.GetKeyDown(_ThrowKey))
+            {
+                DropGun();
             }
         }
     }
