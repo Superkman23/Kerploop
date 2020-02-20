@@ -7,6 +7,13 @@
 
 using UnityEngine;
 
+public enum MouseButton
+{ 
+    LMB,
+    RMB,
+    MMB
+}
+
 public class Player : MonoBehaviour
 {
     [Header("Controls")]
@@ -14,8 +21,8 @@ public class Player : MonoBehaviour
     [SerializeField] KeyCode _JumpKey = KeyCode.Space;
     [SerializeField] KeyCode _ThrowKey = KeyCode.F;
     [SerializeField] KeyCode _InteractKey = KeyCode.E;
-    [SerializeField] int _AimButton = 1;
-    [SerializeField] int _ShootButton = 0;
+    [SerializeField] MouseButton _AimButton = MouseButton.RMB;
+    [SerializeField] MouseButton _ShootButton = MouseButton.LMB;
 
     [Header("Movement")]
     [SerializeField] float _MovementSpeed;
@@ -82,15 +89,15 @@ public class Player : MonoBehaviour
         if(_CurrentGun != null)
         {
             Gun equippedGun = _CurrentGun.GetComponent<Gun>();
-            if (Input.GetMouseButtonDown(_AimButton))
+            if (Input.GetMouseButtonDown((int)_AimButton))
             {
                 equippedGun.Aim(true);
             }
-            if (Input.GetMouseButtonUp(_AimButton))
+            if (Input.GetMouseButtonUp((int)_AimButton))
             {
                 equippedGun.Aim(false);
             }
-            if (Input.GetMouseButtonDown(_ShootButton))
+            if (Input.GetMouseButtonDown((int)_ShootButton))
             {
                 equippedGun.Shoot();
             }
