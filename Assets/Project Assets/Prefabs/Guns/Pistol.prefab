@@ -165,12 +165,11 @@ MonoBehaviour:
   _BulletForce: 5
   _BulletsPerShot: 1
   _ShotDelay: 0
-  _ClipSize: 5
+  _ClipSize: 16
   _MaxAmmo: 100
   _CurrentInClip: 0
   _ReloadTime: 1
   _IsReloading: 0
-  _FlashIntensity: 0
   _ShotRecoil: 0.1
   _ShotVolume: 0.852
 --- !u!54 &6812589187400779830

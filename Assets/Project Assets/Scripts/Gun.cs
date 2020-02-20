@@ -54,8 +54,8 @@ public class Gun : MonoBehaviour
 
 
     [Header("Ammo")]
-    [SerializeField] int _ClipSize;
-    [SerializeField] int _MaxAmmo; 
+    [SerializeField] int _ClipSize; // How much ammo can be used before needing to reload
+    [SerializeField] int _MaxAmmo;  // The maximum amount of ammo that can be held by the gun
     [HideInInspector] public int _CurrentInClip;
     int _CurrentAmmoTotal;
 
@@ -68,7 +68,6 @@ public class Gun : MonoBehaviour
 
     [Header("Feedback")]
     // Visual feedback
-    [SerializeField] protected float _FlashIntensity;
     [SerializeField] float _ShotRecoil;
     // Audio Feedback
     [SerializeField] [Range(0, 1)] float _ShotVolume;

@@ -24,7 +24,7 @@ public class Crosshair : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_PlayerGun != _Player._CurrentGun.gameObject) //The player's gun has changed, switch to the new gun
+        if(_PlayerGun != _Player._CurrentGun) //The player's gun has changed, switch to the new gun
         {
             _PlayerGun = _Player._CurrentGun.gameObject;
 
