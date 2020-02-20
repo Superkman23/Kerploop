@@ -235,7 +235,7 @@ public class Player : MonoBehaviour
         float waveslice = 0.0f;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0 || !_Grounded)
+        if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0 || !_Grounded || _Rigidbody.velocity.magnitude <= 0.1f)
         {
             _Timer = 0.0f;
         }
