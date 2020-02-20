@@ -150,6 +150,7 @@ MonoBehaviour:
   _BulletRay: {fileID: 3597348935890589645, guid: cf6b794ec933edc41a9bcbfaa3926f71,
     type: 3}
   _Rigidbody: {fileID: 0}
+  _CanShoot: 0
   _DefaultPosition: {x: 0.3, y: -0.2, z: 0.5}
   _AimingPosition: {x: 0, y: -0.07, z: 0.4}
   _AimSpeed: 0.101
@@ -164,12 +165,11 @@ MonoBehaviour:
   _BulletDamage: 2
   _BulletForce: 5
   _BulletsPerShot: 1
-  _ShotDelay: 0
+  _ShotDelay: 0.1
   _ClipSize: 16
   _MaxAmmo: 100
   _CurrentInClip: 0
   _ReloadTime: 1
-  _IsReloading: 0
   _ShotRecoil: 0.1
   _ShotVolume: 0.852
 --- !u!54 &6812589187400779830

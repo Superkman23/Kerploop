@@ -19,6 +19,8 @@ public class Gun : MonoBehaviour
 
     //Variables that don't fit any category
     bool _IsEquipped;
+    [HideInInspector] public bool _CanShoot;
+
 
     [Header("Positioning")]
     [SerializeField] Vector3 _DefaultPosition;
@@ -40,7 +42,7 @@ public class Gun : MonoBehaviour
     [HideInInspector] public float _CurrentSpread; // The spread the gun fires with
 
     [Header("Shooting")]
-    [SerializeField] bool _IsAutomatic;
+    public bool _IsAutomatic;
 
     // Variables that affect the bullet's functions
     [SerializeField] float _BulletMaxDistance;
@@ -49,8 +51,8 @@ public class Gun : MonoBehaviour
     [SerializeField] int _BulletsPerShot = 1;
 
     // Variables that are used when limiting how fast a gun can shoot
-    [SerializeField] int _ShotDelay;
-    int _TimeTillNextShot;
+    [SerializeField] float _ShotDelay; // Minimum amount of time between shots
+    float _TimeTillNextShot;
 
 
     [Header("Ammo")]
@@ -63,7 +65,7 @@ public class Gun : MonoBehaviour
     [Header("Reloading")]
     [SerializeField] float _ReloadTime;
     float _ReloadTimeLeft;
-    public bool _IsReloading;
+    bool _IsReloading;
 
 
     [Header("Feedback")]
@@ -84,32 +86,29 @@ public class Gun : MonoBehaviour
     void Update()
     {
         if (_IsEquipped)
-        {
             transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _AimSpeed);
-        }
 
-        if(_ReloadTimeLeft <= 0)
+        if (_TimeTillNextShot > 0)
+            _TimeTillNextShot -= Time.deltaTime;
+        else
+            _TimeTillNextShot = 0;
+
+        _CanShoot = (_IsReloading || _TimeTillNextShot > 0) ? false : true; // Determine whether this gun can shoot
+
+        if (_ReloadTimeLeft <= 0)
         {
             if (_IsReloading) // Ensure the gun is still reloading
-            {
                 FinishReloading();
-            }
+
             _ReloadTimeLeft = 0;
         }
         else
-        {
             _ReloadTimeLeft -= Time.deltaTime;
-        }
     }
     void FixedUpdate()
     {
         if (_IsEquipped)
-        {
-            if(_IsAiming)
-                _CurrentSpread = Mathf.Lerp(_CurrentSpread, _TargetSpread, _AimingSpreadTime);
-            else
-                _CurrentSpread = Mathf.Lerp(_CurrentSpread, _TargetSpread, _DefaultSpreadTime);
-        }
+            _CurrentSpread = (Mathf.Lerp(_CurrentSpread, _TargetSpread, (_IsAiming) ? _AimingSpreadTime : _DefaultSpreadTime ));
     }
 
     public void Pickup(Transform target) //Runs when the gun is picked up
@@ -120,7 +119,6 @@ public class Gun : MonoBehaviour
         _IsEquipped = true;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
-
     public void Drop()
     {
         Aim(false);
@@ -131,7 +129,6 @@ public class Gun : MonoBehaviour
         _Rigidbody.isKinematic = false;
         _IsEquipped = false;
     }
-
     public void Aim(bool isAiming)
     {
         if(isAiming)
@@ -147,7 +144,6 @@ public class Gun : MonoBehaviour
             _TargetPosition = _DefaultPosition;
         }
     }
-
     public void Shoot()
     {
         float shotsLeft = _BulletsPerShot;
@@ -173,11 +169,12 @@ public class Gun : MonoBehaviour
                 CreateBullet(transform.position + (direction.normalized * _BulletMaxDistance));
             }
         }
+
         _CurrentInClip--;
         _CurrentSpread += _SpreadPerShot;
+        _TimeTillNextShot = _ShotDelay;
         transform.localPosition -= new Vector3(0, 0, _ShotRecoil);
     }
-
     void CreateBullet(Vector3 point) // Creates the line the bullet follows
     {
         GameObject go = Instantiate(_BulletRay, _BulletSpawnPoint.position, Quaternion.identity);
@@ -185,7 +182,6 @@ public class Gun : MonoBehaviour
         ray.SetRendererPosition(point);
         StartCoroutine(ray.WaitThenDestroy(0.1f));
     }
-
     public void StartReloading()
     {
         if (!_IsReloading) // Can't start if you're already reloading

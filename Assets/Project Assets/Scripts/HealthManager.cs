@@ -24,10 +24,12 @@ public class HealthManager : MonoBehaviour
     void Update()
     {
         _HealthPercent = _CurrentHealth / _MaxHealth;
+
         if (Input.GetKeyDown(KeyCode.Y))
         {
             _CurrentHealth--;
         }
+
         //Health is at 0 so the object has died
         if (_CurrentHealth <= 0)
         {

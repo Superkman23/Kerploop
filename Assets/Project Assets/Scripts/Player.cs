@@ -111,10 +111,19 @@ public class Player : MonoBehaviour
             {
                 _CurrentGun.StartReloading();
             }
-            if (Input.GetMouseButtonDown((int)_ShootButton) && !_CurrentGun._IsReloading && _CurrentGun._CurrentInClip > 0)
+
+            if(_CurrentGun._CanShoot && _CurrentGun._CurrentInClip > 0)
             {
-                _CurrentGun.Shoot();
+                if (Input.GetMouseButtonDown((int)_ShootButton) && !_CurrentGun._IsAutomatic)
+                {
+                    _CurrentGun.Shoot();
+                }
+                if (Input.GetMouseButton((int)_ShootButton) && _CurrentGun._IsAutomatic)
+                {
+                    _CurrentGun.Shoot();
+                }
             }
+
             if (Input.GetKeyDown(_ThrowKey))
             {
                 DropGun();
@@ -216,16 +225,15 @@ public class Player : MonoBehaviour
                 if (_CurrentGun != null) // Throw the existing gun if the player is already holding one
                     DropGun();
 
-                targetGun.Pickup(_MainCamera.transform); // Pickup the gun
+                targetGun.Pickup(_MainCamera.transform); // Pickup the new gun
                 _CurrentGun = targetGun; //Set the current gun as this gun
             }
         }
     }
     void DropGun()
     {
-        Gun equippedGun = _CurrentGun.GetComponent<Gun>();
-        equippedGun.Drop(); // Drop held gun
-        equippedGun._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
+        _CurrentGun.Drop(); // Drop held gun
+        _CurrentGun._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
         _CurrentGun = null; // Set current gun to none because it's no longer held
     }
 
