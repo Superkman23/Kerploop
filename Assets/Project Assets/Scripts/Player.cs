@@ -74,6 +74,9 @@ public class Player : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         _MainCamera = Camera.main;
+
+        _XRotation = transform.eulerAngles.y;
+        _YRotation = transform.eulerAngles.x;
     }
 
     void Update()
