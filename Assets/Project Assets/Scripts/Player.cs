@@ -210,7 +210,7 @@ public class Player : MonoBehaviour
     {
         if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward, out RaycastHit hit, _InteractRange))
         {
-            Gun targetGun = hit.collider.gameObject.transform.parent.GetComponent<Gun>();
+            Gun targetGun = hit.transform.GetComponentInParent<Gun>();
             if (targetGun != null) // Only run if the player interacted with a gun
             {
                 if (_CurrentGun != null) // Throw the existing gun if the player is already holding one
