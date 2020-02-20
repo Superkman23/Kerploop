@@ -19,12 +19,6 @@ public class HealthPack : MonoBehaviour, IInteractable
             Get(interactingParent.GetComponent<HealthManager>());
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            Get(other.GetComponent<HealthManager>());
-    }
-
     void Get(HealthManager playerHealth)
     {
         if (playerHealth.GetHealth() >= playerHealth._MaxHealth)

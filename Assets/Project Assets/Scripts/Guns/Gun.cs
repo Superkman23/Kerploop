@@ -207,17 +207,17 @@ public class Gun : MonoBehaviour, IInteractable
 
     public void OnInteractStart(GameObject interactingParent)
     {
-        // Try grab the Player script
-        var player = interactingParent.GetComponent<Player>();
-        if (player == null)
-            return;
+        if (interactingParent.CompareTag("Player"))
+        {
+            var player = interactingParent.GetComponent<Player>();
 
-        // If the player has a gun in their hand, then drop it
-        if (player._CurrentGun != null)
-            player.DropGun();
+            // If the player has a gun in their hand, then drop it
+            if (player._CurrentGun != null)
+                player.DropGun();
 
-        // Put ourself onto the player
-        Pickup(Camera.main.transform);
-        player._CurrentGun = this;
+            // Put ourself onto the player
+            Pickup(Camera.main.transform);
+            player._CurrentGun = this;
+        }
     }
 }
