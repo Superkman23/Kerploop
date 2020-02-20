@@ -140,9 +140,18 @@ public class Player : MonoBehaviour
     //Movement Functions
     void HandleMovement()
     {
-        Vector3 mDirection = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1.0f); // Gets player input and caps the magnitude at one (prevents moving faster than you should)
-        Vector3 newVelocity = new Vector3(mDirection.x * _MovementSpeed, _Rigidbody.velocity.y, mDirection.z * _MovementSpeed); // Multiply velocity by speed (prevents _MovementSpeed from being clamped)
-        _Rigidbody.velocity = transform.TransformDirection(newVelocity);
+        // Gets player input and caps the magnitude at one (prevents moving faster than you should),
+        // Then applies the movement relative to the camera using transform maths
+
+        Vector2 rawInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if (rawInput == Vector2.zero) 
+            return;
+
+        Vector2 clampedInput = Vector2.ClampMagnitude(rawInput, 1.0f);         
+        Vector3 newVelocity = transform.TransformDirection(new Vector3(clampedInput.x * _MovementSpeed,
+                                                                       _Rigidbody.velocity.y,
+                                                                       clampedInput.y * _MovementSpeed));
+        _Rigidbody.velocity = newVelocity;
     }
     void HandleSprinting()
     {
