@@ -530,7 +530,7 @@ GameObject:
   - component: {fileID: 1095043553}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1010,7 +1010,7 @@ PrefabInstance:
     - target: {fileID: 8503411348009283527, guid: 55baeab30a6d3c64d9da74ebb51dd177,
         type: 3}
       propertyPath: _IsAutomatic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8503411348009283527, guid: 55baeab30a6d3c64d9da74ebb51dd177,
         type: 3}
@@ -1022,6 +1022,11 @@ PrefabInstance:
       propertyPath: _ShootNoise
       value: 
       objectReference: {fileID: 8300000, guid: 422fdcb857918f949933d586cb746a9c, type: 3}
+    - target: {fileID: 8503411348009283527, guid: 55baeab30a6d3c64d9da74ebb51dd177,
+        type: 3}
+      propertyPath: _ShotDelay
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55baeab30a6d3c64d9da74ebb51dd177, type: 3}
 --- !u!1 &1999005012
@@ -1038,7 +1043,7 @@ GameObject:
   - component: {fileID: 1999005014}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1428,6 +1433,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 995703921584442723, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1368746841544229859, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
         type: 3}
       propertyPath: m_LocalPosition.z

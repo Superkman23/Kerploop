@@ -79,7 +79,6 @@ public class Player : MonoBehaviour
         _XRotation = transform.eulerAngles.y;
         _YRotation = transform.eulerAngles.x;
     }
-
     void Update()
     {
         HandleCamera();
@@ -130,7 +129,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
     private void FixedUpdate()
     {
         HandleMovement();
@@ -141,12 +139,11 @@ public class Player : MonoBehaviour
             Jump();
         }
     }
-
     private void OnCollisionStay(Collision collision)
     {
-        _Grounded = true;
+        if(collision.collider.CompareTag("Ground")) // Make sure that the player is on the ground
+            _Grounded = true;
     }
-
     private void OnCollisionExit(Collision collision)
     {
         _Grounded = false;
