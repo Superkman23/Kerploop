@@ -8,7 +8,7 @@
 using UnityEngine;
 
 public enum MouseButton
-{ 
+{
     LMB,
     RMB,
     MMB
@@ -27,8 +27,6 @@ public class Player : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float _MovementSpeed;
     [SerializeField] float _SprintSpeedMult = 2;
-    bool _IsSprinting;
-    bool _IsMoving;
 
     [Header("Jumping")]
     [SerializeField] float _JumpForce;
@@ -46,7 +44,6 @@ public class Player : MonoBehaviour
     [Header("Interacting")]
     [SerializeField] float _InteractRange;
 
-
     [Header("Guns")]
     [SerializeField] float _ThrowForce = 5;
     [HideInInspector] public GameObject _CurrentGun = null;
@@ -62,8 +59,7 @@ public class Player : MonoBehaviour
     [SerializeField] float _BobbingSpeed = 0.18f;
     [SerializeField] float _BobbingAmount = 0.2f;
     float _Midpoint = 0.5f;
-    private float _Timer = 0.0f;
-
+    float _Timer = 0.0f;
 
     Camera _MainCamera;
     Rigidbody _Rigidbody;
@@ -79,6 +75,7 @@ public class Player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         _MainCamera = Camera.main;
     }
+
     void Update()
     {
         HandleCamera();
@@ -86,7 +83,7 @@ public class Player : MonoBehaviour
         HandleSprinting();
         ApplyViewBobbing();
 
-        if(_CurrentGun != null)
+        if (_CurrentGun != null)
         {
             Gun equippedGun = _CurrentGun.GetComponent<Gun>();
             if (Input.GetMouseButtonDown((int)_AimButton))
@@ -113,11 +110,12 @@ public class Player : MonoBehaviour
             Interact();
         }
 
-        if(_CurrentGun != null && Input.GetKeyDown(_ThrowKey))
+        if (_CurrentGun != null && Input.GetKeyDown(_ThrowKey))
         {
             DropGun();
         }
     }
+
     private void FixedUpdate()
     {
         HandleMovement();
@@ -128,10 +126,12 @@ public class Player : MonoBehaviour
             Jump();
         }
     }
+
     private void OnCollisionStay(Collision collision)
     {
         _Grounded = true;
     }
+
     private void OnCollisionExit(Collision collision)
     {
         _Grounded = false;
@@ -144,45 +144,47 @@ public class Player : MonoBehaviour
         // Then applies the movement relative to the camera using transform maths
 
         Vector2 rawInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        if (rawInput == Vector2.zero) 
+        if (rawInput == Vector2.zero)
             return;
 
-        Vector2 clampedInput = Vector2.ClampMagnitude(rawInput, 1.0f);         
+        Vector2 clampedInput = Vector2.ClampMagnitude(rawInput, 1.0f);
         Vector3 newVelocity = transform.TransformDirection(new Vector3(clampedInput.x * _MovementSpeed,
                                                                        _Rigidbody.velocity.y,
                                                                        clampedInput.y * _MovementSpeed));
         _Rigidbody.velocity = newVelocity;
     }
+
     void HandleSprinting()
     {
         if (Input.GetKeyDown(_SprintKey))
         {
             _MovementSpeed *= _SprintSpeedMult;
             _BobbingSpeed *= _SprintSpeedMult;
-            _IsSprinting = true;
         }
         if (Input.GetKeyUp(_SprintKey))
         {
             _MovementSpeed /= _SprintSpeedMult;
             _BobbingSpeed /= _SprintSpeedMult;
-            _IsSprinting = false;
         }
     }
+
     void Jump()
     {
         _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _JumpForce, _Rigidbody.velocity.z);
         _ReadyToJump = false;
     }
+
     void HandleCrouching()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             _IsStartingCrouch = true; // Is only set to true here because we don't want more gravity while returning to normal size
-            _TargetScale = new Vector3(_TargetScale.x, _CrouchScale,_TargetScale.z);
+            _TargetScale = new Vector3(_TargetScale.x, _CrouchScale, _TargetScale.z);
             _Midpoint *= _CrouchScale;
             _MovementSpeed *= _CrouchSpeedMult;
 
-        } if (Input.GetKeyUp(KeyCode.LeftControl))
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             _TargetScale = _MainScale;
             _Midpoint /= _CrouchScale;
@@ -200,12 +202,12 @@ public class Player : MonoBehaviour
     //Gun functions
     void Interact()
     {
-        if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward, out RaycastHit hit,_InteractRange))
+        if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward, out RaycastHit hit, _InteractRange))
         {
             Gun targetGun = hit.collider.gameObject.transform.parent.GetComponent<Gun>();
             if (targetGun != null) // Only run if the player interacted with a gun
             {
-                if(_CurrentGun != null) // Throw the existing gun if the player is already holding one
+                if (_CurrentGun != null) // Throw the existing gun if the player is already holding one
                     DropGun();
 
                 targetGun.Pickup(_MainCamera.transform); // Pickup the gun
@@ -224,19 +226,20 @@ public class Player : MonoBehaviour
     //Camera Functions
     void HandleCamera()
     {
-            Vector2 lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); // Gets player input
+        Vector2 lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); // Gets player input
 
-            if (lookDirection == Vector2.zero) //Only run if the player's mouse has moved
-                return;
+        if (lookDirection == Vector2.zero) //Only run if the player's mouse has moved
+            return;
 
-            lookDirection *= _RotationSpeed; 
-            _XRotation += lookDirection.x;
-            _YRotation += lookDirection.y;
-            ClampRotation(); //Prevents the camera from over rotating
+        lookDirection *= _RotationSpeed;
+        _XRotation += lookDirection.x;
+        _YRotation += lookDirection.y;
+        ClampRotation(); //Prevents the camera from over rotating
 
-            _MainCamera.transform.rotation = Quaternion.Euler(-_YRotation, _MainCamera.transform.eulerAngles.y, 0); // Rotate the camera around the X axis to look up or down
-            transform.rotation = Quaternion.Euler(0, _XRotation, 0); // Rotates the player around the Y axis to look left or right. Doing this rotates the camera so we don't need to rotate the camera.
+        _MainCamera.transform.rotation = Quaternion.Euler(-_YRotation, _MainCamera.transform.eulerAngles.y, 0); // Rotate the camera around the X axis to look up or down
+        transform.rotation = Quaternion.Euler(0, _XRotation, 0); // Rotates the player around the Y axis to look left or right. Doing this rotates the camera so we don't need to rotate the camera.
     }
+
     void ClampRotation()
     {
         if (_YRotation < _YRotationMin)
@@ -244,6 +247,7 @@ public class Player : MonoBehaviour
         else if (_YRotation > _YRotationMax)
             _YRotation = _YRotationMax;
     }
+
     void ApplyViewBobbing()
     {
         //Code based from http://wiki.unity3d.com/index.php/Headbobber, converted to C#

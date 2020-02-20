@@ -567,16 +567,16 @@ MonoBehaviour:
   _InteractKey: 101
   _AimButton: 1
   _ShootButton: 0
-  _MovementSpeed: 8
-  _SprintSpeedMult: 2
-  _JumpForce: 6
+  _MovementSpeed: 4
+  _SprintSpeedMult: 1.5
+  _JumpForce: 4.5
   _CrouchSpeedMult: 0.3
-  _CrouchScale: 0.5
+  _CrouchScale: 0.75
   _CrouchGravityMult: 2
-  _InteractRange: 3
+  _InteractRange: 4.5
   _ThrowForce: 5
   _CurrentGun: {fileID: 0}
-  _RotationSpeed: 2.5
+  _RotationSpeed: 2.75
   _YRotationMin: -90
   _YRotationMax: 90
   _BobbingSpeed: 0.09
