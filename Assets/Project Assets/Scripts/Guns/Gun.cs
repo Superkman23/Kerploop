@@ -49,7 +49,7 @@ public class Gun : MonoBehaviour, IInteractable
     [SerializeField] int _BulletDamage;
 
     // Variables that are used when limiting how fast a gun can shoot
-    [SerializeField] float _ShotDelay; // Minimum amount of time between shots
+    public float _ShotDelay; // Minimum amount of time between shots
     float _TimeTillNextShot;
 
     [Header("Ammo")]
@@ -60,8 +60,8 @@ public class Gun : MonoBehaviour, IInteractable
 
     [Header("Reloading")]
     [SerializeField] float _ReloadTime;
+    [HideInInspector] public bool _IsReloading;
     float _ReloadTimeLeft;
-    bool _IsReloading;
 
     [Header("Feedback")]
     // Visual feedback

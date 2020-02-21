@@ -404,9 +404,9 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &194301140 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4528319440084100762, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
+--- !u!4 &194301148 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4528319440084100757, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
     type: 3}
   m_PrefabInstance: {fileID: 4528319439648964046}
   m_PrefabAsset: {fileID: 0}
@@ -1206,6 +1206,12 @@ Transform:
   m_Father: {fileID: 392690148}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1107765280 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2129690308847735298, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1988215712}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1187277463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,11 +1405,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2129690308704197922, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
-        type: 3}
-      propertyPath: m_StoppingDistance
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197923, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_Name
@@ -1413,16 +1414,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _Player
       value: 
-      objectReference: {fileID: 194301140}
-    - target: {fileID: 2129690308704197945, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
-        type: 3}
-      propertyPath: _ViewDistance
-      value: 10
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 194301148}
     - target: {fileID: 2129690308704197945, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: _MaxShootDistance
-      value: 8
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2129690308704197945, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
+        type: 3}
+      propertyPath: _ViewDistance
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
@@ -1442,17 +1443,17 @@ PrefabInstance:
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
@@ -1462,7 +1463,7 @@ PrefabInstance:
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
@@ -1475,21 +1476,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2129690308847735298, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2129690308847735298, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2129690308847735298, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
@@ -1904,7 +1890,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _Player
       value: 
-      objectReference: {fileID: 194301140}
+      objectReference: {fileID: 194301148}
     - target: {fileID: 2129690308704197945, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: _MaxShootDistance
@@ -1915,6 +1901,11 @@ PrefabInstance:
       propertyPath: _ViewDistance
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 2129690308704197945, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
+        type: 3}
+      propertyPath: _Eyes
+      value: 
+      objectReference: {fileID: 1107765280}
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1953,7 +1944,7 @@ PrefabInstance:
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}

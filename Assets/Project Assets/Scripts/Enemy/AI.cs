@@ -12,23 +12,20 @@ public class AI : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] Gun _Gun;
-    [SerializeField] GameObject _Player;
-    [SerializeField] GameObject _Eyes;
+    [SerializeField] Transform _Player;
+    [SerializeField] Transform _Eyes;
     NavMeshAgent _Agent;
 
     [Header("Settings")]
     [SerializeField] float _ViewDistance;
     [SerializeField] float _MaxShootDistance;
     [SerializeField] float _RotationSpeed;
-    [SerializeField] float _ShotDelay; // To prevent the AI from spamming non automatic guns 
+    [SerializeField] float _AdditionalShotDelay = 0.5f;
     float _TimeTillNextShot;
-
-    Vector3 _TargetPosition;
 
     void Awake()
 	{
         _Agent = GetComponent<NavMeshAgent>();
-        _TargetPosition = transform.position;
     }
 
     private void Start()
@@ -38,38 +35,42 @@ public class AI : MonoBehaviour
 
     void Update()
 	{
-        if(Vector3.Distance(transform.position, _Player.transform.position) <= _ViewDistance)
+        if (!_Gun._IsReloading && Physics.Raycast(origin: transform.position,
+                                                  direction: (_Player.position - transform.position).normalized,
+                                                  hitInfo: out RaycastHit hit,
+                                                  maxDistance: _ViewDistance))
         {
-            _TargetPosition = _Player.transform.position;
-            _Agent.SetDestination(_TargetPosition);
-            LookAtPlayer();
-        }
-
-        if(Vector3.Distance(transform.position, _Player.transform.position) <= _MaxShootDistance)
-        {
-            if (_Gun._CanShoot && _Gun._CurrentInClip > 0 && _TimeTillNextShot <= 0)
+            if (hit.transform.CompareTag("Player"))
             {
-                _Gun.Shoot();
-                _TimeTillNextShot = _ShotDelay;
+                _Agent.SetDestination(hit.transform.position);
+                LookAtPlayer();
+
+                if (hit.distance <= _MaxShootDistance)
+                {
+                    if (_Gun._CanShoot && _Gun._CurrentInClip > 0 && _TimeTillNextShot <= 0)
+                    {
+                        _Gun.Shoot();
+                        _TimeTillNextShot = _Gun._ShotDelay + _AdditionalShotDelay;
+                    }
+                    if (_TimeTillNextShot > 0)
+                        _TimeTillNextShot -= Time.deltaTime;
+                }
             }
-            if (_TimeTillNextShot > 0)
-                _TimeTillNextShot -= Time.deltaTime;
         }
 
         if ( _Gun._CurrentInClip <= 0)
         {
             _Gun.StartReloading();
         }
-
-
     }
-    private void LookAtPlayer()
+
+    void LookAtPlayer()
     {
-        Vector3 direction = (_Player.transform.position - transform.position).normalized;
+        Vector3 direction = (_Player.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, _RotationSpeed * Time.deltaTime);
 
-        _Eyes.transform.LookAt(_Player.transform);
+        _Eyes.transform.LookAt(_Player);
     }
 
     public void Die()
@@ -77,6 +78,4 @@ public class AI : MonoBehaviour
         _Gun.Drop();
         Destroy(gameObject);
     }
-
-
 }
