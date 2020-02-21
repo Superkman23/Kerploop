@@ -72,11 +72,11 @@ public class AI : MonoBehaviour
         _Eyes.transform.LookAt(_Player.transform);
     }
 
-    public void OnDestroy()
+    public void Die()
     {
         _Gun.Drop();
+        Destroy(gameObject);
     }
-
 
 
 }

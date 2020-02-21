@@ -37,7 +37,11 @@ public class HealthManager : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                var ai = GetComponent<AI>();
+                if(ai != null)
+                {
+                    ai.Die();
+                }
             }
         }
     }
