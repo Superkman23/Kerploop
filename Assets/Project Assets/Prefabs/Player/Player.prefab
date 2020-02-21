@@ -787,6 +787,8 @@ MonoBehaviour:
   _ShootButton: 0
   _ReloadKey: 114
   _MovementSpeed: 4
+  _Acceleration: 10
+  _Deceleration: 15
   _SprintSpeedMult: 1.5
   _JumpForce: 4.5
   _CrouchSpeedMult: 0.3
@@ -813,7 +815,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MaxHealth: 100
-  _CurrentHealth: 0
   _HealthPercent: 0
   _IsPlayer: 1
 --- !u!1 &5579672930208054296

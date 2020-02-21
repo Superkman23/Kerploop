@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] float _MovementSpeed;
+    [SerializeField] float _Acceleration;
+    [SerializeField] float _Deceleration;
     [SerializeField] float _SprintSpeedMult = 2;
 
     [Header("Jumping")]
@@ -152,18 +154,15 @@ public class Player : MonoBehaviour
     //Movement Functions
     void HandleMovement()
     {
-        // Gets player input and caps the magnitude at one (prevents moving faster than you should),
-        // Then applies the movement relative to the camera using transform maths
+        // Calculate how fast we should be moving
+        Vector3 targetVelocity = transform.TransformDirection(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * _MovementSpeed;
 
-        Vector2 rawInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        if (rawInput == Vector2.zero)
-            return;
-
-        Vector2 clampedInput = Vector2.ClampMagnitude(rawInput, 1.0f);
-        Vector3 newVelocity = transform.TransformDirection(new Vector3(clampedInput.x * _MovementSpeed,
-                                                                       _Rigidbody.velocity.y,
-                                                                       clampedInput.y * _MovementSpeed));
-        _Rigidbody.velocity = newVelocity;
+        // Apply a force that attempts to reach our target velocity
+        Vector3 velocityChange = targetVelocity - _Rigidbody.velocity;
+        velocityChange.x = Mathf.Clamp(velocityChange.x, -_Deceleration, _Acceleration);
+        velocityChange.z = Mathf.Clamp(velocityChange.z, -_Deceleration, _Acceleration);
+        velocityChange.y = 0;
+        _Rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
     }
 
     void HandleSprinting()
@@ -182,7 +181,7 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
-        _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _JumpForce, _Rigidbody.velocity.z);
+        _Rigidbody.AddForce(Vector3.up * _JumpForce, ForceMode.Impulse);
         _ReadyToJump = false;
     }
 

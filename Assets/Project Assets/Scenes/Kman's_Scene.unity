@@ -1079,12 +1079,17 @@ PrefabInstance:
     - target: {fileID: 4528319440084100763, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
         type: 3}
       propertyPath: _MovementSpeed
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4528319440084100763, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
         type: 3}
       propertyPath: _JumpForce
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528319440084100763, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
+        type: 3}
+      propertyPath: _CrouchSpeedMult
+      value: 0.691
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f26233fe9168cf4b8d9c1e3f75423c8, type: 3}
