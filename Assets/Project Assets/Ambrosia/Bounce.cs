@@ -10,13 +10,14 @@ using UnityEngine;
 public class Bounce : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] float _Force = 50;
+    [SerializeField] Vector3 _Force;
 
     private void OnCollisionEnter(Collision collision)
     {
         var rb = collision.transform.GetComponent<Rigidbody>();
         if (rb == null)
             return;
-        rb.AddForce(Vector3.up * _Force);
+
+        rb.AddForce(_Force);
     }
 }
