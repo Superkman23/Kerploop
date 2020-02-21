@@ -164,6 +164,7 @@ MonoBehaviour:
   _BulletMaxDistance: 60
   _BulletForce: 5
   _BulletsPerShot: 1
+  _BulletDamage: 3
   _ShotDelay: 0.1
   _ClipSize: 16
   _MaxAmmo: 100

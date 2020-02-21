@@ -46,6 +46,7 @@ public class Gun : MonoBehaviour, IInteractable
     [SerializeField] float _BulletMaxDistance;
     [SerializeField] int _BulletForce;
     [SerializeField] int _BulletsPerShot = 1;
+    [SerializeField] int _BulletDamage;
 
     // Variables that are used when limiting how fast a gun can shoot
     [SerializeField] float _ShotDelay; // Minimum amount of time between shots
@@ -157,10 +158,19 @@ public class Gun : MonoBehaviour, IInteractable
             {
                 CreateBullet(hit.point);
 
-                // Todo: add another way of detecting/resolving hits later
-                var targetComponent = hit.rigidbody;
-                if (targetComponent != null)
-                    hit.rigidbody.AddForce(_BulletSpawnPoint.forward * _BulletForce, ForceMode.Impulse);
+                var targetHealthManager = hit.collider.gameObject.GetComponent<HealthManager>();
+                if (targetHealthManager != null)
+                {
+                    targetHealthManager.RemoveHealth(_BulletDamage);
+                    break;
+                }
+
+                var targetRigidbody = hit.rigidbody;
+                if (targetRigidbody != null)
+                {
+                    targetRigidbody.AddForce(_BulletSpawnPoint.forward * _BulletForce, ForceMode.Impulse);
+                    break;
+                }
             }
             else
             {
