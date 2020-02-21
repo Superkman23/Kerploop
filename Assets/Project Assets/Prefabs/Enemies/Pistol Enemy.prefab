@@ -136,8 +136,9 @@ MonoBehaviour:
   _Player: {fileID: 0}
   _Eyes: {fileID: 2129690308847735298}
   _ViewDistance: 10
+  _ViewAngle: 50
   _MaxShootDistance: 8
-  _RotationSpeed: 10
+  _RotationSpeed: 4
   _AdditionalShotDelay: 0.5
 --- !u!114 &2129690308704197944
 MonoBehaviour:

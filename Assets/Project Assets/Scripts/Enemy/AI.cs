@@ -18,6 +18,7 @@ public class AI : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] float _ViewDistance;
+    [SerializeField] float _ViewAngle;
     [SerializeField] float _MaxShootDistance;
     [SerializeField] float _RotationSpeed;
     [SerializeField] float _AdditionalShotDelay = 0.5f;
@@ -42,18 +43,24 @@ public class AI : MonoBehaviour
         {
             if (hit.transform.CompareTag("Player"))
             {
-                _Agent.SetDestination(hit.transform.position);
-                LookAtPlayer();
+                Vector3 targetDir = _Player.position - transform.position;
+                float angle = Vector3.Angle(targetDir, transform.forward);
 
-                if (hit.distance <= _MaxShootDistance)
+                if (angle <= _ViewAngle)
                 {
-                    if (_Gun._CanShoot && _Gun._CurrentInClip > 0 && _TimeTillNextShot <= 0)
+                    _Agent.SetDestination(hit.transform.position);
+                    LookAtPlayer();
+
+                    if (hit.distance <= _MaxShootDistance)
                     {
-                        _Gun.Shoot();
-                        _TimeTillNextShot = _Gun._ShotDelay + _AdditionalShotDelay;
+                        if (_Gun._CanShoot && _Gun._CurrentInClip > 0 && _TimeTillNextShot <= 0)
+                        {
+                            _Gun.Shoot();
+                            _TimeTillNextShot = _Gun._ShotDelay + _AdditionalShotDelay;
+                        }
+                        if (_TimeTillNextShot > 0)
+                            _TimeTillNextShot -= Time.deltaTime;
                     }
-                    if (_TimeTillNextShot > 0)
-                        _TimeTillNextShot -= Time.deltaTime;
                 }
             }
         }
@@ -69,8 +76,6 @@ public class AI : MonoBehaviour
         Vector3 direction = (_Player.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, _RotationSpeed * Time.deltaTime);
-
-        _Eyes.transform.LookAt(_Player);
     }
 
     public void Die()
