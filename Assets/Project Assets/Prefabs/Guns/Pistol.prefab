@@ -144,8 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef574e6ce5ed53c498e7e511ae37e519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ShootNoise: {fileID: 0}
-  _Flash: {fileID: 0}
+  _ShootNoise: {fileID: 8300000, guid: 422fdcb857918f949933d586cb746a9c, type: 3}
   _BulletSpawnPoint: {fileID: 2012924500585237519}
   _BulletRay: {fileID: 3597348935890589645, guid: cf6b794ec933edc41a9bcbfaa3926f71,
     type: 3}
@@ -162,7 +161,6 @@ MonoBehaviour:
   _CurrentSpread: 0
   _IsAutomatic: 0
   _BulletMaxDistance: 60
-  _BulletDamage: 2
   _BulletForce: 5
   _BulletsPerShot: 1
   _ShotDelay: 0.1
