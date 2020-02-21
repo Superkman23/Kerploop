@@ -12,12 +12,12 @@ public class Bounce : MonoBehaviour
     [Header("Settings")]
     [SerializeField] Vector3 _Force;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        var rb = collision.transform.GetComponent<Rigidbody>();
+        var rb = other.GetComponent<Rigidbody>();
         if (rb == null)
             return;
 
-        rb.AddForce(_Force);
+        rb.AddForce(_Force, ForceMode.Impulse);
     }
 }
