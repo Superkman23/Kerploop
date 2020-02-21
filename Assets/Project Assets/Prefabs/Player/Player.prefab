@@ -791,7 +791,7 @@ MonoBehaviour:
   _Deceleration: 15
   _SprintSpeedMult: 1.5
   _JumpForce: 4.5
-  _CrouchSpeedMult: 0.3
+  _CrouchSpeedMult: 0.6
   _CrouchScale: 0.75
   _CrouchGravityMult: 2
   _InteractRange: 4.5
