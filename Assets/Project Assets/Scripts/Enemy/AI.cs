@@ -78,7 +78,7 @@ public class AI : MonoBehaviour
     {
         Vector3 direction = (_Player.position - transform.position).normalized;
         Quaternion lrRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        Quaternion udRotation = Quaternion.LookRotation(Vector3.up * direction.y);
+        Quaternion udRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
 
         transform.rotation = Quaternion.Slerp(transform.rotation, lrRotation, _RotationSpeed * Time.deltaTime);
         _Eyes.rotation = Quaternion.Slerp(_Eyes.rotation, udRotation, _RotationSpeed * Time.deltaTime);
