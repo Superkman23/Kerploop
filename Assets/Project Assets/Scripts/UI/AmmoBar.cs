@@ -32,8 +32,8 @@ public class AmmoBar : MonoBehaviour
         if (_Player._CurrentGun != _CurrentGun)
         {
             _CurrentGun = _Player._CurrentGun;
-            if (_CurrentGun != null)
-                ToggleUI();
+
+            ToggleUI(_CurrentGun != null);
         }
 
         // As there is no gun, exit out early
@@ -48,9 +48,9 @@ public class AmmoBar : MonoBehaviour
                                     : _CurrentGun._CurrentInClip / (float)_CurrentGun._ClipSize;
     }
 
-    void ToggleUI()
+    void ToggleUI(bool active)
     {
         var parent = _Bar.transform.parent.gameObject;
-        parent.SetActive(!parent.activeSelf);
+        parent.SetActive(active);
     }
 }
