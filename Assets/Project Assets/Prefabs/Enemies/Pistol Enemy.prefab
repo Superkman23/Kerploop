@@ -135,9 +135,10 @@ MonoBehaviour:
   _Gun: {fileID: 7749570828826459184}
   _Player: {fileID: 0}
   _Eyes: {fileID: 2129690308847735298}
-  _ViewDistance: 10
+  _ViewDistance: 7.5
   _ViewAngle: 90
-  _MaxShootDistance: 8
+  _ShootAngle: 30
+  _MaxShootDistance: 5
   _RotationSpeed: 4
   _AdditionalShotDelay: 0.5
 --- !u!114 &2129690308704197944
