@@ -840,7 +840,7 @@ MonoBehaviour:
   _CanShoot: 0
   _DefaultPosition: {x: 0.3, y: -0.2, z: 0.4}
   _AimingPosition: {x: 0, y: -0.07, z: 0.3}
-  _AimSpeed: 0.115
+  _AimSpeed: 5
   _DefaultSpread: 1
   _AimingSpread: 0.1
   _DefaultSpreadTime: 0.115
@@ -862,7 +862,8 @@ MonoBehaviour:
   _ReloadTimeLeft: 0
   _ShotRecoil: 2
   _ShotVolume: 0.569
-  _Bullet: {fileID: 0}
+  _Bullet: {fileID: 634099991156342913, guid: 17bf9ca0beb23dd4fa90012cf81c95a2, type: 3}
+  _BulletSpeed: 0
 --- !u!54 &1399290541044507445
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -999,7 +1000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563681277304314483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.188}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1148542920486359982}

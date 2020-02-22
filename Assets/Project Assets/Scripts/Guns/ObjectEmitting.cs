@@ -11,17 +11,24 @@ public class ObjectEmitting : Gun
 {
     [Header("Object Emitting Components")]
     [SerializeField] GameObject _Bullet;
+    [SerializeField] float _BulletSpeed;
 
     public override void Shoot()
     {
-        float spreadX = Random.Range(-_CurrentSpread, _CurrentSpread);
-        float spreadY = Random.Range(-_CurrentSpread, _CurrentSpread);
+        float shotsLeft = _BulletsPerShot;
+        while (shotsLeft-- > 0)
+        {
+            float spreadX = Random.Range(-_CurrentSpread, _CurrentSpread);
+            float spreadY = Random.Range(-_CurrentSpread, _CurrentSpread);
 
-        Vector3 spread = new Vector3(spreadX, spreadY);
+            Quaternion targetRotation = Quaternion.Euler(spreadX + transform.rotation.x, spreadY + transform.rotation.y, transform.rotation.z);
 
-        Quaternion targetRotation = Quaternion.Euler(spreadX + transform.rotation.x, spreadY + transform.rotation.y, transform.rotation.z);
-
-        Instantiate(_Bullet, _BulletSpawnPoint.position, targetRotation);
+            GameObject projectile = Instantiate(_Bullet, _BulletSpawnPoint.position, transform.rotation);
+            var bullet = projectile.GetComponent<Bullet>();
+            bullet._Damage = _BulletDamage;
+            bullet._Force = _BulletForce;
+            bullet._Speed = _BulletSpeed;
+        }
 
         _AudioSource.PlayOneShot(_ShootNoise, _ShotVolume);
 
