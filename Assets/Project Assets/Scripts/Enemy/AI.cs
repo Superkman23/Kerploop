@@ -18,7 +18,10 @@ public class AI : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] float _ViewDistance;
+    
     [SerializeField] float _ViewAngle;
+    [SerializeField] float _ShootAngle;
+
     [SerializeField] float _MaxShootDistance;
     [SerializeField] float _RotationSpeed;
     [SerializeField] float _AdditionalShotDelay = 0.5f;
@@ -51,7 +54,7 @@ public class AI : MonoBehaviour
                     _Agent.SetDestination(hit.transform.position);
                     LookAtPlayer();
 
-                    if (hit.distance <= _MaxShootDistance)
+                    if (hit.distance <= _MaxShootDistance && angle <= _ShootAngle)
                     {
                         if (_Gun._CanShoot && _Gun._CurrentInClip > 0 && _TimeTillNextShot <= 0)
                         {
@@ -74,8 +77,11 @@ public class AI : MonoBehaviour
     void LookAtPlayer()
     {
         Vector3 direction = (_Player.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, _RotationSpeed * Time.deltaTime);
+        Quaternion lrRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        Quaternion udRotation = Quaternion.LookRotation(Vector3.up * direction.y);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, lrRotation, _RotationSpeed * Time.deltaTime);
+        _Eyes.rotation = Quaternion.Slerp(_Eyes.rotation, udRotation, _RotationSpeed * Time.deltaTime);
     }
 
     public void Die()
