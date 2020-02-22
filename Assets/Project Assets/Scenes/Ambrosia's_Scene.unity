@@ -1185,6 +1185,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Health Pack (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2424421832006260498, guid: 0723cc536a6aa4143bc8f73f6865149a,
+        type: 3}
+      propertyPath: _HealthToGain
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0723cc536a6aa4143bc8f73f6865149a, type: 3}
 --- !u!1 &528912025
@@ -2736,6 +2741,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Health Pack
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424421832006260498, guid: 0723cc536a6aa4143bc8f73f6865149a,
+        type: 3}
+      propertyPath: _HealthToGain
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0723cc536a6aa4143bc8f73f6865149a, type: 3}
