@@ -12,24 +12,21 @@ public class Bullet : MonoBehaviour
     public int _Damage;
     public int _Force;
     public float _Speed;
-	private void Update()
+    
+	void Update()
 	{
         transform.Translate(Vector3.forward * _Speed * Time.deltaTime);
 	}
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-
-
-        var targetHealthManager = other.gameObject.GetComponent<HealthManager>();
-
+        var targetHealthManager = other.GetComponent<HealthManager>();
         if (targetHealthManager != null)
         {
             targetHealthManager.RemoveHealth(_Damage);
         }
 
         var targetRigidbody = other.attachedRigidbody;
-
         if (targetRigidbody != null)
         {
             targetRigidbody.AddForce(transform.forward * _Force, ForceMode.Impulse);
