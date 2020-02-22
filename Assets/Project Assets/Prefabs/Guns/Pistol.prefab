@@ -151,7 +151,7 @@ MonoBehaviour:
   _CanShoot: 0
   _DefaultPosition: {x: 0.3, y: -0.2, z: 0.5}
   _AimingPosition: {x: 0, y: -0.07, z: 0.4}
-  _AimSpeed: 0.1
+  _AimSpeed: 5
   _DefaultSpread: 1
   _AimingSpread: 0.1
   _DefaultSpreadTime: 0.08

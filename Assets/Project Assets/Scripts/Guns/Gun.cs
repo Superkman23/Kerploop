@@ -27,7 +27,7 @@ public abstract class Gun : MonoBehaviour, IInteractable
     Vector3 _TargetPosition;
 
     [Header("Aiming")]
-    [SerializeField] [Range(0, 1)] float _AimSpeed;
+    [SerializeField] float _AimSpeed;
     bool _IsAiming;
 
     [Header("Spread")]
@@ -85,7 +85,7 @@ public abstract class Gun : MonoBehaviour, IInteractable
         CalculateSpread();
 
         if (_IsEquipped)
-            transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _AimSpeed);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _AimSpeed * Time.deltaTime);
 
         if (_TimeTillNextShot > 0)
             _TimeTillNextShot -= Time.deltaTime;
