@@ -135,11 +135,14 @@ MonoBehaviour:
   _Gun: {fileID: 7316555943735701925}
   _Player: {fileID: 0}
   _Eyes: {fileID: 2129690308847735298}
-  _ViewDistance: 7.5
+  _ViewDistanceColor: {r: 0, g: 1, b: 1, a: 1}
+  _ViewDistance: 7.37
+  _360DistanceColor: {r: 1, g: 0, b: 0, a: 1}
   _360Distance: 3
+  _ShootDistanceColor: {r: 0, g: 0, b: 1, a: 1}
+  _MaxShootDistance: 5.43
   _ViewAngle: 50
   _ShootAngle: 20
-  _MaxShootDistance: 5
   _RotationSpeed: 4
   _AdditionalShotDelay: 0.5
 --- !u!114 &2129690308704197944

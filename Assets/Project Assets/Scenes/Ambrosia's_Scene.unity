@@ -520,27 +520,47 @@ PrefabInstance:
     - target: {fileID: 6890002952197778266, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.7603
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6890002952197778266, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.15972
+      value: -0.20133
       objectReference: {fileID: 0}
     - target: {fileID: 6890002952197778266, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.7603
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6890002952197778266, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.7603
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6890002952197778266, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.75
+      value: 0.75933
+      objectReference: {fileID: 0}
+    - target: {fileID: 7316555943735701925, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
+        type: 3}
+      propertyPath: _AimingPosition.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7316555943735701925, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
+        type: 3}
+      propertyPath: _BulletsPerShot
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7316555943735701925, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
+        type: 3}
+      propertyPath: _BulletDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7316555943735701925, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
+        type: 3}
+      propertyPath: _ShotDelay
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7749570828826459184, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
@@ -938,36 +958,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol Enemy (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 2129690308704197944, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
-        type: 3}
-      propertyPath: _MaxHealth
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197945, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: _Player
       value: 
       objectReference: {fileID: 530089567}
-    - target: {fileID: 2129690308704197945, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
-        type: 3}
-      propertyPath: _ViewDistance
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2129690308704197945, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
-        type: 3}
-      propertyPath: _ShootAngle
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 2129690308704197945, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
-        type: 3}
-      propertyPath: _MaxShootDistance
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2129690308704197945, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
-        type: 3}
-      propertyPath: _AdditionalShotDelay
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1675,7 +1670,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 936387208}
-  m_RootOrder: 36
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: -15.000001, y: -58.5, z: 0}
 --- !u!102 &702976045
 TextMesh:
@@ -2241,9 +2236,9 @@ Transform:
   - {fileID: 1796954448}
   - {fileID: 1225880527}
   - {fileID: 530089567}
-  - {fileID: 1612355723}
   - {fileID: 1294143785}
   - {fileID: 702976044}
+  - {fileID: 1612355723}
   - {fileID: 903530693}
   - {fileID: 1372708818}
   - {fileID: 1141530733}
@@ -3051,7 +3046,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 936387208}
-  m_RootOrder: 35
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: -15.000001, y: -90.00001, z: 0}
 --- !u!102 &1294143786
 TextMesh:
@@ -4098,7 +4093,7 @@ PrefabInstance:
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 34
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 2129690308704197950, guid: 54bcddd944f11a1409e3ac1ef0a1dce9,
         type: 3}

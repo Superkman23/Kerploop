@@ -17,12 +17,16 @@ public class AI : MonoBehaviour
     NavMeshAgent _Agent;
 
     [Header("Settings")]
+    [SerializeField] Color _ViewDistanceColor = Color.cyan;
     [SerializeField] float _ViewDistance;
+    [SerializeField] Color _360DistanceColor = Color.red;
     [SerializeField] float _360Distance; // Distance the AI sees you no matter the angle
+    [SerializeField] Color _ShootDistanceColor = Color.blue;
+
+    [SerializeField] float _MaxShootDistance;
     [SerializeField] float _ViewAngle;
     [SerializeField] float _ShootAngle;
 
-    [SerializeField] float _MaxShootDistance;
     [SerializeField] float _RotationSpeed;
     [SerializeField] float _AdditionalShotDelay = 0.5f;
     float _TimeTillNextShot;
@@ -72,6 +76,18 @@ public class AI : MonoBehaviour
         {
             _Gun.StartReloading();
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = _360DistanceColor;
+        Gizmos.DrawWireSphere(transform.position, _360Distance);
+
+        Gizmos.color = _ViewDistanceColor;
+        Gizmos.DrawWireSphere(transform.position, _ViewDistance);
+
+        Gizmos.color = _ShootDistanceColor;
+        Gizmos.DrawWireSphere(transform.position, _MaxShootDistance);
     }
 
     void LookAtPlayer()

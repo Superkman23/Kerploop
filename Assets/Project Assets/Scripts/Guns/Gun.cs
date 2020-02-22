@@ -142,7 +142,7 @@ public abstract class Gun : MonoBehaviour, IInteractable
     {
         // Can't start reloading if you're already reloading, so this
         // check is required
-        if (!_IsReloading)
+        if (!_IsReloading && _CurrentInClip != _ClipSize && _CurrentAmmoTotal != 0)
         {
             _IsReloading = true;
             _ReloadTimeLeft = _ReloadTime;

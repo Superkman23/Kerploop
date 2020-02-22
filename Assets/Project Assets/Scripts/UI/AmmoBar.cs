@@ -43,9 +43,10 @@ public class AmmoBar : MonoBehaviour
         _CurrentInClip.text = _CurrentGun._CurrentInClip.ToString();
         _CurrentAmmoTotal.text = _CurrentGun._CurrentAmmoTotal.ToString();
 
+
         _Bar.fillAmount = _CurrentGun._IsReloading
-                                    ? _CurrentGun._ReloadTime - _CurrentGun._ReloadTimeLeft / _CurrentGun._ReloadTime
-                                    : _CurrentGun._CurrentInClip / (float)_CurrentGun._ClipSize;
+                                       ? _CurrentGun._ReloadTime - _CurrentGun._ReloadTimeLeft / _CurrentGun._ReloadTime
+                                       : _CurrentGun._CurrentInClip / (float)_CurrentGun._ClipSize;
     }
 
     void ToggleUI(bool active)
