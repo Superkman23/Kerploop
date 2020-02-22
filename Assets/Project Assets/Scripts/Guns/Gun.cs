@@ -8,14 +8,14 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(AudioSource))]
-public class Gun : MonoBehaviour, IInteractable
+public abstract class Gun : MonoBehaviour, IInteractable
 {
     [Header("Components")]
-    [SerializeField] AudioClip _ShootNoise;
-    [SerializeField] Transform _BulletSpawnPoint;
-    [SerializeField] GameObject _BulletRay;
+    [SerializeField] protected AudioClip _ShootNoise;
+    [SerializeField] protected Transform _BulletSpawnPoint;
+
     [HideInInspector] public Rigidbody _Rigidbody;
-    AudioSource _AudioSource;
+    protected AudioSource _AudioSource;
 
     //Variables that don't fit any category
     bool _IsEquipped;
@@ -35,7 +35,7 @@ public class Gun : MonoBehaviour, IInteractable
     [SerializeField] float _AimingSpread; // The gun's spread while aiming
     [SerializeField] [Range(0, 1)] float _DefaultSpreadTime; // How quickly the gun returns to its target spread
     [SerializeField] [Range(0, 1)] float _AimingSpreadTime; // How quickly the gun returns to its target spread while aiming
-    [SerializeField] float _SpreadPerShot; // How much the spread increases by per shot
+    [SerializeField] protected float _SpreadPerShot; // How much the spread increases by per shot
     float _TargetSpread; // Spread the gun is trying to reach
     [HideInInspector] public float _CurrentSpread; // The spread the gun fires with
 
@@ -43,14 +43,14 @@ public class Gun : MonoBehaviour, IInteractable
     public bool _IsAutomatic;
 
     // Variables that affect the bullet's functions
-    [SerializeField] float _BulletMaxDistance;
-    [SerializeField] int _BulletForce;
-    [SerializeField] int _BulletsPerShot = 1;
-    [SerializeField] int _BulletDamage;
+    [SerializeField] protected float _BulletMaxDistance;
+    [SerializeField] protected int _BulletForce;
+    [SerializeField] protected int _BulletsPerShot = 1;
+    [SerializeField] protected int _BulletDamage;
 
     // Variables that are used when limiting how fast a gun can shoot
     public float _ShotDelay; // Minimum amount of time between shots
-    float _TimeTillNextShot;
+    protected float _TimeTillNextShot;
 
     [Header("Ammo")]
     public int _ClipSize; // How much ammo can be used before needing to reload
@@ -65,9 +65,9 @@ public class Gun : MonoBehaviour, IInteractable
 
     [Header("Feedback")]
     // Visual feedback
-    [SerializeField] float _ShotRecoil;
+    [SerializeField] protected float _ShotRecoil;
     // Audio Feedback
-    [SerializeField] [Range(0, 1)] float _ShotVolume;
+    [SerializeField] [Range(0, 1)] protected float _ShotVolume;
 
     void Awake()
     {
@@ -138,59 +138,6 @@ public class Gun : MonoBehaviour, IInteractable
         _IsAiming = isAiming;
         _TargetPosition = _IsAiming ? _AimingPosition : _DefaultPosition;
     }
-
-    public void Shoot()
-    {
-        float shotsLeft = _BulletsPerShot;
-
-        while (shotsLeft-- > 0)
-        {
-            float spreadX = Random.Range(-_CurrentSpread, _CurrentSpread);
-            float spreadY = Random.Range(-_CurrentSpread, _CurrentSpread);
-
-            Vector3 spread = new Vector3(spreadX, spreadY);
-            Vector3 direction = _BulletSpawnPoint.forward + (transform.InverseTransformDirection(spread) / _BulletMaxDistance);
-
-            if (Physics.Raycast(_BulletSpawnPoint.position, direction, out RaycastHit hit, _BulletMaxDistance))
-            {
-                CreateBullet(hit.point);
-
-                var targetHealthManager = hit.collider.gameObject.GetComponent<HealthManager>();
-                if (targetHealthManager != null)
-                {
-                    targetHealthManager.RemoveHealth(_BulletDamage);
-                    break;
-                }
-
-                var targetRigidbody = hit.rigidbody;
-                if (targetRigidbody != null)
-                {
-                    targetRigidbody.AddForce(_BulletSpawnPoint.forward * _BulletForce, ForceMode.Impulse);
-                    break;
-                }
-            }
-            else
-            {
-                CreateBullet(transform.position + (direction.normalized * _BulletMaxDistance));
-            }
-        }
-
-        _AudioSource.PlayOneShot(_ShootNoise, _ShotVolume);
-
-        _CurrentInClip--;
-        _CurrentSpread += _SpreadPerShot;
-
-        _TimeTillNextShot = _ShotDelay;
-        transform.localPosition += Vector3.back * _ShotRecoil;
-    }
-    void CreateBullet(Vector3 point) // Creates the line the bullet follows
-    {
-        GameObject go = Instantiate(_BulletRay, _BulletSpawnPoint.position, Quaternion.identity);
-
-        BulletRay ray = go.GetComponent<BulletRay>();
-        ray.SetRendererPosition(point);
-        StartCoroutine(ray.WaitThenDestroy(0.1f));
-    }
     public void StartReloading()
     {
         // Can't start reloading if you're already reloading, so this
@@ -241,4 +188,5 @@ public class Gun : MonoBehaviour, IInteractable
         else
             _TargetSpread = _DefaultSpread;
     }
+    public abstract void Shoot();
 }

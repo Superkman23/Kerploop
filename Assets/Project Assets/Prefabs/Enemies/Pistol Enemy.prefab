@@ -132,12 +132,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 675cdcc575b63e540a0e089ad1501318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Gun: {fileID: 7749570828826459184}
+  _Gun: {fileID: 7316555943735701925}
   _Player: {fileID: 0}
   _Eyes: {fileID: 2129690308847735298}
   _ViewDistance: 7.5
-  _ViewAngle: 90
-  _ShootAngle: 30
+  _ViewAngle: 50
+  _ShootAngle: 20
   _MaxShootDistance: 5
   _RotationSpeed: 4
   _AdditionalShotDelay: 0.5
@@ -262,15 +262,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2129690309124183031}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7749570828826459184 stripped
+--- !u!114 &7316555943735701925 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8503411348009283527, guid: 55baeab30a6d3c64d9da74ebb51dd177,
+  m_CorrespondingSourceObject: {fileID: 8649038636636168786, guid: 55baeab30a6d3c64d9da74ebb51dd177,
     type: 3}
   m_PrefabInstance: {fileID: 2129690309124183031}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef574e6ce5ed53c498e7e511ae37e519, type: 3}
+  m_Script: {fileID: 11500000, guid: c68428c5b796ae64aa29b39f1e69126c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
