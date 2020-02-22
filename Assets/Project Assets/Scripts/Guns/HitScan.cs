@@ -25,7 +25,7 @@ public class HitScan : Gun
 
             if (Physics.Raycast(_BulletSpawnPoint.position, direction, out RaycastHit hit, _BulletMaxDistance))
             {
-                CreateBullet(hit.point);
+                CreateRay(hit.point);
 
                 var targetHealthManager = hit.collider.gameObject.GetComponent<HealthManager>();
                 if (targetHealthManager != null)
@@ -43,7 +43,7 @@ public class HitScan : Gun
             }
             else
             {
-                CreateBullet(transform.position + (direction.normalized * _BulletMaxDistance));
+                CreateRay(transform.position + (direction.normalized * _BulletMaxDistance));
             }
         }
 
@@ -56,7 +56,7 @@ public class HitScan : Gun
         transform.localPosition += Vector3.back * _ShotRecoil;
     }
 
-    void CreateBullet(Vector3 point) // Creates the line the bullet follows
+    void CreateRay(Vector3 point) // Creates the line the bullet follows
     {
         GameObject go = Instantiate(_BulletRay, _BulletSpawnPoint.position, Quaternion.identity);
 

@@ -29,7 +29,6 @@ public class AI : MonoBehaviour
 
     void Awake()
 	{
-        Debug.Log(_Gun);
         _Agent = GetComponent<NavMeshAgent>();
     }
 

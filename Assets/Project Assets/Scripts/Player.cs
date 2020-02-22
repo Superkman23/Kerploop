@@ -162,6 +162,7 @@ public class Player : MonoBehaviour
         velocityChange.x = Mathf.Clamp(velocityChange.x, -_Deceleration, _Acceleration);
         velocityChange.z = Mathf.Clamp(velocityChange.z, -_Deceleration, _Acceleration);
         velocityChange.y = 0;
+        velocityChange = Vector3.ClampMagnitude(velocityChange, _MovementSpeed);
         _Rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
     }
 
