@@ -12,22 +12,45 @@ public class AmmoBar : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] Player _Player;
-    [SerializeField] Image _Bar;
-    [SerializeField] Text _CurrentInClip;
+    Gun _CurrentGun = null;
+
     [SerializeField] Text _CurrentAmmoTotal;
+    [SerializeField] Text _CurrentInClip;
+
+    [SerializeField] Image _Bar;
+
+    void Awake()
+    {
+        // As the player doesn't start with a gun in their hand
+        // we can safely turn this off
+        _Bar.transform.parent.gameObject.SetActive(false);
+    }
+
     void Update()
     {
-        if (_Player._CurrentGun != null)
+        // Check if the gun was changed
+        if (_Player._CurrentGun != _CurrentGun)
         {
-            _CurrentInClip.text = _Player._CurrentGun._CurrentInClip.ToString();
-            _CurrentAmmoTotal.text = _Player._CurrentGun._CurrentAmmoTotal.ToString();
-
-            if (_Player._CurrentGun._IsReloading)
-                _Bar.fillAmount = _Player._CurrentGun._ReloadTime - _Player._CurrentGun._ReloadTimeLeft / _Player._CurrentGun._ReloadTime;
-            else
-                _Bar.fillAmount = _Player._CurrentGun._CurrentInClip / (float)_Player._CurrentGun._ClipSize;
+            _CurrentGun = _Player._CurrentGun;
+            if (_CurrentGun != null)
+                ToggleUI();
         }
-        else
-            _Bar.fillAmount = 1;
+
+        // As there is no gun, exit out early
+        if (_CurrentGun == null)
+            return;
+
+        _CurrentInClip.text = _CurrentGun._CurrentInClip.ToString();
+        _CurrentAmmoTotal.text = _CurrentGun._CurrentAmmoTotal.ToString();
+
+        _Bar.fillAmount = _CurrentGun._IsReloading
+                                    ? _CurrentGun._ReloadTime - _CurrentGun._ReloadTimeLeft / _CurrentGun._ReloadTime
+                                    : _CurrentGun._CurrentInClip / (float)_CurrentGun._ClipSize;
+    }
+
+    void ToggleUI()
+    {
+        var parent = _Bar.transform.parent.gameObject;
+        parent.SetActive(!parent.activeSelf);
     }
 }

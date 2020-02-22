@@ -4371,25 +4371,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 995703921584442723, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1368746841544229859, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3442724253896240515, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
-        type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 3442724253896240515, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
-        type: 3}
-      propertyPath: m_FontData.m_MaxSize
-      value: 231
       objectReference: {fileID: 0}
     - target: {fileID: 4528319440084100757, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
         type: 3}
@@ -4450,21 +4435,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528319440084100763, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
-        type: 3}
-      propertyPath: _MovementSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528319440084100763, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
-        type: 3}
-      propertyPath: _JumpForce
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528319440084100763, guid: 8f26233fe9168cf4b8d9c1e3f75423c8,
-        type: 3}
-      propertyPath: _CrouchSpeedMult
-      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f26233fe9168cf4b8d9c1e3f75423c8, type: 3}
