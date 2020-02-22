@@ -82,6 +82,8 @@ public class Gun : MonoBehaviour, IInteractable
     // Update is called once per frame
     void Update()
     {
+        CalculateSpread();
+
         if (_IsEquipped)
             transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _AimSpeed);
 
@@ -100,11 +102,8 @@ public class Gun : MonoBehaviour, IInteractable
             _ReloadTimeLeft = 0;
         }
         else
-        {
             _ReloadTimeLeft -= Time.deltaTime;
-        }
     }
-
     void FixedUpdate()
     {
         if (_IsEquipped)
@@ -131,14 +130,12 @@ public class Gun : MonoBehaviour, IInteractable
         Global.RecursiveSetColliders(transform, true);
         transform.parent = null;
 
-        _CurrentSpread = 0;
         _IsReloading = _IsEquipped = _Rigidbody.isKinematic = false;
     }
 
     public void Aim(bool isAiming)
     {
         _IsAiming = isAiming;
-        _TargetSpread = _IsAiming ? _AimingSpread : _DefaultSpread;
         _TargetPosition = _IsAiming ? _AimingPosition : _DefaultPosition;
     }
 
@@ -229,5 +226,19 @@ public class Gun : MonoBehaviour, IInteractable
             Pickup(Camera.main.transform);
             player._CurrentGun = this;
         }
+    }
+
+    void CalculateSpread()
+    {
+        if (!_IsEquipped)
+        {
+            _TargetSpread = 0;
+            return;
+        }
+
+        if (_IsAiming)
+            _TargetSpread = _AimingSpread;
+        else
+            _TargetSpread = _DefaultSpread;
     }
 }

@@ -159,6 +159,7 @@ MonoBehaviour:
   _DefaultSpreadTime: 0.081
   _AimingSpreadTime: 0.136
   _SpreadPerShot: 2
+  _SpreadPerMagnitude: 0.4
   _CurrentSpread: 0
   _IsAutomatic: 0
   _BulletMaxDistance: 60
@@ -169,7 +170,10 @@ MonoBehaviour:
   _ClipSize: 16
   _MaxAmmo: 100
   _CurrentInClip: 0
+  _CurrentAmmoTotal: 0
   _ReloadTime: 1
+  _IsReloading: 0
+  _ReloadTimeLeft: 0
   _ShotRecoil: 0.1
   _ShotVolume: 0.852
 --- !u!54 &6812589187400779830
