@@ -8,7 +8,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(AudioSource))]
-public class Gun : MonoBehaviour, IInteractable
+public abstract class Gun : MonoBehaviour, IInteractable
 {
     [Header("Components")]
     [SerializeField] protected AudioClip _ShootNoise;
@@ -138,11 +138,6 @@ public class Gun : MonoBehaviour, IInteractable
         _IsAiming = isAiming;
         _TargetPosition = _IsAiming ? _AimingPosition : _DefaultPosition;
     }
-
-    public virtual void Shoot()
-    {
-    }
-
     public void StartReloading()
     {
         // Can't start reloading if you're already reloading, so this
@@ -193,4 +188,5 @@ public class Gun : MonoBehaviour, IInteractable
         else
             _TargetSpread = _DefaultSpread;
     }
+    public abstract void Shoot();
 }
