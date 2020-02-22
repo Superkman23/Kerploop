@@ -852,7 +852,7 @@ MonoBehaviour:
   _BulletForce: 5
   _BulletsPerShot: 1
   _BulletDamage: 10
-  _ShotDelay: 0.5
+  _ShotDelay: 1
   _ClipSize: 10
   _MaxAmmo: 100
   _CurrentInClip: 0
@@ -860,10 +860,10 @@ MonoBehaviour:
   _ReloadTime: 1
   _IsReloading: 0
   _ReloadTimeLeft: 0
-  _ShotRecoil: 2
+  _ShotRecoil: 0.2
   _ShotVolume: 0.569
   _Bullet: {fileID: 634099991156342913, guid: 17bf9ca0beb23dd4fa90012cf81c95a2, type: 3}
-  _BulletSpeed: 4
+  _BulletSpeed: 8
 --- !u!54 &1399290541044507445
 Rigidbody:
   m_ObjectHideFlags: 0
