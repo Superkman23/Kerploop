@@ -18,7 +18,7 @@ public class AI : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] float _ViewDistance;
-    
+    [SerializeField] float _360Distance; // Distance the AI sees you no matter the angle
     [SerializeField] float _ViewAngle;
     [SerializeField] float _ShootAngle;
 
@@ -49,7 +49,7 @@ public class AI : MonoBehaviour
                 Vector3 targetDir = _Player.position - transform.position;
                 float angle = Vector3.Angle(targetDir, transform.forward);
 
-                if (angle <= _ViewAngle)
+                if (angle <= _ViewAngle || Vector3.Distance(transform.position, _Player.transform.position) <= _360Distance)
                 {
                     _Agent.SetDestination(hit.transform.position);
                     LookAtPlayer();
