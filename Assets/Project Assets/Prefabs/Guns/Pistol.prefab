@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4760334644741961901}
-  - component: {fileID: 8503411348009283527}
+  - component: {fileID: 8649038636636168786}
   - component: {fileID: 6812589187400779830}
   - component: {fileID: -6144587326826773148}
   m_Layer: 0
@@ -133,7 +133,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8503411348009283527
+--- !u!114 &8649038636636168786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,24 +142,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1354561035922692390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef574e6ce5ed53c498e7e511ae37e519, type: 3}
+  m_Script: {fileID: 11500000, guid: c68428c5b796ae64aa29b39f1e69126c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _ShootNoise: {fileID: 8300000, guid: 422fdcb857918f949933d586cb746a9c, type: 3}
   _BulletSpawnPoint: {fileID: 2012924500585237519}
-  _BulletRay: {fileID: 3597348935890589645, guid: cf6b794ec933edc41a9bcbfaa3926f71,
-    type: 3}
   _Rigidbody: {fileID: 0}
   _CanShoot: 0
   _DefaultPosition: {x: 0.3, y: -0.2, z: 0.5}
   _AimingPosition: {x: 0, y: -0.07, z: 0.4}
-  _AimSpeed: 0.101
+  _AimSpeed: 0.1
   _DefaultSpread: 1
   _AimingSpread: 0.1
-  _DefaultSpreadTime: 0.081
-  _AimingSpreadTime: 0.136
+  _DefaultSpreadTime: 0.08
+  _AimingSpreadTime: 0.14
   _SpreadPerShot: 2
-  _SpreadPerMagnitude: 0.4
   _CurrentSpread: 0
   _IsAutomatic: 0
   _BulletMaxDistance: 60
@@ -175,7 +172,9 @@ MonoBehaviour:
   _IsReloading: 0
   _ReloadTimeLeft: 0
   _ShotRecoil: 0.1
-  _ShotVolume: 0.852
+  _ShotVolume: 0.85
+  _BulletRay: {fileID: 3597348935890589645, guid: cf6b794ec933edc41a9bcbfaa3926f71,
+    type: 3}
 --- !u!54 &6812589187400779830
 Rigidbody:
   m_ObjectHideFlags: 0
