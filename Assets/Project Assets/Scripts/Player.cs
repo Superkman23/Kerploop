@@ -155,14 +155,13 @@ public class Player : MonoBehaviour
     void HandleMovement()
     {
         // Calculate how fast we should be moving
-        Vector3 targetVelocity = transform.TransformDirection(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * _MovementSpeed;
+        Vector3 targetVelocity = Vector3.ClampMagnitude(transform.TransformDirection(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * _MovementSpeed, _MovementSpeed);
 
         // Apply a force that attempts to reach our target velocity
         Vector3 velocityChange = targetVelocity - _Rigidbody.velocity;
         velocityChange.x = Mathf.Clamp(velocityChange.x, -_Deceleration, _Acceleration);
         velocityChange.z = Mathf.Clamp(velocityChange.z, -_Deceleration, _Acceleration);
         velocityChange.y = 0;
-        velocityChange = Vector3.ClampMagnitude(velocityChange, _MovementSpeed);
         _Rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
     }
 
