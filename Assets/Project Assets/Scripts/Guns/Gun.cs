@@ -53,15 +53,15 @@ public class Gun : MonoBehaviour, IInteractable
     float _TimeTillNextShot;
 
     [Header("Ammo")]
-    [SerializeField] int _ClipSize; // How much ammo can be used before needing to reload
+    public int _ClipSize; // How much ammo can be used before needing to reload
     [SerializeField] int _MaxAmmo;  // The maximum amount of ammo that can be held by the gun
     [HideInInspector] public int _CurrentInClip;
-    int _CurrentAmmoTotal;
+    [HideInInspector] public int _CurrentAmmoTotal;
 
     [Header("Reloading")]
-    [SerializeField] float _ReloadTime;
+    public float _ReloadTime;
     [HideInInspector] public bool _IsReloading;
-    float _ReloadTimeLeft;
+    [HideInInspector] public float _ReloadTimeLeft;
 
     [Header("Feedback")]
     // Visual feedback
