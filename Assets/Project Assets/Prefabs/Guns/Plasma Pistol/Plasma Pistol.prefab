@@ -796,7 +796,7 @@ GameObject:
   - component: {fileID: 1399290541044507445}
   - component: {fileID: 7447371524466208359}
   m_Layer: 0
-  m_Name: Pistol with physical bulets
+  m_Name: Plasma Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -847,7 +847,7 @@ MonoBehaviour:
   _AimingSpreadTime: 0.109
   _SpreadPerShot: 2
   _CurrentSpread: 0
-  _IsAutomatic: 0
+  _IsAutomatic: 1
   _BulletMaxDistance: 60
   _BulletForce: 5
   _BulletsPerShot: 1
@@ -863,7 +863,7 @@ MonoBehaviour:
   _ShotRecoil: 2
   _ShotVolume: 0.569
   _Bullet: {fileID: 634099991156342913, guid: 17bf9ca0beb23dd4fa90012cf81c95a2, type: 3}
-  _BulletSpeed: 0
+  _BulletSpeed: 4
 --- !u!54 &1399290541044507445
 Rigidbody:
   m_ObjectHideFlags: 0
