@@ -54,7 +54,7 @@ public abstract class Gun : MonoBehaviour, IInteractable
 
     [Header("Ammo")]
     public int _ClipSize; // How much ammo can be used before needing to reload
-    [SerializeField] int _MaxAmmo;  // The maximum amount of ammo that can be held by the gun
+    public int _MaxAmmo;  // The maximum amount of ammo that can be held by the gun
     [HideInInspector] public int _CurrentInClip;
     [HideInInspector] public int _CurrentAmmoTotal;
 
