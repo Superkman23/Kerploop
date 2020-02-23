@@ -59,7 +59,7 @@ public class AI : MonoBehaviour
                 targetDir.y = transform.position.y;
                 float angle = Vector3.Angle(targetDir, transform.forward);
 
-                bool within360 = Vector3.Distance(transform.position, targetDir) <= _360Distance;
+                bool within360 = Vector3.Distance(transform.position, _Player.transform.position) <= _360Distance;
                 if (within360 || angle <= _ViewAngle)
                 {
                     _Agent.SetDestination(hit.transform.position);
