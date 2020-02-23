@@ -11,13 +11,13 @@ public class Global : MonoBehaviour
 {
     static public void RecursiveSetColliders(Transform root, bool value)
     {
+        var thisCollider = root.GetComponent<Collider>();
+        if (thisCollider != null)
+            thisCollider.enabled = value;
+
         // Loops through all of the gun's parts
         foreach (Transform child in root)
         {
-            var collider = child.GetComponent<Collider>();
-            if (collider != null) // Disable the collider
-                collider.enabled = value;
-
             RecursiveSetColliders(child, value);
         }
     }
