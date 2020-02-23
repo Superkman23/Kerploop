@@ -25,6 +25,7 @@ public class AI : MonoBehaviour
     [SerializeField] Color _ShootDistanceColor = Color.blue;
 
     [SerializeField] float _MaxShootDistance;
+    [SerializeField] float _ShootHelpDistance;
     [SerializeField] float _ViewAngle;
     [SerializeField] float _ShootAngle;
 
@@ -81,7 +82,20 @@ public class AI : MonoBehaviour
 
         if (_Health._HurtOrigin != Vector3.zero)
         {
+            // We've just been shot or hurt, so we want to move towards wherever we got hurt from
             _Agent.SetDestination(_Health._HurtOrigin);
+
+            // To lessen the chances of our death, we're going to call upon our friends to help us!
+            Collider[] localColliders = Physics.OverlapSphere(transform.position, _ShootHelpDistance);
+            foreach (var colliders in localColliders)
+            {
+                if (colliders.CompareTag("Enemy") == false)
+                    continue;
+
+                var agent = colliders.GetComponent<NavMeshAgent>();
+                agent.SetDestination(_Health._HurtOrigin);
+            }
+
             _Health._HurtOrigin = Vector3.zero;
         }
     }

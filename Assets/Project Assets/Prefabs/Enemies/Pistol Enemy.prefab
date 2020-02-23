@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2129690308704197944}
   m_Layer: 0
   m_Name: Pistol Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   _360Distance: 3
   _ShootDistanceColor: {r: 0, g: 0, b: 1, a: 1}
   _MaxShootDistance: 5.43
+  _ShootHelpDistance: 10
   _ViewAngle: 50
   _ShootAngle: 20
   _RotationSpeed: 4
@@ -157,9 +158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1aa0426bf5d7a4994ac6cb4cce8fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _IsPlayer: 0
   _MaxHealth: 30
   _HealthPercent: 0
-  _IsPlayer: 0
+  _HurtOrigin: {x: 0, y: 0, z: 0}
 --- !u!1 &2129690308847735299
 GameObject:
   m_ObjectHideFlags: 0
