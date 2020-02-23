@@ -9,10 +9,12 @@ using UnityEngine.SceneManagement;
 
 public class HealthManager : MonoBehaviour
 {
-    [SerializeField] public float _MaxHealth;
-    float _CurrentHealth;
-    [HideInInspector] public float _HealthPercent;
     [SerializeField] bool _IsPlayer = false;
+    public float _MaxHealth;
+
+    [HideInInspector] public float _HealthPercent;
+    float _CurrentHealth;
+    [HideInInspector] public Vector3 _HurtOrigin = Vector3.zero;
 
     private void Awake()
     {

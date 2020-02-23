@@ -31,6 +31,7 @@ public class HitScan : Gun
                 if (targetHealthManager != null)
                 {
                     targetHealthManager.RemoveHealth(_BulletDamage);
+                    targetHealthManager._HurtOrigin = transform.position;
                     break;
                 }
 

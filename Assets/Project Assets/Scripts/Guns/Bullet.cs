@@ -21,8 +21,11 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         var targetHealthManager = other.GetComponent<HealthManager>();
-        if (targetHealthManager != null)        
-            targetHealthManager.RemoveHealth(_Damage);        
+        if (targetHealthManager != null)
+        {
+            targetHealthManager.RemoveHealth(_Damage);
+            targetHealthManager._HurtOrigin = transform.position;
+        }
 
         var targetRigidbody = other.attachedRigidbody;
         if (targetRigidbody != null)        

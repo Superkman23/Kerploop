@@ -14,6 +14,7 @@ public class AI : MonoBehaviour
     [SerializeField] Gun _Gun;
     [SerializeField] Transform _Player;
     [SerializeField] Transform _Eyes;
+    HealthManager _Health;
     NavMeshAgent _Agent;
 
     [Header("Settings")]
@@ -34,6 +35,7 @@ public class AI : MonoBehaviour
     void Awake()
 	{
         _Agent = GetComponent<NavMeshAgent>();
+        _Health = GetComponent<HealthManager>();
     }
 
     private void Start()
@@ -75,6 +77,12 @@ public class AI : MonoBehaviour
         if ( _Gun._CurrentInClip <= 0)
         {
             _Gun.StartReloading();
+        }
+
+        if (_Health._HurtOrigin != Vector3.zero)
+        {
+            _Agent.SetDestination(_Health._HurtOrigin);
+            _Health._HurtOrigin = Vector3.zero;
         }
     }
 
