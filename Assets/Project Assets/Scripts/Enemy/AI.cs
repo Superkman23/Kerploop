@@ -56,15 +56,17 @@ public class AI : MonoBehaviour
             if (hit.transform.CompareTag("Player"))
             {
                 Vector3 targetDir = _Player.position - transform.position;
+                targetDir.y = transform.position.y;
                 float angle = Vector3.Angle(targetDir, transform.forward);
 
-                if (angle <= _ViewAngle || Vector3.Distance(transform.position, _Player.transform.position) <= _360Distance)
+                bool within360 = Vector3.Distance(transform.position, targetDir) <= _360Distance;
+                if (within360 || angle <= _ViewAngle)
                 {
                     _Agent.SetDestination(hit.transform.position);
                     LookAtPosition(hit.transform.position);
                     CallFriends(hit.transform.position);
 
-                    if (hit.distance <= _MaxShootDistance && angle <= _ShootAngle)
+                    if (within360 || hit.distance <= _MaxShootDistance && angle <= _ShootAngle)
                     {
                         if (_Gun._CanShoot && _Gun._CurrentInClip > 0 && _TimeTillNextShot <= 0)
                         {
