@@ -18,6 +18,8 @@ public class AI : MonoBehaviour
     NavMeshAgent _Agent;
 
     [Header("Settings")]
+    [SerializeField] LayerMask _EnemyLayer;
+
     [SerializeField] Color _ViewDistanceColor = Color.cyan;
     [SerializeField] float _ViewDistance;
     [SerializeField] Color _360DistanceColor = Color.red;
@@ -59,7 +61,8 @@ public class AI : MonoBehaviour
                 if (angle <= _ViewAngle || Vector3.Distance(transform.position, _Player.transform.position) <= _360Distance)
                 {
                     _Agent.SetDestination(hit.transform.position);
-                    LookAtPlayer();
+                    LookAtPosition(hit.transform.position);
+                    CallFriends(hit.transform.position);
 
                     if (hit.distance <= _MaxShootDistance && angle <= _ShootAngle)
                     {
@@ -84,18 +87,8 @@ public class AI : MonoBehaviour
         {
             // We've just been shot or hurt, so we want to move towards wherever we got hurt from
             _Agent.SetDestination(_Health._HurtOrigin);
-
-            // To lessen the chances of our death, we're going to call upon our friends to help us!
-            Collider[] localColliders = Physics.OverlapSphere(transform.position, _ShootHelpDistance);
-            foreach (var colliders in localColliders)
-            {
-                if (colliders.CompareTag("Enemy") == false)
-                    continue;
-
-                var agent = colliders.GetComponent<NavMeshAgent>();
-                agent.SetDestination(_Health._HurtOrigin);
-            }
-
+            CallFriends(_Health._HurtOrigin);
+            LookAtPosition(_Health._HurtOrigin);
             _Health._HurtOrigin = Vector3.zero;
         }
     }
@@ -112,14 +105,28 @@ public class AI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, _MaxShootDistance);
     }
 
-    void LookAtPlayer()
+    void LookAtPosition(Vector3 position)
     {
-        Vector3 direction = (_Player.position - transform.position).normalized;
+        Vector3 direction = (position - transform.position).normalized;
         Quaternion lrRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         Quaternion udRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
 
         transform.rotation = Quaternion.Slerp(transform.rotation, lrRotation, _RotationSpeed * Time.deltaTime);
         _Eyes.rotation = Quaternion.Slerp(_Eyes.rotation, udRotation, _RotationSpeed * Time.deltaTime);
+    }
+
+    void CallFriends(Vector3 position)
+    {
+        // To lessen the chances of our death, we're going to call upon our friends to help us!
+        Collider[] localColliders = Physics.OverlapSphere(transform.position, _ShootHelpDistance, _EnemyLayer);
+        foreach (var colliders in localColliders)
+        {
+            if (colliders.CompareTag("Enemy") == false)
+                continue;
+
+            var agent = colliders.GetComponent<NavMeshAgent>();
+            agent.SetDestination(position);
+        }
     }
 
     public void Die()
