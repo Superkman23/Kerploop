@@ -174,11 +174,11 @@ MonoBehaviour:
   _SpreadPerShot: 0.5
   _CurrentSpread: 0
   _IsAutomatic: 1
-  _BulletMaxDistance: 30
+  _BulletMaxDistance: 15
   _BulletForce: 3
   _BulletsPerShot: 1
   _BulletDamage: 2
-  _ShotDelay: 0.08
+  _ShotDelay: 0.1
   _ClipSize: 30
   _MaxAmmo: 300
   _CurrentInClip: 0
