@@ -165,7 +165,7 @@ MonoBehaviour:
   _BulletSpawnPoint: {fileID: 2438618229372451890}
   _Rigidbody: {fileID: 0}
   _CanShoot: 0
-  _DefaultPosition: {x: 0.35, y: -0.2, z: 0.5}
+  _DefaultPosition: {x: 0.35, y: -0.25, z: 0.5}
   _AimingPosition: {x: 0, y: -0.1, z: 0.4}
   _AimSpeed: 5
   _DefaultSpread: 2
@@ -233,7 +233,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: a8222cf8327774a4f94fec4c939a88bb, type: 2}
   - {fileID: 2100000, guid: df18f55d3c7a73e4aa7dee030d47a2be, type: 2}
-  - {fileID: 2100000, guid: df18f55d3c7a73e4aa7dee030d47a2be, type: 2}
+  - {fileID: 2100000, guid: 56d6d86d63f40d240b4deb5bfec70d94, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
