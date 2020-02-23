@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: ab184bd851eecee45b6c88df90272410
+guid: 0bda60ae30249fe4587a9ecc323266a1
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: df18f55d3c7a73e4aa7dee030d47a2be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bottom
+    second: {fileID: 2100000, guid: 56d6d86d63f40d240b4deb5bfec70d94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nozel
+    second: {fileID: 2100000, guid: a8222cf8327774a4f94fec4c939a88bb, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
