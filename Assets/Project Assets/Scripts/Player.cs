@@ -53,8 +53,8 @@ public class Player : MonoBehaviour
 
     [Header("Inventory")]
     [SerializeField] int _InventorySize;
-    int _CurrentSlotIndex;
-    Gun[] _Inventory;
+    [HideInInspector] public int _CurrentSlotIndex;
+    [HideInInspector] public Gun[] _Inventory;
 
     [Header("Camera")]
     [SerializeField] float _RotationSpeed = 1f;
@@ -142,11 +142,12 @@ public class Player : MonoBehaviour
         if(Mathf.Abs(Input.GetAxis("Mouse ScrollWheel")) > 0)
         {
             if(Input.GetAxis("Mouse ScrollWheel") > 0)
-                ChangeSlot(true);
+                ChangeSlot(_CurrentSlotIndex + 1);
             else
-                ChangeSlot(false);
+                ChangeSlot(_CurrentSlotIndex - 1);
         }
 
+        _Inventory[_CurrentSlotIndex] = _CurrentGun;
     }
     private void FixedUpdate()
     {
@@ -309,26 +310,20 @@ public class Player : MonoBehaviour
         _MainCamera.transform.localPosition = cameraPosition;
     }
 
-    void ChangeSlot(bool up)
+    void ChangeSlot(int newIndex)
     {
-        Debug.Log(_Inventory);
-        _Inventory.SetValue(_CurrentGun, _CurrentSlotIndex);
         if(_CurrentGun != null)
         {
             _CurrentGun.Aim(false);
             _CurrentGun.gameObject.SetActive(false);
         }
 
-        if (up)
-        {
-            if(_InventorySize - 1 != _CurrentSlotIndex)
-                _CurrentSlotIndex++;
-        }
-        else
-        {
-            if (0 != _CurrentSlotIndex)
-                _CurrentSlotIndex--;
-        }
+        _CurrentSlotIndex = newIndex;
+
+        if (_CurrentSlotIndex > _InventorySize - 1)
+            _CurrentSlotIndex = 0;
+        else if (_CurrentSlotIndex < 0)
+            _CurrentSlotIndex = _InventorySize - 1;
 
         _CurrentGun = _Inventory[_CurrentSlotIndex];
         if (_CurrentGun != null)

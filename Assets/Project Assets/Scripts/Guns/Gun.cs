@@ -20,6 +20,7 @@ public abstract class Gun : MonoBehaviour, IInteractable
     //Variables that don't fit any category
     bool _IsEquipped;
     [HideInInspector] public bool _CanShoot;
+    public Sprite _Icon;
 
     [Header("Positioning")]
     [SerializeField] Vector3 _DefaultPosition;
