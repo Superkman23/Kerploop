@@ -7,23 +7,18 @@
 
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(AudioSource))]
-public abstract class Gun : MonoBehaviour, IInteractable
+[RequireComponent(typeof(AudioSource))]
+public abstract class Gun : Carriable, IInteractable
 {
-    [Header("Components")]
+    [Header("Gun Components")]
     [SerializeField] protected AudioClip _ShootNoise;
     [SerializeField] protected Transform _BulletSpawnPoint;
-
-    [HideInInspector] public Rigidbody _Rigidbody;
     protected AudioSource _AudioSource;
 
     //Variables that don't fit any category
-    bool _IsEquipped;
     [HideInInspector] public bool _CanShoot;
-    public Sprite _Icon;
 
-    [Header("Positioning")]
-    [SerializeField] Vector3 _DefaultPosition;
+    [Header("Gun Positioning")]
     [SerializeField] Vector3 _AimingPosition;
     Vector3 _TargetPosition;
 
@@ -72,10 +67,9 @@ public abstract class Gun : MonoBehaviour, IInteractable
 
     void Awake()
     {
-        _Rigidbody = GetComponent<Rigidbody>();
         _AudioSource = GetComponent<AudioSource>();
 
-        Aim(false); // Sets default position and spread
+        Aim(false); // Sets default position
         _CurrentInClip = _ClipSize;
         _CurrentAmmoTotal = _MaxAmmo;
     }
@@ -87,6 +81,9 @@ public abstract class Gun : MonoBehaviour, IInteractable
 
         if (_IsEquipped)
             transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _AimSpeed * Time.deltaTime);
+
+        if (_CurrentInClip < 1 && !_IsReloading)
+            StartReloading();
 
         if (_TimeTillNextShot > 0)
             _TimeTillNextShot -= Time.deltaTime;
@@ -111,20 +108,32 @@ public abstract class Gun : MonoBehaviour, IInteractable
             _CurrentSpread = Mathf.Lerp(_CurrentSpread, _TargetSpread, (_IsAiming) ? _AimingSpreadTime : _DefaultSpreadTime);
     }
 
-    public void Pickup(Transform parent)
+    public override void UseOne(int type)
     {
-        // Turns the colliders off so we don't interact with the player or environment
-        Global.RecursiveSetColliders(transform, false);
-        transform.parent = parent;
-
-        _Rigidbody.isKinematic = true;
-        _IsEquipped = true;
-
-        // Reset the rotation
-        transform.localRotation = Quaternion.Euler(0, 0, 0);
+        if (_CurrentInClip < 1)
+            return;
+        if (_CanShoot)
+        {
+            if (type == 1 && !_IsAutomatic)
+                Shoot();
+            else if (type == 3 && _IsAutomatic)
+                Shoot();
+        }
     }
 
-    public void Drop()
+    public override void UseTwo(int type)
+    {
+        if (type == 1)
+            Aim(true);
+        else if (type == 2)
+            Aim(false);
+    }
+    public override void UseThree(int type)
+    {
+        StartReloading();
+    }
+
+    public override void Drop()
     {
         Aim(false);
         
@@ -133,7 +142,6 @@ public abstract class Gun : MonoBehaviour, IInteractable
 
         _IsReloading = _IsEquipped = _Rigidbody.isKinematic = false;
     }
-
     public void Aim(bool isAiming)
     {
         _IsAiming = isAiming;
@@ -159,23 +167,6 @@ public abstract class Gun : MonoBehaviour, IInteractable
 
         _IsReloading = false;
     }
-
-    public void OnInteractStart(GameObject interactingParent)
-    {
-        if (interactingParent.CompareTag("Player"))
-        {
-            var player = interactingParent.GetComponent<Player>();
-
-            // If the player has a gun in their hand, then drop it
-            if (player._CurrentGun != null)
-                player.DropGun();
-
-            // Put ourself onto the player
-            Pickup(Camera.main.transform);
-            player._CurrentGun = this;
-        }
-    }
-
     void CalculateSpread()
     {
         if (!_IsEquipped)

@@ -22,9 +22,15 @@ public class Crosshair : MonoBehaviour
 
     void Update()
     {
-        if(_PlayerGun != _Player._CurrentGun) // The player's gun has changed, switch to the new gun
+        if(_PlayerGun != _Player._CurrentItem) // The player's gun has changed, switch to the new gun
         {
-            _PlayerGun = _Player._CurrentGun; // Store the gun to check when it changes again
+            Gun playerGun = null;
+            if (_Player._CurrentItem != null)
+            {
+                playerGun = _Player._CurrentItem.GetComponent<Gun>();
+            }
+
+            _PlayerGun = playerGun;
 
             if (_PlayerGun == null)
             {

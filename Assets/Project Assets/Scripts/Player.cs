@@ -21,8 +21,8 @@ public class Player : MonoBehaviour
     [SerializeField] KeyCode _JumpKey = KeyCode.Space;
     [SerializeField] KeyCode _ThrowKey = KeyCode.F;
     [SerializeField] KeyCode _InteractKey = KeyCode.E;
-    [SerializeField] MouseButton _AimButton = MouseButton.RMB;
-    [SerializeField] MouseButton _ShootButton = MouseButton.LMB;
+    [SerializeField] MouseButton _SideButton = MouseButton.RMB;
+    [SerializeField] MouseButton _MainButton = MouseButton.LMB;
     [SerializeField] KeyCode _ReloadKey = KeyCode.R;
 
     [Header("Movement")]
@@ -47,14 +47,14 @@ public class Player : MonoBehaviour
     [Header("Interacting")]
     [SerializeField] float _InteractRange;
 
-    [Header("Guns")]
+    [Header("Items")]
     [SerializeField] float _ThrowForce = 5;
-    [HideInInspector] public Gun _CurrentGun = null;
+    [HideInInspector] public Carriable _CurrentItem = null;
 
     [Header("Inventory")]
     [SerializeField] int _InventorySize;
     [HideInInspector] public int _CurrentSlotIndex;
-    [HideInInspector] public Gun[] _Inventory;
+    [HideInInspector] public Carriable[] _Inventory;
 
     [Header("Camera")]
     [SerializeField] float _RotationSpeed = 1f;
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
         _XRotation = transform.eulerAngles.y;
         _YRotation = transform.eulerAngles.x;
 
-        _Inventory = new Gun[_InventorySize];
+        _Inventory = new Carriable[_InventorySize];
         _CurrentSlotIndex = 0;
     }
     void Update()
@@ -106,36 +106,50 @@ public class Player : MonoBehaviour
             Interact();
         }
 
-        if (_CurrentGun != null) // All the things the player can do with the gun
+        if (_CurrentItem != null) // All the things the player can do with items
         {
-            if (Input.GetMouseButtonDown((int)_AimButton))
+            if (Input.GetMouseButtonDown((int)_MainButton))
             {
-                _CurrentGun.Aim(true);
+                _CurrentItem.UseOne(1);
             }
-            if (Input.GetMouseButtonUp((int)_AimButton))
+            if (Input.GetMouseButtonUp((int)_MainButton))
             {
-                _CurrentGun.Aim(false);
+                _CurrentItem.UseOne(2);
             }
-            if (Input.GetKeyDown(_ReloadKey) || _CurrentGun._CurrentInClip <= 0)
+            if (Input.GetMouseButton((int)_MainButton))
             {
-                _CurrentGun.StartReloading();
+                _CurrentItem.UseOne(3);
             }
 
-            if(_CurrentGun._CanShoot && _CurrentGun._CurrentInClip > 0)
+            if (Input.GetMouseButtonDown((int)_SideButton))
             {
-                if (Input.GetMouseButtonDown((int)_ShootButton) && !_CurrentGun._IsAutomatic)
-                {
-                    _CurrentGun.Shoot();
-                }
-                if (Input.GetMouseButton((int)_ShootButton) && _CurrentGun._IsAutomatic)
-                {
-                    _CurrentGun.Shoot();
-                }
+                _CurrentItem.UseTwo(1);
+            }
+            if (Input.GetMouseButtonUp((int)_SideButton))
+            {
+                _CurrentItem.UseTwo(2);
+            }
+            if (Input.GetMouseButton((int)_SideButton))
+            {
+                _CurrentItem.UseTwo(3);
+            }
+
+            if (Input.GetKeyDown(_ReloadKey))
+            {
+                _CurrentItem.UseThree(1);
+            }
+            if (Input.GetKeyUp(_ReloadKey))
+            {
+                _CurrentItem.UseThree(2);
+            }
+            if (Input.GetKey(_ReloadKey))
+            {
+                _CurrentItem.UseThree(3);
             }
 
             if (Input.GetKeyDown(_ThrowKey))
             {
-                DropGun();
+                Drop();
             }
         }
 
@@ -147,7 +161,7 @@ public class Player : MonoBehaviour
                 ChangeSlot(_CurrentSlotIndex - 1);
         }
 
-        _Inventory[_CurrentSlotIndex] = _CurrentGun;
+        _Inventory[_CurrentSlotIndex] = _CurrentItem;
     }
     private void FixedUpdate()
     {
@@ -240,11 +254,11 @@ public class Player : MonoBehaviour
     }
 
     //Gun functions
-    public void DropGun()
+    public void Drop()
     {
-        _CurrentGun.Drop(); // Drop held gun
-        _CurrentGun._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
-        _CurrentGun = null; // Set current gun to none because it's no longer held
+        _CurrentItem.Drop(); // Drop held gun
+        _CurrentItem._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
+        _CurrentItem = null; // Set current gun to none because it's no longer held
     }
 
     //Camera Functions
@@ -312,10 +326,9 @@ public class Player : MonoBehaviour
 
     void ChangeSlot(int newIndex)
     {
-        if(_CurrentGun != null)
+        if(_CurrentItem != null)
         {
-            _CurrentGun.Aim(false);
-            _CurrentGun.gameObject.SetActive(false);
+            _CurrentItem.gameObject.SetActive(false);
         }
 
         _CurrentSlotIndex = newIndex;
@@ -325,8 +338,8 @@ public class Player : MonoBehaviour
         else if (_CurrentSlotIndex < 0)
             _CurrentSlotIndex = _InventorySize - 1;
 
-        _CurrentGun = _Inventory[_CurrentSlotIndex];
-        if (_CurrentGun != null)
-            _CurrentGun.gameObject.SetActive(true);
+        _CurrentItem = _Inventory[_CurrentSlotIndex];
+        if (_CurrentItem != null)
+            _CurrentItem.gameObject.SetActive(true);
     }
 }

@@ -29,9 +29,16 @@ public class AmmoBar : MonoBehaviour
     void Update()
     {
         // Check if the gun was changed
-        if (_Player._CurrentGun != _CurrentGun)
+
+        if (_Player._CurrentItem != _CurrentGun)
         {
-            _CurrentGun = _Player._CurrentGun;
+            Gun playerGun = null;
+            if(_Player._CurrentItem != null)
+            {
+                 playerGun = _Player._CurrentItem.GetComponent<Gun>();
+            }
+
+            _CurrentGun = playerGun;
 
             ToggleUI(_CurrentGun != null);
         }
