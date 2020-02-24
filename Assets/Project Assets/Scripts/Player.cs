@@ -108,43 +108,45 @@ public class Player : MonoBehaviour
 
         if (_CurrentItem != null) // All the things the player can do with items
         {
+            // TODO: make not cancer
+
             if (Input.GetMouseButtonDown((int)_MainButton))
             {
-                _CurrentItem.UseOne(1);
+                _CurrentItem.UseOne(1, gameObject);
             }
             if (Input.GetMouseButtonUp((int)_MainButton))
             {
-                _CurrentItem.UseOne(2);
+                _CurrentItem.UseOne(2, gameObject);
             }
             if (Input.GetMouseButton((int)_MainButton))
             {
-                _CurrentItem.UseOne(3);
+                _CurrentItem.UseOne(3, gameObject);
             }
 
             if (Input.GetMouseButtonDown((int)_SideButton))
             {
-                _CurrentItem.UseTwo(1);
+                _CurrentItem.UseTwo(1, gameObject);
             }
             if (Input.GetMouseButtonUp((int)_SideButton))
             {
-                _CurrentItem.UseTwo(2);
+                _CurrentItem.UseTwo(2, gameObject);
             }
             if (Input.GetMouseButton((int)_SideButton))
             {
-                _CurrentItem.UseTwo(3);
+                _CurrentItem.UseTwo(3, gameObject);
             }
 
             if (Input.GetKeyDown(_ReloadKey))
             {
-                _CurrentItem.UseThree(1);
+                _CurrentItem.UseThree(1, gameObject);
             }
             if (Input.GetKeyUp(_ReloadKey))
             {
-                _CurrentItem.UseThree(2);
+                _CurrentItem.UseThree(2, gameObject);
             }
             if (Input.GetKey(_ReloadKey))
             {
-                _CurrentItem.UseThree(3);
+                _CurrentItem.UseThree(3, gameObject);
             }
 
             if (Input.GetKeyDown(_ThrowKey))

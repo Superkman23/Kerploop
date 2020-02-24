@@ -13,11 +13,6 @@ public class HealthPack : Carriable
     [SerializeField] int _HealthToGain = 10;
     [SerializeField] AudioClip _HealthPickupNoise;
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
     void Get(HealthManager playerHealth)
     {
         if (playerHealth.GetHealth() >= playerHealth._MaxHealth)
@@ -30,20 +25,20 @@ public class HealthPack : Carriable
 
     public override void Drop()
     {
-        Global.RecursiveSetColliders(transform, true);
-        transform.parent = null;
+        base.Drop();
     }
-    public override void UseOne(int type)
+    public override void UseOne(int type, GameObject caller)
     {
-        throw new System.NotImplementedException();
+        if (type == 1)
+            Get(caller.GetComponent<HealthManager>());
     }
-    public override void UseTwo(int type)
+    public override void UseTwo(int type, GameObject caller)
     {
-        throw new System.NotImplementedException();
+        return;
     }
-    public override void UseThree(int type)
+    public override void UseThree(int type, GameObject caller)
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
 }

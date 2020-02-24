@@ -97,8 +97,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Rigidbody: {fileID: 0}
-  _Icon: {fileID: 0}
-  _DefaultPosition: {x: 0, y: -0.3, z: 0.5}
+  _Icon: {fileID: 21300000, guid: cad30aa3f8e9e264581ded61dc7c6881, type: 3}
+  _DefaultPosition: {x: 0, y: -0.5, z: 0.7}
+  _PositionSpeed: 6
+  _DefaultRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
+  _RotationSpeed: 5
   _HealthToGain: 10
   _HealthPickupNoise: {fileID: 8300000, guid: 5724072f397542b42b9d7e6066ccb484, type: 3}
 --- !u!54 &2424421832006260488

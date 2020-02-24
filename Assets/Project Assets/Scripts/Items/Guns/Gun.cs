@@ -105,7 +105,7 @@ public abstract class Gun : Carriable
             _CurrentSpread = Mathf.Lerp(_CurrentSpread, _TargetSpread, (_IsAiming) ? _AimingSpreadTime : _DefaultSpreadTime);
     }
 
-    public override void UseOne(int type)
+    public override void UseOne(int type, GameObject caller)
     {
         if (_CurrentInClip < 1)
             return;
@@ -118,14 +118,14 @@ public abstract class Gun : Carriable
         }
     }
 
-    public override void UseTwo(int type)
+    public override void UseTwo(int type, GameObject caller)
     {
         if (type == 1)
             Aim(true);
         else if (type == 2)
             Aim(false);
     }
-    public override void UseThree(int type)
+    public override void UseThree(int type, GameObject caller)
     {
         StartReloading();
     }
@@ -133,11 +133,9 @@ public abstract class Gun : Carriable
     public override void Drop()
     {
         Aim(false);
-        
-        Global.RecursiveSetColliders(transform, true);
-        transform.parent = null;
+        base.Drop();
 
-        _IsReloading = _IsEquipped = _Rigidbody.isKinematic = false;
+        _IsReloading = false;
     }
     public void Aim(bool isAiming)
     {

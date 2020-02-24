@@ -30,6 +30,8 @@ public abstract class Carriable : MonoBehaviour, IInteractable
     private void Start()
 	{
         _Rigidbody = GetComponent<Rigidbody>();
+        _TargetPosition = _DefaultPosition;
+        _TargetRotation = _DefaultRotation;
     }
 
     protected virtual void Update()
@@ -37,7 +39,7 @@ public abstract class Carriable : MonoBehaviour, IInteractable
         if (_IsEquipped)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _PositionSpeed * Time.deltaTime);
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, _DefaultRotation, _RotationSpeed * Time.deltaTime);
+            transform.localRotation = _TargetRotation; // TODO use a lerp
         }
     }
 
@@ -45,10 +47,15 @@ public abstract class Carriable : MonoBehaviour, IInteractable
     //1 -> Down
     //2 -> Up
     //3 -> Hold
-    public abstract void UseOne(int type);
-    public abstract void UseTwo(int type);
-    public abstract void UseThree(int type);
-    public abstract void Drop();
+    public abstract void UseOne(int type, GameObject caller);
+    public abstract void UseTwo(int type, GameObject caller);
+    public abstract void UseThree(int type, GameObject caller);
+    public virtual void Drop()
+    {
+        Global.RecursiveSetColliders(transform, true);
+        transform.parent = null;
+        _IsEquipped = _Rigidbody.isKinematic = false;
+    }
     public void OnInteractStart(GameObject interactingParent)
     {
         if (interactingParent.CompareTag("Player"))
