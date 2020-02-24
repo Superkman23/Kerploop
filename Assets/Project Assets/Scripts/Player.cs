@@ -51,6 +51,11 @@ public class Player : MonoBehaviour
     [SerializeField] float _ThrowForce = 5;
     [HideInInspector] public Gun _CurrentGun = null;
 
+    [Header("Inventory")]
+    [SerializeField] int _InventorySize;
+    int _CurrentSlotIndex;
+    Gun[] _Inventory;
+
     [Header("Camera")]
     [SerializeField] float _RotationSpeed = 1f;
     [SerializeField] float _YRotationMin = -90f;
@@ -80,6 +85,9 @@ public class Player : MonoBehaviour
 
         _XRotation = transform.eulerAngles.y;
         _YRotation = transform.eulerAngles.x;
+
+        _Inventory = new Gun[_InventorySize];
+        _CurrentSlotIndex = 0;
     }
     void Update()
     {
@@ -130,6 +138,15 @@ public class Player : MonoBehaviour
                 DropGun();
             }
         }
+
+        if(Mathf.Abs(Input.GetAxis("Mouse ScrollWheel")) > 0)
+        {
+            if(Input.GetAxis("Mouse ScrollWheel") > 0)
+                ChangeSlot(true);
+            else
+                ChangeSlot(false);
+        }
+
     }
     private void FixedUpdate()
     {
@@ -290,5 +307,31 @@ public class Player : MonoBehaviour
         }
 
         _MainCamera.transform.localPosition = cameraPosition;
+    }
+
+    void ChangeSlot(bool up)
+    {
+        Debug.Log(_Inventory);
+        _Inventory.SetValue(_CurrentGun, _CurrentSlotIndex);
+        if(_CurrentGun != null)
+        {
+            _CurrentGun.Aim(false);
+            _CurrentGun.gameObject.SetActive(false);
+        }
+
+        if (up)
+        {
+            if(_InventorySize - 1 != _CurrentSlotIndex)
+                _CurrentSlotIndex++;
+        }
+        else
+        {
+            if (0 != _CurrentSlotIndex)
+                _CurrentSlotIndex--;
+        }
+
+        _CurrentGun = _Inventory[_CurrentSlotIndex];
+        if (_CurrentGun != null)
+            _CurrentGun.gameObject.SetActive(true);
     }
 }

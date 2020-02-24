@@ -1148,6 +1148,7 @@ MonoBehaviour:
   _InteractRange: 4.5
   _ThrowForce: 5
   _CurrentGun: {fileID: 0}
+  _InventorySize: 2
   _RotationSpeed: 2.75
   _YRotationMin: -90
   _YRotationMax: 90
