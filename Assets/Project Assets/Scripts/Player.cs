@@ -161,6 +161,13 @@ public class Player : MonoBehaviour
                 ChangeSlot(_CurrentSlotIndex - 1);
         }
 
+        // Handle dynamically pressing 123456789 for accessing inventory
+        for (int i = 0; i < _InventorySize; i++)
+        {
+            if (Input.GetKeyDown(i + KeyCode.Alpha1))
+                ChangeSlot(i);
+        }
+
         _Inventory[_CurrentSlotIndex] = _CurrentItem;
     }
     private void FixedUpdate()
@@ -253,12 +260,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    //Gun functions
     public void Drop()
     {
-        _CurrentItem.Drop(); // Drop held gun
+        _CurrentItem.Drop(); // Drop item gun
         _CurrentItem._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
-        _CurrentItem = null; // Set current gun to none because it's no longer held
+        _CurrentItem = null; // Set current item to none because it's no longer held
     }
 
     //Camera Functions
