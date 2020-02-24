@@ -8,7 +8,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public abstract class Gun : Carriable, IInteractable
+public abstract class Gun : Carriable
 {
     [Header("Gun Components")]
     [SerializeField] protected AudioClip _ShootNoise;

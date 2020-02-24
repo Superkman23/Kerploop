@@ -1,13 +1,13 @@
 ﻿/*
  * Carriable.cs
- * Created by: Kaelan 
+ * Created by: Kaelan Bartlett
  * Created on: 24/2/2020 (dd/mm/yy)
  * Created for: Items that can be carried by other objects
  */
 
 using UnityEngine;
 
-public abstract class Carriable : MonoBehaviour
+public abstract class Carriable : MonoBehaviour, IInteractable
 {
     [Header("Components")]
     [HideInInspector] public Rigidbody _Rigidbody;
