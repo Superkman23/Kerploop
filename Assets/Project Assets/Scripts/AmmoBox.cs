@@ -17,7 +17,7 @@ public class AmmoBox : MonoBehaviour, IInteractable
         var playerComponent = interactingParent.GetComponent<Player>();
         if (playerComponent)
         {
-            var gun = playerComponent._CurrentItem.GetComponent<Gun>();
+            var gun = playerComponent._CurrentItem.GetComponent<Gun>(); // Add check for if the current item is a gun here
             if (gun && gun._CurrentAmmoTotal != gun._MaxAmmo)
             {
                 int potential = gun._MaxAmmo - gun._CurrentAmmoTotal;

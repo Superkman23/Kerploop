@@ -96,6 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c56dca51f0bef46a58d4a46c7db39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Rigidbody: {fileID: 0}
+  _Icon: {fileID: 0}
+  _DefaultPosition: {x: 0, y: -0.3, z: 0.5}
   _HealthToGain: 10
   _HealthPickupNoise: {fileID: 8300000, guid: 5724072f397542b42b9d7e6066ccb484, type: 3}
 --- !u!54 &2424421832006260488

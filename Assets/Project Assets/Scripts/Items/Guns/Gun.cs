@@ -20,10 +20,8 @@ public abstract class Gun : Carriable
 
     [Header("Gun Positioning")]
     [SerializeField] Vector3 _AimingPosition;
-    Vector3 _TargetPosition;
 
     [Header("Aiming")]
-    [SerializeField] float _AimSpeed;
     bool _IsAiming;
 
     [Header("Spread")]
@@ -75,12 +73,11 @@ public abstract class Gun : Carriable
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        CalculateSpread();
+        base.Update();
 
-        if (_IsEquipped)
-            transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _AimSpeed * Time.deltaTime);
+        CalculateSpread();
 
         if (_CurrentInClip < 1 && !_IsReloading)
             StartReloading();

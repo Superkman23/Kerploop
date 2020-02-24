@@ -7,16 +7,15 @@
 
 using UnityEngine;
 
-public class HealthPack : MonoBehaviour, IInteractable
+public class HealthPack : Carriable
 {
     [Header("Settings")]
     [SerializeField] int _HealthToGain = 10;
     [SerializeField] AudioClip _HealthPickupNoise;
 
-    public void OnInteractStart(GameObject interactingParent)
+    protected override void Update()
     {
-        if (interactingParent.CompareTag("Player"))
-            Get(interactingParent.GetComponent<HealthManager>());
+        base.Update();
     }
 
     void Get(HealthManager playerHealth)
@@ -28,4 +27,23 @@ public class HealthPack : MonoBehaviour, IInteractable
         playerHealth.AddHealth(_HealthToGain);
         Destroy(gameObject);
     }
+
+    public override void Drop()
+    {
+        Global.RecursiveSetColliders(transform, true);
+        transform.parent = null;
+    }
+    public override void UseOne(int type)
+    {
+        throw new System.NotImplementedException();
+    }
+    public override void UseTwo(int type)
+    {
+        throw new System.NotImplementedException();
+    }
+    public override void UseThree(int type)
+    {
+        throw new System.NotImplementedException();
+    }
+
 }

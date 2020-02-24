@@ -19,12 +19,26 @@ public abstract class Carriable : MonoBehaviour, IInteractable
 
     [Header("Positioning")]
     [SerializeField] protected Vector3 _DefaultPosition;
+    [SerializeField] protected float _PositionSpeed;
+    protected Vector3 _TargetPosition;
 
+    [SerializeField] protected Quaternion _DefaultRotation;
+    [SerializeField] protected float _RotationSpeed;
+    protected Quaternion _TargetRotation;
 
 
     private void Start()
 	{
         _Rigidbody = GetComponent<Rigidbody>();
+    }
+
+    protected virtual void Update()
+    {
+        if (_IsEquipped)
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, _TargetPosition, _PositionSpeed * Time.deltaTime);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, _DefaultRotation, _RotationSpeed * Time.deltaTime);
+        }
     }
 
     //Types: 
@@ -58,8 +72,5 @@ public abstract class Carriable : MonoBehaviour, IInteractable
 
         _Rigidbody.isKinematic = true;
         _IsEquipped = true;
-
-        // Reset the rotation
-        transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 }
