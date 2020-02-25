@@ -15,6 +15,7 @@ public class BulletRay : MonoBehaviour
         _LineRenderer = GetComponent<LineRenderer>();
         _LineRenderer.enabled = false;
         _LineRenderer.useWorldSpace = true;
+        StartCoroutine(WaitThenDestroy(1));
     }
 
     private void Update()

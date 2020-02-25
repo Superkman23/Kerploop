@@ -325,7 +325,7 @@ public class Player : MonoBehaviour
     }
     void ChangeSlot(int newIndex)
     {
-        if(_CurrentItem != null)
+        if(_CurrentItem != null) // Store the current item in the inventory
         {
             var gun = _CurrentItem.GetComponent<Gun>();
             if (gun != null)
@@ -341,6 +341,7 @@ public class Player : MonoBehaviour
         else if (_CurrentSlotIndex < 0)
             _CurrentSlotIndex = _InventorySize - 1;
 
+        // Retrieve the stored item and equip it
         _CurrentItem = _Inventory[_CurrentSlotIndex];
         if (_CurrentItem != null)
             _CurrentItem.gameObject.SetActive(true);
