@@ -5,6 +5,7 @@
  * Created for: Controlling the player
  */
 
+using System;
 using UnityEngine;
 
 public enum MouseButton
@@ -109,16 +110,15 @@ public class Player : MonoBehaviour
         if (_CurrentItem != null) // All the things the player can do with items
         {
             // TODO: make not cancer
-
             if (Input.GetMouseButtonDown((int)_MainButton))
             {
                 _CurrentItem.UseOne(1, gameObject);
             }
-            if (Input.GetMouseButtonUp((int)_MainButton))
+            else if (Input.GetMouseButtonUp((int)_MainButton))
             {
                 _CurrentItem.UseOne(2, gameObject);
             }
-            if (Input.GetMouseButton((int)_MainButton))
+            else if (Input.GetMouseButton((int)_MainButton))
             {
                 _CurrentItem.UseOne(3, gameObject);
             }
@@ -127,11 +127,11 @@ public class Player : MonoBehaviour
             {
                 _CurrentItem.UseTwo(1, gameObject);
             }
-            if (Input.GetMouseButtonUp((int)_SideButton))
+            else if (Input.GetMouseButtonUp((int)_SideButton))
             {
                 _CurrentItem.UseTwo(2, gameObject);
             }
-            if (Input.GetMouseButton((int)_SideButton))
+            else if (Input.GetMouseButton((int)_SideButton))
             {
                 _CurrentItem.UseTwo(3, gameObject);
             }
@@ -140,11 +140,11 @@ public class Player : MonoBehaviour
             {
                 _CurrentItem.UseThree(1, gameObject);
             }
-            if (Input.GetKeyUp(_ReloadKey))
+            else if (Input.GetKeyUp(_ReloadKey))
             {
                 _CurrentItem.UseThree(2, gameObject);
             }
-            if (Input.GetKey(_ReloadKey))
+            else if (Input.GetKey(_ReloadKey))
             {
                 _CurrentItem.UseThree(3, gameObject);
             }
@@ -158,9 +158,9 @@ public class Player : MonoBehaviour
         if(Mathf.Abs(Input.GetAxis("Mouse ScrollWheel")) > 0)
         {
             if(Input.GetAxis("Mouse ScrollWheel") > 0)
-                ChangeSlot(_CurrentSlotIndex + 1);
-            else
                 ChangeSlot(_CurrentSlotIndex - 1);
+            else
+                ChangeSlot(_CurrentSlotIndex + 1);
         }
 
         // Handle dynamically pressing 123456789 for accessing inventory
@@ -205,7 +205,6 @@ public class Player : MonoBehaviour
         velocityChange.y = 0;
         _Rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
     }
-
     void HandleSprinting()
     {
         if (Input.GetKeyDown(_SprintKey))
@@ -219,13 +218,11 @@ public class Player : MonoBehaviour
             _BobbingSpeed /= _SprintSpeedMult;
         }
     }
-
     void Jump()
     {
         _Rigidbody.AddForce(Vector3.up * _JumpForce, ForceMode.Impulse);
         _ReadyToJump = false;
     }
-
     void HandleCrouching()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -250,7 +247,6 @@ public class Player : MonoBehaviour
 
         transform.localScale = Vector3.Lerp(transform.localScale, _TargetScale, 0.4f); // Smoothly transition into and out of crouching
     }
-
     void Interact()
     {
         if (Physics.Raycast(_MainCamera.transform.position, _MainCamera.transform.forward, out RaycastHit hit, _InteractRange))
@@ -261,14 +257,12 @@ public class Player : MonoBehaviour
                 interactable.OnInteractStart(gameObject);
         }
     }
-
     public void Drop()
     {
         _CurrentItem.Drop(); // Drop item gun
         _CurrentItem._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
         _CurrentItem = null; // Set current item to none because it's no longer held
     }
-
     //Camera Functions
     void HandleCamera()
     {
@@ -285,7 +279,6 @@ public class Player : MonoBehaviour
         _MainCamera.transform.rotation = Quaternion.Euler(-_YRotation, _MainCamera.transform.eulerAngles.y, 0); // Rotate the camera around the X axis to look up or down
         transform.rotation = Quaternion.Euler(0, _XRotation, 0); // Rotates the player around the Y axis to look left or right. Doing this rotates the camera so we don't need to rotate the camera.
     }
-
     void ClampRotation()
     {
         if (_YRotation < _YRotationMin)
@@ -293,7 +286,6 @@ public class Player : MonoBehaviour
         else if (_YRotation > _YRotationMax)
             _YRotation = _YRotationMax;
     }
-
     void ApplyViewBobbing()
     {
         //Code based from http://wiki.unity3d.com/index.php/Headbobber, converted to C#
@@ -331,11 +323,14 @@ public class Player : MonoBehaviour
 
         _MainCamera.transform.localPosition = cameraPosition;
     }
-
     void ChangeSlot(int newIndex)
     {
         if(_CurrentItem != null)
         {
+            var gun = _CurrentItem.GetComponent<Gun>();
+            if (gun != null)
+                gun.Aim(false);
+            _CurrentItem.transform.localPosition = _CurrentItem._DefaultPosition;
             _CurrentItem.gameObject.SetActive(false);
         }
 

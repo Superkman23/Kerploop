@@ -71,8 +71,6 @@ public abstract class Gun : Carriable
         _CurrentInClip = _ClipSize;
         _CurrentAmmoTotal = _MaxAmmo;
     }
-
-    // Update is called once per frame
     protected override void Update()
     {
         base.Update();
@@ -117,7 +115,6 @@ public abstract class Gun : Carriable
                 Shoot();
         }
     }
-
     public override void UseTwo(int type, GameObject caller)
     {
         if (type == 1)
@@ -129,7 +126,6 @@ public abstract class Gun : Carriable
     {
         StartReloading();
     }
-
     public override void Drop()
     {
         Aim(false);

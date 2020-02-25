@@ -18,7 +18,7 @@ public abstract class Carriable : MonoBehaviour, IInteractable
     public Sprite _Icon;
 
     [Header("Positioning")]
-    [SerializeField] protected Vector3 _DefaultPosition;
+    [SerializeField] public Vector3 _DefaultPosition;
     [SerializeField] protected float _PositionSpeed;
     protected Vector3 _TargetPosition;
 
