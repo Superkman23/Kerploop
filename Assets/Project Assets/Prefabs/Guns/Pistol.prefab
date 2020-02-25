@@ -163,14 +163,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68428c5b796ae64aa29b39f1e69126c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ShootNoise: {fileID: 8300000, guid: 422fdcb857918f949933d586cb746a9c, type: 3}
-  _BulletSpawnPoint: {fileID: 2160961871715625113}
   _Rigidbody: {fileID: 0}
-  _CanShoot: 0
   _Icon: {fileID: 21300000, guid: 38768495e0e196d448830e422875c1c0, type: 3}
   _DefaultPosition: {x: 0.3, y: -0.2, z: 0.5}
+  _UnequippedPosition: {x: 0.3, y: -0.4, z: 0}
+  _PositionSpeed: 5
+  _DefaultRotation: {x: 0, y: 0, z: 0, w: 0}
+  _RotationSpeed: 5
+  _ShootNoise: {fileID: 8300000, guid: 422fdcb857918f949933d586cb746a9c, type: 3}
+  _BulletSpawnPoint: {fileID: 2160961871715625113}
+  _CanShoot: 0
   _AimingPosition: {x: 0, y: -0.1, z: 0.4}
-  _AimSpeed: 5
   _DefaultSpread: 1
   _AimingSpread: 0.1
   _DefaultSpreadTime: 0.08

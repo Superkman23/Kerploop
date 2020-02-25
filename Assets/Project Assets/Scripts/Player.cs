@@ -330,7 +330,7 @@ public class Player : MonoBehaviour
             var gun = _CurrentItem.GetComponent<Gun>();
             if (gun != null)
                 gun.Aim(false);
-            _CurrentItem.transform.localPosition = _CurrentItem._DefaultPosition;
+            _CurrentItem.transform.localPosition = _CurrentItem._UnequippedPosition;
             _CurrentItem.gameObject.SetActive(false);
         }
 
