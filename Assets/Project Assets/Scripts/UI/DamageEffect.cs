@@ -15,8 +15,12 @@ public class DamageEffect : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] float _EffectStrength;
+    [SerializeField] float _BaseIncreasePerPointLost;
+    [SerializeField] float _PermanentTintThreshold;
     [SerializeField] float _ChangeSpeed;
-    public float _LastHealth;
+
+    float _LastHealth;
+    float _PlayerMaxHealth;
 
 	private void Awake()
 	{
@@ -25,16 +29,19 @@ public class DamageEffect : MonoBehaviour
     }
     private void Start()
     {
-        _LastHealth = _Manager.GetHealth();
+        _LastHealth = _PlayerMaxHealth = _Manager.GetHealth();
     }
 
     private void LateUpdate()
 	{
-        float targetOpacity = _Manager.GetHealth() < _LastHealth ? 
-            (_LastHealth - _Manager.GetHealth()) * _EffectStrength : 
-            Mathf.Lerp(_Image.color.a, 0, _ChangeSpeed);
+        float currentHealth = _Manager.GetHealth();
+        float baseOpacity = currentHealth <= _PermanentTintThreshold ? _BaseIncreasePerPointLost * (_PlayerMaxHealth - (currentHealth + _PlayerMaxHealth - _PermanentTintThreshold)): 0;
 
-        _LastHealth = _Manager.GetHealth();
+        float targetOpacity = currentHealth < _LastHealth ? 
+            (_LastHealth - currentHealth) * _EffectStrength + baseOpacity : 
+            Mathf.Lerp(_Image.color.a, baseOpacity, _ChangeSpeed);
+
+        _LastHealth = currentHealth;
         _Image.color = new Color(_Image.color.r, _Image.color.g, _Image.color.b, targetOpacity);
     }
 }

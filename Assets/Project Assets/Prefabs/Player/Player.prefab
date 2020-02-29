@@ -1429,8 +1429,8 @@ MonoBehaviour:
   _JumpKey: 32
   _ThrowKey: 102
   _InteractKey: 101
-  _AimButton: 1
-  _ShootButton: 0
+  _SideButton: 1
+  _MainButton: 0
   _ReloadKey: 114
   _MovementSpeed: 4
   _Acceleration: 10
@@ -1442,7 +1442,7 @@ MonoBehaviour:
   _CrouchGravityMult: 2
   _InteractRange: 4.5
   _ThrowForce: 5
-  _CurrentGun: {fileID: 0}
+  _CurrentItem: {fileID: 0}
   _InventorySize: 4
   _CurrentSlotIndex: 0
   _Inventory: []
@@ -2289,8 +2289,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Manager: {fileID: 7793144180396919411}
   _EffectStrength: 0.02
+  _BaseIncreasePerPointLost: 0.005
+  _PermanentTintThreshold: 40
   _ChangeSpeed: 0.02
-  _LastHealth: 0
 --- !u!1 &8125481826539694985
 GameObject:
   m_ObjectHideFlags: 0
