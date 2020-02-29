@@ -29,6 +29,8 @@ public class BulletRay : MonoBehaviour
         _LineRenderer.SetPosition(0, transform.position);
         _LineRenderer.SetPosition(1, position);
     }
+
+    //Todo: remove IEnumerator
     public IEnumerator WaitThenDestroy(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
