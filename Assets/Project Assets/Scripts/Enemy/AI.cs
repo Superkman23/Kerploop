@@ -12,7 +12,7 @@ public class AI : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] Gun _Gun;
-    [SerializeField] Transform _Player;
+    //[SerializeField] Transform _Player;
     [SerializeField] Transform _Eyes;
     HealthManager _Health;
     NavMeshAgent _Agent;
@@ -49,17 +49,17 @@ public class AI : MonoBehaviour
     void Update()
 	{
         if (!_Gun._IsReloading && Physics.Raycast(origin: transform.position,
-                                                  direction: (_Player.position - transform.position).normalized,
+                                                  direction: (Global._Player.transform.position - transform.position).normalized,
                                                   hitInfo: out RaycastHit hit,
                                                   maxDistance: _ViewDistance))
         {
             if (hit.transform.CompareTag("Player"))
             {
-                Vector3 targetDir = _Player.position - transform.position;
+                Vector3 targetDir = Global._Player.transform.position - transform.position;
                 targetDir.y = transform.position.y;
                 float angle = Vector3.Angle(targetDir, transform.forward);
 
-                bool within360 = Vector3.Distance(transform.position, _Player.transform.position) <= _360Distance;
+                bool within360 = Vector3.Distance(transform.position, Global._Player.transform.position) <= _360Distance;
                 if (within360 || angle <= _ViewAngle)
                 {
                     _Agent.SetDestination(hit.transform.position);

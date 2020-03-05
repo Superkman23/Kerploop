@@ -35,6 +35,8 @@ public class HealthManager : MonoBehaviour
         {
             if (_IsPlayer)
             {
+                AddHealth(10);
+                Global._Player = gameObject;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             else

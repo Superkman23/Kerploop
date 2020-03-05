@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Project Assets/Scenes/Example_FPS.unity
-    guid: c18f739685b4036449d0136b60176412
+    path: Assets/Project Assets/Scenes/Main_Menu.unity
+    guid: 676fb45231609a04aa145cfeffa1f230
+  - enabled: 1
+    path: Assets/Project Assets/Scenes/Laboratory.unity
+    guid: 34f5fe70f44e2a8409885e7aae70d86e
   m_configObjects: {}

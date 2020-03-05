@@ -2,14 +2,18 @@
  * Global.cs
  * Created by: Kaelan Bartlett
  * Created on: 10/2/2020 (dd/mm/yy)
- * Created for: Functions used across many scripts
+ * Created for: Functions and variables used across many scripts
  */
 
 using UnityEngine;
 
-public class Global : MonoBehaviour
+public static class Global
 {
-    static public void RecursiveSetColliders(Transform root, bool value)
+    //Variables
+    public static GameObject _Player;
+
+    //Functions
+    public static void RecursiveSetColliders(Transform root, bool value)
     {
         var thisCollider = root.GetComponent<Collider>();
         if (thisCollider != null)

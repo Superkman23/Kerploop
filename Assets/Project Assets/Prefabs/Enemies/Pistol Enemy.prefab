@@ -139,12 +139,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _ViewDistanceColor: {r: 0, g: 1, b: 1, a: 1}
-  _ViewDistance: 7
+  _ViewDistance: 30
   _360DistanceColor: {r: 1, g: 0, b: 0, a: 1}
-  _360Distance: 3
+  _360Distance: 5
   _ShootDistanceColor: {r: 0, g: 0, b: 1, a: 1}
-  _MaxShootDistance: 5
-  _ShootHelpDistance: 10
+  _MaxShootDistance: 15
+  _ShootHelpDistance: 15
   _ViewAngle: 50
   _ShootAngle: 20
   _RotationSpeed: 4

@@ -28,12 +28,12 @@ public abstract class Carriable : MonoBehaviour, IInteractable
     protected Quaternion _TargetRotation;
 
 
-    private void Start()
-	{
-        _Rigidbody = GetComponent<Rigidbody>();
+     private void Start()
+	 {
         _TargetPosition = _DefaultPosition;
         _TargetRotation = _DefaultRotation;
-    }
+        _Rigidbody = GetComponent<Rigidbody>();
+     }
 
     protected virtual void Update()
     {
@@ -77,6 +77,9 @@ public abstract class Carriable : MonoBehaviour, IInteractable
         // Turns the colliders off so we don't interact with the player or environment
         Global.RecursiveSetColliders(transform, false);
         transform.parent = parent;
+
+        if (_Rigidbody == null)
+            _Rigidbody = GetComponent<Rigidbody>(); // Make sure the rigidbody has been defined
 
         _Rigidbody.isKinematic = true;
         _IsEquipped = true;

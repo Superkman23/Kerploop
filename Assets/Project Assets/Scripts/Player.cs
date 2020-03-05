@@ -75,6 +75,14 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        // Load the existing player if it exists, and store the player
+        if (Global._Player != null)
+        {
+            Instantiate(Global._Player);
+            Destroy(gameObject);
+        }
+        Global._Player = gameObject;
+
         _Rigidbody = GetComponent<Rigidbody>();
         _Rigidbody.useGravity = true;
 
@@ -263,6 +271,7 @@ public class Player : MonoBehaviour
         _CurrentItem._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
         _CurrentItem = null; // Set current item to none because it's no longer held
     }
+
     //Camera Functions
     void HandleCamera()
     {
@@ -323,6 +332,8 @@ public class Player : MonoBehaviour
 
         _MainCamera.transform.localPosition = cameraPosition;
     }
+
+    // Inventory Functions
     void ChangeSlot(int newIndex)
     {
         if(_CurrentItem != null) // Store the current item in the inventory
