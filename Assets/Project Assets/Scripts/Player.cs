@@ -56,8 +56,8 @@ public class Player : MonoBehaviour
     [Header("Inventory")]
     [SerializeField] int _InventorySize;
     [HideInInspector] public int _CurrentSlotIndex;
-    [HideInInspector] public Carriable[] _Inventory;
-    Carriable[] _SavedInventory;
+    public Carriable[] _Inventory;
+    public Carriable[] _SavedInventory;
 
 
     [Header("Camera")]
@@ -163,7 +163,12 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(Mathf.Abs(Input.GetAxis("Mouse ScrollWheel")) > 0)
+        if (Input.GetKey(KeyCode.Q))
+        {
+            Save();
+        }
+
+        if (Mathf.Abs(Input.GetAxis("Mouse ScrollWheel")) > 0)
         {
             if(Input.GetAxis("Mouse ScrollWheel") > 0)
                 ChangeSlot(_CurrentSlotIndex - 1);
@@ -360,7 +365,6 @@ public class Player : MonoBehaviour
 
 
     // Misc Functions
-
     private void Load() // Run at start of scene
     {
         // Sets up the player's position and rotation, if this is the first scene with a player, make this player the main player
@@ -390,18 +394,24 @@ public class Player : MonoBehaviour
                 if (playerP._Inventory[i] != playerP._SavedInventory[i])
                 {
                     Destroy(playerP._Inventory[i].gameObject);
+                    if(playerP._SavedInventory[i] != null)
+                    {
+                        Instantiate(playerP._SavedInventory[i].gameObject, _MainCamera.transform);
+                    }
                 }
             }
             Destroy(gameObject);
         }
     }
-
     private void Save() // Run before changing scenes or hiting a checkpoint
     {
-        _SavedInventory = _Inventory;
+        Debug.Log("Saved!");
+        for (int i = 0; i < _InventorySize; i++)
+        {
+            _SavedInventory[i] = _Inventory[i];
+        }
         _SavedHealth = _HealthManager.GetHealth();
     }
-
     public void Die()
     {
         _HealthManager.AddHealth(_SavedHealth - _HealthManager.GetHealth()); // Need to reset health here to prevent endless scene switching
