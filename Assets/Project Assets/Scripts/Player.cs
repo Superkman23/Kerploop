@@ -83,6 +83,7 @@ public class Player : MonoBehaviour
         _HealthManager = GetComponent<HealthManager>();
 
         Load(); // Sets up the player's stats and position
+        Global.RecursiveSetColliders(transform, true);
 
         _Rigidbody = GetComponent<Rigidbody>();
         _Rigidbody.useGravity = true;
@@ -367,6 +368,7 @@ public class Player : MonoBehaviour
     // Misc Functions
     private void Load() // Run at start of scene
     {
+        Global.RecursiveSetColliders(transform, false);
         // Sets up the player's position and rotation, if this is the first scene with a player, make this player the main player
         // This may destroy the player, so run anything that needs to be run no matter what first.
         if (Global._Player == null)
@@ -393,14 +395,30 @@ public class Player : MonoBehaviour
             {
                 if (playerP._Inventory[i] != playerP._SavedInventory[i])
                 {
-                    Destroy(playerP._Inventory[i].gameObject);
+                    if (playerP._Inventory[i] != null) // If the saved slot is used clear it for filling
+                        Destroy(playerP._Inventory[i]);
+
+
                     if(playerP._SavedInventory[i] != null)
                     {
-                        Instantiate(playerP._SavedInventory[i].gameObject, _MainCamera.transform);
+                        GameObject newItem =  Instantiate(playerP._SavedInventory[i].gameObject);
+                        if(newItem != null)
+                        {
+                            var carriable = newItem.GetComponent<IInteractable>();
+                            if (carriable != null)
+                            {
+                                carriable.OnInteractStart(playerP.gameObject);
+                                Debug.Log(i);
+                                playerP._Inventory[i] = playerP._CurrentItem;
+                            }
+                        }
+                        Destroy(playerP._SavedInventory[i].gameObject);
                     }
                 }
             }
+            playerP.Save();
             Destroy(gameObject);
+            Global.RecursiveSetColliders(transform, true);
         }
     }
     private void Save() // Run before changing scenes or hiting a checkpoint

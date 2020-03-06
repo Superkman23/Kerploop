@@ -27,7 +27,6 @@ public abstract class Carriable : MonoBehaviour, IInteractable
     [SerializeField] protected float _RotationSpeed;
     protected Quaternion _TargetRotation;
 
-
      private void Start()
 	 {
         _TargetPosition = _DefaultPosition;
@@ -56,7 +55,7 @@ public abstract class Carriable : MonoBehaviour, IInteractable
         Global.RecursiveSetColliders(transform, true);
         transform.parent = null;
         _IsEquipped = _Rigidbody.isKinematic = false;
-        SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
+        
     }
     public void OnInteractStart(GameObject interactingParent)
     {
