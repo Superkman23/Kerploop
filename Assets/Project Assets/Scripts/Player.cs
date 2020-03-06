@@ -56,6 +56,8 @@ public class Player : MonoBehaviour
     [SerializeField] int _InventorySize;
     [HideInInspector] public int _CurrentSlotIndex;
     [HideInInspector] public Carriable[] _Inventory;
+    Carriable[] _SavedInventory;
+
 
     [Header("Camera")]
     [SerializeField] float _RotationSpeed = 1f;
@@ -72,16 +74,14 @@ public class Player : MonoBehaviour
 
     Camera _MainCamera;
     Rigidbody _Rigidbody;
+    HealthManager _HealthManager;
+    float _SavedHealth;
 
     void Awake()
     {
-        // Load the existing player if it exists, and store the player
-        if (Global._Player != null)
-        {
-            Instantiate(Global._Player);
-            Destroy(gameObject);
-        }
-        Global._Player = gameObject;
+        _HealthManager = GetComponent<HealthManager>();
+
+        Load(); // Sets up the player's stats and position
 
         _Rigidbody = GetComponent<Rigidbody>();
         _Rigidbody.useGravity = true;
@@ -95,7 +95,6 @@ public class Player : MonoBehaviour
         _XRotation = transform.eulerAngles.y;
         _YRotation = transform.eulerAngles.x;
 
-        _Inventory = new Carriable[_InventorySize];
         _CurrentSlotIndex = 0;
     }
     void Update()
@@ -356,5 +355,54 @@ public class Player : MonoBehaviour
         _CurrentItem = _Inventory[_CurrentSlotIndex];
         if (_CurrentItem != null)
             _CurrentItem.gameObject.SetActive(true);
+    }
+
+
+    // Misc Functions
+
+    private void Load() // Run at start of scene
+    {
+        // Sets up the player's position and rotation, if this is the first scene with a player, make this player the main player
+        // This may destroy the player, so run anything that needs to be run no matter what first.
+        if (Global._Player == null)
+        {
+            Global._Player = gameObject;
+            DontDestroyOnLoad(gameObject);
+
+            // Inventory
+            _SavedInventory = new Carriable[_InventorySize];
+            _Inventory = new Carriable[_InventorySize];
+            // Health
+            _SavedHealth = _HealthManager._MaxHealth;
+        }
+        else
+        {
+            // Transform
+            Transform playerT = Global._Player.transform;
+            playerT.position = transform.position;
+            playerT.rotation = transform.rotation;
+
+            // Inventory
+            Player playerP = Global._Player.GetComponent<Player>();
+            for (int i = 0; i < _InventorySize; i++)
+            {
+                if (playerP._Inventory[i] != playerP._SavedInventory[i])
+                {
+                    Destroy(playerP._Inventory[i].gameObject);
+                }
+            }
+            Destroy(gameObject);
+        }
+    }
+
+    private void Save() // Run before changing scenes or hiting a checkpoint
+    {
+        _SavedInventory = _Inventory;
+        _SavedHealth = _HealthManager.GetHealth();
+    }
+
+    public void Die()
+    {
+        _HealthManager.AddHealth(_SavedHealth - _HealthManager.GetHealth()); // Need to reset health here to prevent endless scene switching
     }
 }

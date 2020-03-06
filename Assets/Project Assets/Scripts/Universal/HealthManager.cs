@@ -35,17 +35,16 @@ public class HealthManager : MonoBehaviour
         {
             if (_IsPlayer)
             {
-                AddHealth(10);
-                Global._Player = gameObject;
+                var player = GetComponent<Player>();
+                if(player != null)
+                    player.Die();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             else
             {
                 var ai = GetComponent<AI>();
                 if(ai != null)
-                {
                     ai.Die();
-                }
             }
         }
     }

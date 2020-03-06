@@ -20,13 +20,12 @@ public class Slots : MonoBehaviour
 	[SerializeField] Color _SelectedColor;
     [SerializeField] Color _UnselectedColor;
 	
-	private void Update()
+	private void LateUpdate()
 	{
         for (int index = 0; index < _Slots.Length; index++)
         {
             _Slots[index].color = index == _Player._CurrentSlotIndex ? _SelectedColor : _UnselectedColor;
-
-            if(_Player._Inventory[index] != null)
+            if (_Player._Inventory[index] != null)
             {
                 _Icons[index].enabled = true;
                 _Icons[index].sprite = _Player._Inventory[index]._Icon;
