@@ -7,6 +7,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum MouseButton
 {
@@ -404,5 +405,6 @@ public class Player : MonoBehaviour
     public void Die()
     {
         _HealthManager.AddHealth(_SavedHealth - _HealthManager.GetHealth()); // Need to reset health here to prevent endless scene switching
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

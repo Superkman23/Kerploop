@@ -6,7 +6,7 @@
  */
 
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public abstract class Carriable : MonoBehaviour, IInteractable
 {
     [Header("Components")]
@@ -56,6 +56,7 @@ public abstract class Carriable : MonoBehaviour, IInteractable
         Global.RecursiveSetColliders(transform, true);
         transform.parent = null;
         _IsEquipped = _Rigidbody.isKinematic = false;
+        SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
     }
     public void OnInteractStart(GameObject interactingParent)
     {

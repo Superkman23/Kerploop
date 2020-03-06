@@ -38,7 +38,6 @@ public class HealthManager : MonoBehaviour
                 var player = GetComponent<Player>();
                 if(player != null)
                     player.Die();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             else
             {
