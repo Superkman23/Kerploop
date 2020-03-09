@@ -398,16 +398,15 @@ public class Player : MonoBehaviour
                     if (playerP._Inventory[i] != null) // If the saved slot is used clear it for filling
                         Destroy(playerP._Inventory[i]);
 
-
                     if(playerP._SavedInventory[i] != null)
                     {
                         GameObject newItem =  Instantiate(playerP._SavedInventory[i].gameObject);
                         if(newItem != null)
                         {
-                            var carriable = newItem.GetComponent<IInteractable>();
-                            if (carriable != null)
+                            var interactable = newItem.GetComponent<IInteractable>();
+                            if (interactable != null)
                             {
-                                carriable.OnInteractStart(playerP.gameObject);
+                                interactable.OnInteractStart(playerP.gameObject);
                                 Debug.Log(i);
                                 playerP._Inventory[i] = playerP._CurrentItem;
                             }
@@ -416,6 +415,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+
             playerP.Save();
             Destroy(gameObject);
             Global.RecursiveSetColliders(transform, true);
@@ -426,6 +426,9 @@ public class Player : MonoBehaviour
         Debug.Log("Saved!");
         for (int i = 0; i < _InventorySize; i++)
         {
+            if (_SavedInventory[i] != _Inventory[i] && _SavedInventory[i] != null)
+                SceneManager.MoveGameObjectToScene(_SavedInventory[i].gameObject, SceneManager.GetActiveScene());
+
             _SavedInventory[i] = _Inventory[i];
         }
         _SavedHealth = _HealthManager.GetHealth();
