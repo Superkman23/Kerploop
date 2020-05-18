@@ -27,6 +27,12 @@ public class Player : MonoBehaviour
     [SerializeField] MouseButton _MainButton = MouseButton.LMB;
     [SerializeField] KeyCode _ReloadKey = KeyCode.R;
 
+    [Header("Grounded")]
+    [SerializeField] float _GroundRadius;
+    [SerializeField] Vector3 _GroundOffset;
+    [SerializeField] LayerMask _WhatIsGround;
+
+
     [Header("Movement")]
     [SerializeField] float _MovementSpeed;
     [SerializeField] float _Acceleration;
@@ -36,7 +42,6 @@ public class Player : MonoBehaviour
     [Header("Jumping")]
     [SerializeField] float _JumpForce;
     bool _ReadyToJump = false;
-    bool _Grounded;
 
     [Header("Crouching")]
     [SerializeField] [Range(0, 1)] float _CrouchSpeedMult = 0.5f;
@@ -106,7 +111,7 @@ public class Player : MonoBehaviour
         HandleSprinting();
         ApplyViewBobbing();
 
-        if (Input.GetKeyDown(_JumpKey) && _Grounded)
+        if (Input.GetKeyDown(_JumpKey) && IsGrounded())
         {
             _ReadyToJump = true;
         }
@@ -192,22 +197,11 @@ public class Player : MonoBehaviour
 
         if (_ReadyToJump)
         {
-            _Grounded = false;
             Jump();
         }
     }
-    private void OnCollisionStay(Collision collision)
-    {
-        if(collision.collider.CompareTag("Ground")) // Make sure that the player is on the ground
-            _Grounded = true;
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        _Grounded = false;
-    }
-
-    //Movement Functions
-    void HandleMovement()
+  #region movement functions
+  void HandleMovement()
     {
         // Calculate how fast we should be moving
         Vector3 targetVelocity = Vector3.ClampMagnitude(transform.TransformDirection(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * _MovementSpeed, _MovementSpeed);
@@ -277,8 +271,9 @@ public class Player : MonoBehaviour
         _CurrentItem._Rigidbody.AddForce(_Rigidbody.velocity + _MainCamera.transform.forward * _ThrowForce, ForceMode.Impulse); // Adds a force to the gun when you throw it
         _CurrentItem = null; // Set current item to none because it's no longer held
     }
+  #endregion
 
-    //Camera Functions
+    #region camera functions
     void HandleCamera()
     {
         Vector2 lookDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); // Gets player input
@@ -308,7 +303,7 @@ public class Player : MonoBehaviour
         float waveslice = 0.0f;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0 || !_Grounded || _Rigidbody.velocity.magnitude <= 0.25f)
+        if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0 || !IsGrounded() || _Rigidbody.velocity.magnitude <= 0.25f)
         {
             _Timer = 0.0f;
         }
@@ -339,6 +334,7 @@ public class Player : MonoBehaviour
         _MainCamera.transform.localPosition = cameraPosition;
     }
 
+    #endregion
     // Inventory Functions
     void ChangeSlot(int newIndex)
     {
@@ -366,6 +362,10 @@ public class Player : MonoBehaviour
 
 
     // Misc Functions
+    bool IsGrounded()
+    {
+        return Physics.OverlapSphere(_GroundOffset + transform.position, _GroundRadius, _WhatIsGround).Length != 0;
+    }
     private void Load() // Run at start of scene
     {
         Global.RecursiveSetColliders(transform, false);
