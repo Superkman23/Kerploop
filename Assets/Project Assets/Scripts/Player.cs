@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField] float _Acceleration;
     [SerializeField] float _Deceleration;
     [SerializeField] float _SprintSpeedMult = 2;
+    bool _IsSprinting;
 
     [Header("Jumping")]
     [SerializeField] float _JumpForce;
@@ -215,13 +216,15 @@ public class Player : MonoBehaviour
     }
     void HandleSprinting()
     {
-        if (Input.GetKeyDown(_SprintKey))
+        if (Input.GetKeyDown(_SprintKey) && !_IsSprinting)
         {
+            _IsSprinting = true;
             _MovementSpeed *= _SprintSpeedMult;
             _BobbingSpeed *= _SprintSpeedMult;
         }
-        if (Input.GetKeyUp(_SprintKey))
+        if (Input.GetKeyUp(_SprintKey) && _IsSprinting)
         {
+            _IsSprinting = false;
             _MovementSpeed /= _SprintSpeedMult;
             _BobbingSpeed /= _SprintSpeedMult;
         }
